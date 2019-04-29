@@ -78,6 +78,6 @@ public class PlayerShootingController : PlayerCharacterComponent
         shot.transform.position = PlayerCharacter.ShotOrigin.transform.position;
         rigidBody.velocity = direction * PlayerCharacter.ShotSpeed;
         shot.transform.right = direction;
-        PlayerCharacter.NotifyShot();
+        PlayerCharacter.Events.NotifyShot();
     }
 }

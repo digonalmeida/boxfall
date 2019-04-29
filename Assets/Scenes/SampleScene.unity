@@ -1343,6 +1343,9 @@ GameObject:
   - component: {fileID: 822837437}
   - component: {fileID: 822837441}
   - component: {fileID: 822837442}
+  - component: {fileID: 822837439}
+  - component: {fileID: 822837444}
+  - component: {fileID: 822837445}
   m_Layer: 0
   m_Name: character
   m_TagString: Untagged
@@ -1372,6 +1375,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f1adb99225bd3a4d8bc536cfcc0570a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &822837439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822837436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 341eea12e4b893241a55d3efb24397f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &822837440
@@ -1463,6 +1478,30 @@ MonoBehaviour:
   _shotOrigin: {fileID: 1651036753}
   _aimArrow: {fileID: 807636899}
   _crosshair: {fileID: 807636898}
+--- !u!114 &822837444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822837436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a92b329a5875e244abd25e04b7cc0634, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &822837445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 822837436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26d8a45cf0985004b81fbcda4a8731b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1080649195
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,13 +6,14 @@ public class PlayerMovementController : PlayerCharacterComponent
 {
     private void Start()
     {
-        PlayerCharacter.OnShotFinished += OnShot;
+        PlayerCharacter.Events.OnShotFinished += OnShot;
     }
 
     private void OnDestroy()
     {
-        PlayerCharacter.OnShotFinished -= OnShot;
+        PlayerCharacter.Events.OnShotFinished -= OnShot;
     }
+    
     public void Update()
     {
         if (PlayerCharacter.transform.position.x > 0 &&

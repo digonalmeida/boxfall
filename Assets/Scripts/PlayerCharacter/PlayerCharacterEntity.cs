@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StateMachine;
 
 public class PlayerCharacterEntity : MonoBehaviour
 {
@@ -41,8 +42,7 @@ public class PlayerCharacterEntity : MonoBehaviour
 
     [SerializeField]
     private GameObject _crosshair;
-
-    public event Action OnShotFinished;
+    
 
     public GameObject BulletPrefab
     {
@@ -103,18 +103,30 @@ public class PlayerCharacterEntity : MonoBehaviour
         get { return _crosshair; }
     }
 
+    public StateMachine<PlayerCharacterEntity> StateMachine { get; set; }
+    public static readonly AliveState AliveState;
+    public static readonly DeadState DeadState;
+
+    public PlayerMovementController MovementController { get; private set; }
+    public PlayerShootingController TurrentController { get; private set; }
+    public PlayerCharacterStateController StateController { get; private set; }
+    public PlayerCharacterEvents Events { get; private set; }
+    
     public Rigidbody2D Rigidbody { get; private set; }
 
-    public void NotifyShot()
+    static PlayerCharacterEntity()
     {
-        if(OnShotFinished != null)
-        {
-            OnShotFinished();
-        }
+        AliveState = new AliveState();
+        DeadState = new DeadState();
     }
-
+    
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
+        MovementController = GetComponent<PlayerMovementController>();
+        TurrentController = GetComponent<PlayerShootingController>();
+        StateController = GetComponent<PlayerCharacterStateController>();
+        Events = GetComponent<PlayerCharacterEvents>();
+        Events.Entity = this;
     }
 }
