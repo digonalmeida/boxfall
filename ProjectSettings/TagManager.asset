@@ -17,7 +17,7 @@ TagManager:
   - player
   - box
   - target
-  - 
+  - wall
   - 
   - 
   - 
@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: background
+    uniqueID: 100111657
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: character
+    uniqueID: 1391126747
+    locked: 0
+  - name: UI
+    uniqueID: 2163511851
     locked: 0

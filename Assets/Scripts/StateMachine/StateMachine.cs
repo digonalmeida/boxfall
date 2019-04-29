@@ -3,7 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine<T> where T: Enum
+public abstract class State<TEntity>
+{
+    void OnEnter(TEntity entity) { }
+    void OnExit(TEntity entity) { }
+}
+
+public class StateMachine<T>
 {
     private T _currentState;
     private List<StateTransition> _stateTransitions = new List<StateTransition>();
@@ -47,7 +53,8 @@ public class StateMachine<T> where T: Enum
             }
 
             CurrentState = _stateTransitions[i].TargetState;
-            i = 0;
+            return;
+          //  i = 0;
         }
     }
 
