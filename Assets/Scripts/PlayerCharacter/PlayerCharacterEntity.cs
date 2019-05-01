@@ -42,7 +42,12 @@ public class PlayerCharacterEntity : MonoBehaviour
 
     [SerializeField]
     private GameObject _crosshair;
-    
+
+    [SerializeField]
+    private GameObject _explosionEffect;
+
+    [SerializeField]
+    private GameObject _spriteObject;
 
     public GameObject BulletPrefab
     {
@@ -103,6 +108,16 @@ public class PlayerCharacterEntity : MonoBehaviour
         get { return _crosshair; }
     }
 
+    public GameObject ExplosionEffect
+    {
+        get { return _explosionEffect; }
+    }
+
+    public GameObject SpriteObject
+    {
+        get { return _spriteObject; }
+    }
+
     public StateMachine<PlayerCharacterEntity> StateMachine { get; set; }
     public static readonly AliveState AliveState;
     public static readonly DeadState DeadState;
@@ -110,7 +125,9 @@ public class PlayerCharacterEntity : MonoBehaviour
     public PlayerMovementController MovementController { get; private set; }
     public PlayerShootingController TurrentController { get; private set; }
     public PlayerCharacterStateController StateController { get; private set; }
+    public PlayerCharacterCollision CollisionController { get; private set; }
     public PlayerCharacterEvents Events { get; private set; }
+    public Collider2D Collider { get; private set; }
     
     public Rigidbody2D Rigidbody { get; private set; }
 
@@ -126,6 +143,9 @@ public class PlayerCharacterEntity : MonoBehaviour
         MovementController = GetComponent<PlayerMovementController>();
         TurrentController = GetComponent<PlayerShootingController>();
         StateController = GetComponent<PlayerCharacterStateController>();
+        CollisionController = GetComponent<PlayerCharacterCollision>();
+        Collider = GetComponent<Collider2D>();
+        
         Events = GetComponent<PlayerCharacterEvents>();
         Events.Entity = this;
     }

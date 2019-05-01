@@ -10,7 +10,9 @@ public class DeadState : State<PlayerCharacterEntity>
         base.OnEnter(entity);
         entity.MovementController.enabled = false;
         entity.TurrentController.enabled = false;
-        entity.gameObject.SetActive(false);
+        entity.ExplosionEffect.SetActive(true);
+        entity.CollisionController.SetEnabled(false);
+        entity.SpriteObject.SetActive(false);
     }
 
     public override void OnExit(PlayerCharacterEntity entity)

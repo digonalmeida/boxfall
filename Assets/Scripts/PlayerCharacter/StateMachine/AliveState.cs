@@ -11,6 +11,7 @@ public class AliveState : State<PlayerCharacterEntity>
         entity.MovementController.enabled = true;
         entity.TurrentController.enabled = true;
         entity.Events.OnHitByABox += OnHitByABox;
+        entity.CollisionController.enabled = true;
     }
 
     private void OnHitByABox(PlayerCharacterEntity entity, Collider2D box)

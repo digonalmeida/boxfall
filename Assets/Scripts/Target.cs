@@ -5,8 +5,33 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     public Rigidbody2D Rigidbody { get; private set; }
+    public SpriteRenderer SpriteRenderer { get; private set; }
+    public Collider2D Collider { get; private set; }
+
+    public GameObject ExplosionEffect;
+    public bool Alive { get; private set; }
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        Collider = GetComponent<Collider2D>();
+        Alive = true;
+        Destroy(gameObject, 3.0f);
+    }
+
+    public void EnableTarget()
+    {
+
+    }
+
+    public void DestroyTarget()
+    {
+        Rigidbody.gravityScale = 0;
+        Rigidbody.velocity = Vector3.zero;
+        ExplosionEffect.SetActive(true);
+        SpriteRenderer.enabled = false;
+        Collider.enabled = false;
+        Alive = false;
+        Destroy(gameObject, 1);
     }
 }

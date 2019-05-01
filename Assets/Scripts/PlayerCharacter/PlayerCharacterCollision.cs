@@ -19,4 +19,10 @@ public class PlayerCharacterCollision : PlayerCharacterComponent
             
         }
     }
+
+    public void SetEnabled(bool enabled)
+    {
+        this.enabled = enabled;
+        PlayerCharacter.Collider.enabled = enabled;
+    }
 }

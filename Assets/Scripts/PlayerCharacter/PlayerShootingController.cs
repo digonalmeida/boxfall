@@ -31,6 +31,10 @@ public class PlayerShootingController : PlayerCharacterComponent
         var bestDistance = float.MaxValue;
         foreach(var target in targets)
         {
+            if(!target.Alive)
+            {
+                continue;
+            }
             var distanceVec = target.transform.position - PlayerCharacter.transform.position;
             if(Vector2.Angle(distanceVec, Vector2.right) > PlayerCharacter.AimMaxAngle)
             {
