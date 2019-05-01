@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Target : MonoBehaviour
 {
+    [SerializeField]
+    private SpriteRenderer _spriteRenderer;
+
     public Rigidbody2D Rigidbody { get; private set; }
-    public SpriteRenderer SpriteRenderer { get; private set; }
+    
     public Collider2D Collider { get; private set; }
 
     public GameObject ExplosionEffect;
@@ -13,7 +16,6 @@ public class Target : MonoBehaviour
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
-        SpriteRenderer = GetComponent<SpriteRenderer>();
         Collider = GetComponent<Collider2D>();
         Alive = true;
         Destroy(gameObject, 3.0f);
@@ -29,7 +31,7 @@ public class Target : MonoBehaviour
         Rigidbody.gravityScale = 0;
         Rigidbody.velocity = Vector3.zero;
         ExplosionEffect.SetActive(true);
-        SpriteRenderer.enabled = false;
+        _spriteRenderer.enabled = false;
         Collider.enabled = false;
         Alive = false;
         Destroy(gameObject, 1);

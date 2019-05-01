@@ -30,10 +30,11 @@ public class ParallaxController : MonoBehaviour
             var pos = element.gameObject.transform.position;
             
             pos += Vector3.left * speed * Time.deltaTime * element.Ratio;
-            if(pos.x < -4)
+            if(pos.x <= element.EndPoint)
             {
-                pos.x += 10;
+                pos.x += element.StartPoint - element.EndPoint;
             }
+
             element.transform.position = pos;
         }
     }
