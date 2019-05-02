@@ -35,5 +35,6 @@ public class Target : MonoBehaviour
         Collider.enabled = false;
         Alive = false;
         Destroy(gameObject, 1);
+        GameEvents.NotifyBirdKilled();
     }
 }

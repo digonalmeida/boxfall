@@ -16,6 +16,7 @@ public class Bullet : MonoBehaviour
         {
             target.DestroyTarget();
             Destroy(gameObject);
+
         }
     }
 }

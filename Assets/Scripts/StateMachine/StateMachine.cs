@@ -35,6 +35,11 @@ namespace StateMachine
                 _currentState.OnUpdate(entity);
             }
         }
+
+        public void Dispose()
+        {
+            SetState(null);
+        }
     }
 
 }

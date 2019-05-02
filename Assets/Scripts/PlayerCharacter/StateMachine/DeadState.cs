@@ -13,6 +13,7 @@ public class DeadState : State<PlayerCharacterEntity>
         entity.ExplosionEffect.SetActive(true);
         entity.CollisionController.SetEnabled(false);
         entity.SpriteObject.SetActive(false);
+        GameEvents.NotifyTankDestroyed();
     }
 
     public override void OnExit(PlayerCharacterEntity entity)
