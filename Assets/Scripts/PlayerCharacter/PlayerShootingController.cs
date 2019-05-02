@@ -31,6 +31,10 @@ public class PlayerShootingController : PlayerCharacterComponent
         var bestDistance = float.MaxValue;
         foreach(var target in targets)
         {
+            if(!target.Alive)
+            {
+                continue;
+            }
             var distanceVec = target.transform.position - PlayerCharacter.transform.position;
             if(Vector2.Angle(distanceVec, Vector2.right) > PlayerCharacter.AimMaxAngle)
             {
@@ -51,12 +55,12 @@ public class PlayerShootingController : PlayerCharacterComponent
 
         if(_currentTarget != null)
         {
-            var time = Vector2.Distance(_currentTarget.transform.position, PlayerCharacter.transform.position) / PlayerCharacter.ShotSpeed;
+            var time = Vector2.Distance(_currentTarget.transform.position, PlayerCharacter.TurrentPivot.transform.position) / PlayerCharacter.ShotSpeed;
             var deflectionDistance = _currentTarget.Rigidbody.velocity * time;
             var aimPosition = _currentTarget.transform.position + (Vector3) deflectionDistance;
-            if (aimPosition.y < PlayerCharacter.transform.position.y)
+            if (aimPosition.y < -2.35f)
             {
-                aimPosition.y = PlayerCharacter.transform.position.y;
+                aimPosition.y = -2.35f;
             }
             _currentDirection = (aimPosition - PlayerCharacter.transform.position).normalized;
             PlayerCharacter.CrossHair.SetActive(true);
@@ -78,6 +82,6 @@ public class PlayerShootingController : PlayerCharacterComponent
         shot.transform.position = PlayerCharacter.ShotOrigin.transform.position;
         rigidBody.velocity = direction * PlayerCharacter.ShotSpeed;
         shot.transform.right = direction;
-        PlayerCharacter.NotifyShot();
+        PlayerCharacter.Events.NotifyShot();
     }
 }

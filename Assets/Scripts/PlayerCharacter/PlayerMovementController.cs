@@ -6,13 +6,14 @@ public class PlayerMovementController : PlayerCharacterComponent
 {
     private void Start()
     {
-        PlayerCharacter.OnShotFinished += OnShot;
+        PlayerCharacter.Events.OnShotFinished += OnShot;
     }
 
     private void OnDestroy()
     {
-        PlayerCharacter.OnShotFinished -= OnShot;
+        PlayerCharacter.Events.OnShotFinished -= OnShot;
     }
+    
     public void Update()
     {
         if (PlayerCharacter.transform.position.x > 0 &&
@@ -38,6 +39,10 @@ public class PlayerMovementController : PlayerCharacterComponent
 
     private void OnShot()
     {
-        PlayerCharacter.Rigidbody.velocity = Vector2.left * PlayerCharacter.RecoilForce;
+        if(PlayerCharacter.Rigidbody.velocity.x > 0)
+        {
+            PlayerCharacter.Rigidbody.velocity = Vector2.zero;
+        }
+        PlayerCharacter.Rigidbody.velocity += Vector2.left * PlayerCharacter.RecoilForce;
     }
 }

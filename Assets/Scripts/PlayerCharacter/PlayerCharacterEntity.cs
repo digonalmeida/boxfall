@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StateMachine;
 
 public class PlayerCharacterEntity : MonoBehaviour
 {
@@ -42,7 +43,11 @@ public class PlayerCharacterEntity : MonoBehaviour
     [SerializeField]
     private GameObject _crosshair;
 
-    public event Action OnShotFinished;
+    [SerializeField]
+    private GameObject _explosionEffect;
+
+    [SerializeField]
+    private GameObject _spriteObject;
 
     public GameObject BulletPrefab
     {
@@ -103,18 +108,45 @@ public class PlayerCharacterEntity : MonoBehaviour
         get { return _crosshair; }
     }
 
-    public Rigidbody2D Rigidbody { get; private set; }
-
-    public void NotifyShot()
+    public GameObject ExplosionEffect
     {
-        if(OnShotFinished != null)
-        {
-            OnShotFinished();
-        }
+        get { return _explosionEffect; }
     }
 
+    public GameObject SpriteObject
+    {
+        get { return _spriteObject; }
+    }
+
+    public StateMachine<PlayerCharacterEntity> StateMachine { get; set; }
+    public static readonly AliveState AliveState;
+    public static readonly DeadState DeadState;
+
+    public PlayerMovementController MovementController { get; private set; }
+    public PlayerShootingController TurrentController { get; private set; }
+    public PlayerCharacterStateController StateController { get; private set; }
+    public PlayerCharacterCollision CollisionController { get; private set; }
+    public PlayerCharacterEvents Events { get; private set; }
+    public Collider2D Collider { get; private set; }
+    
+    public Rigidbody2D Rigidbody { get; private set; }
+
+    static PlayerCharacterEntity()
+    {
+        AliveState = new AliveState();
+        DeadState = new DeadState();
+    }
+    
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
+        MovementController = GetComponent<PlayerMovementController>();
+        TurrentController = GetComponent<PlayerShootingController>();
+        StateController = GetComponent<PlayerCharacterStateController>();
+        CollisionController = GetComponent<PlayerCharacterCollision>();
+        Collider = GetComponent<Collider2D>();
+        
+        Events = GetComponent<PlayerCharacterEvents>();
+        Events.Entity = this;
     }
 }
