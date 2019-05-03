@@ -83,5 +83,11 @@ public class PlayerShootingController : PlayerCharacterComponent
         rigidBody.velocity = direction * PlayerCharacter.ShotSpeed;
         shot.transform.right = direction;
         PlayerCharacter.Events.NotifyShot();
+        var turrent = PlayerCharacter.TurrentPivot.GetComponent<TurrentController>();
+        if (turrent != null)
+        {
+            turrent.PlayShotAnimation();
+        }
+        
     }
 }
