@@ -8,7 +8,7 @@ public class AliveState : State<PlayerCharacterEntity>
     public override void OnEnter(PlayerCharacterEntity entity)
     {
         base.OnEnter(entity);
-        entity.MovementController.enabled = true;
+        entity.MovementController.Enable();
         entity.TurrentController.enabled = true;
         entity.Events.OnHitByABox += OnHitByABox;
         entity.CollisionController.enabled = true;
@@ -22,7 +22,7 @@ public class AliveState : State<PlayerCharacterEntity>
     public override void OnExit(PlayerCharacterEntity entity)
     {
         entity.Events.OnHitByABox -= OnHitByABox;
-        entity.MovementController.enabled = false;
+        entity.MovementController.Disable();
         entity.TurrentController.enabled = false;
         base.OnExit(entity);
     }

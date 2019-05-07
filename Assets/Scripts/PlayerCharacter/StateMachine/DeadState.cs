@@ -19,6 +19,11 @@ public class DeadState : State<PlayerCharacterEntity>
     public override void OnExit(PlayerCharacterEntity entity)
     {
         entity.gameObject.SetActive(true);
+        entity.MovementController.enabled = true;
+        entity.TurrentController.enabled = true;
+        entity.ExplosionEffect.SetActive(false);
+        entity.CollisionController.SetEnabled(true);
+        entity.SpriteObject.SetActive(true);
         base.OnExit(entity);
     }
 }

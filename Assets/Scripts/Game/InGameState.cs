@@ -12,21 +12,21 @@ public class InGameState : GameState
         GameEvents.OnBirdKilled += OnBirdKilled;
         GameEvents.OnTankDestroyed += OnTankDestroyed;
         this.entity = entity;
-        GameEvents.RequestUpdateUI();
-        entity.UI.UpdateInGameUI();
+        entity.Ui.ShowInGameUi();
+        GameEvents.NotifyGameStarted();
     }
 
     public override void OnExit(GameEntity entity)
     {
         GameEvents.OnBirdKilled -= OnBirdKilled;
+        entity.Ui.HideInGameUi();
         base.OnExit(entity);
     }
 
     private void OnBirdKilled()
     {
-        entity.CurrentScore++;
-        GameEvents.RequestUpdateUI();
-        entity.UI.UpdateInGameUI();
+        GameEntity.Instance.CurrentScore++;
+        GameEvents.NotifyScoreChanged();
     }
 
     private void OnTankDestroyed()

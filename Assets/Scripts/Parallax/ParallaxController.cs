@@ -20,10 +20,36 @@ public class ParallaxController : MonoBehaviour
     {
         _parallaxElements = transform.GetComponentsInChildren<ParallaxElement>();
         speed = startSpeed;
+        GameEvents.OnGameStarted += StartParallax;
+        GameEvents.OnGameEnded += StopParallax;
+        enabled = false;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnGameStarted -= StartParallax;
+        GameEvents.OnGameEnded -= StopParallax;
+    }
+
+    private void StartParallax()
+    {
+        speed = startSpeed;
+        enabled = true;
+    }
+
+    private void StopParallax()
+    {
+        speed = 0;
+        enabled = false;
     }
 
     private void Update()
     {
+        if (!isActiveAndEnabled)
+        {
+            return;
+        }
+        
         speed = Mathf.Min(maxSpeed, speed + (acceleration * Time.deltaTime));
         foreach(var element in _parallaxElements)
         {

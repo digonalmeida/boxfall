@@ -89,5 +89,6 @@ public class PlayerShootingController : PlayerCharacterComponent
             turrent.PlayShotAnimation();
         }
         
+        GameEvents.NotifyShotFired();
     }
 }

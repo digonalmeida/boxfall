@@ -136,7 +136,8 @@ public class PlayerCharacterEntity : MonoBehaviour
         AliveState = new AliveState();
         DeadState = new DeadState();
     }
-    
+
+   
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();

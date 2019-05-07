@@ -10,11 +10,34 @@ public class spawner : MonoBehaviour
     public float spawnInterval = 1.0f;
     public float spawnIntervalReduction = 0.1f;
     public List<Transform> spawnPoints;
-    private void Start()
-    {
-        RefreshPoints();
+    private Coroutine _coroutine;
 
-        StartCoroutine(SpawnRoutine());
+    private void Awake()
+    {
+        enabled = false;
+        GameEvents.OnGameStarted += StartSpawning;
+        GameEvents.OnGameEnded += StopSpawning;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnGameStarted -= StartSpawning;
+        GameEvents.OnGameEnded -= StopSpawning;
+    }
+    
+    private void StartSpawning()
+    {
+        StopSpawning();
+        RefreshPoints();
+        _coroutine = StartCoroutine(SpawnRoutine());
+    }
+
+    private void StopSpawning()
+    {
+        if (_coroutine != null)
+        {
+            StopCoroutine(_coroutine);
+        }
     }
 
     private void RefreshPoints()
@@ -32,6 +55,11 @@ public class spawner : MonoBehaviour
 
     public void Update()
     {
+        if (!enabled)
+        {
+            return;
+        }
+        
         spawnInterval -= Time.deltaTime * spawnIntervalReduction;
         if(spawnInterval <= 0.5f)
         {

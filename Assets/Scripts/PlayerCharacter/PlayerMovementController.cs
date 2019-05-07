@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class PlayerMovementController : PlayerCharacterComponent
 {
+    public void Enable()
+    {
+        PlayerCharacter.Rigidbody.velocity = Vector2.zero;
+    }
+
+    public void Disable()
+    {
+        PlayerCharacter.Rigidbody.velocity = Vector2.zero;
+    }
+
+    
     private void Start()
     {
         PlayerCharacter.Events.OnShotFinished += OnShot;

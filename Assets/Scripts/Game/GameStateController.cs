@@ -14,7 +14,7 @@ public class GameStateController : MonoBehaviour
     {
         _gameEntity.StateMachine = new GameStateMachine();
         _gameEntity.StateMachine.Entity = _gameEntity;
-        _gameEntity.StateMachine.SetState(GameEntity.InGameState);
+        _gameEntity.StateMachine.SetState(GameEntity.StartGameState);
     }
 
     private void Update()

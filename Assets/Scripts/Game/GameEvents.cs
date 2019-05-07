@@ -7,8 +7,10 @@ public static class GameEvents
 {
     public static event Action OnTankDestroyed;
     public static event Action OnBirdKilled;
-    public static event Action OnRequestUpdateUI;
-
+    public static event Action OnShotFired;
+    public static event Action OnGameStarted;
+    public static event Action OnGameEnded;
+    public static event Action OnScoreChanged;
     public static void NotifyTankDestroyed()
     {
         OnTankDestroyed?.Invoke();
@@ -19,8 +21,23 @@ public static class GameEvents
         OnBirdKilled?.Invoke();
     }
 
-    public static void RequestUpdateUI()
+    public static void NotifyShotFired()
     {
-        OnRequestUpdateUI?.Invoke();
+        OnShotFired?.Invoke();
+    }
+
+    public static void NotifyGameStarted()
+    {
+        OnGameStarted?.Invoke();
+    }
+
+    public static void NotifyGameEnded()
+    {
+        OnGameEnded?.Invoke();
+    }
+    
+    public static void NotifyScoreChanged()
+    {
+        OnScoreChanged?.Invoke();
     }
 }
