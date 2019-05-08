@@ -31,6 +31,9 @@ public class PlayerCharacterEntity : MonoBehaviour
     [SerializeField]
     private float _walkingAcceleration = 10.0f;
 
+    [SerializeField] 
+    private float _stoppingDistance = 1.0f;
+
     [SerializeField]
     private Transform _turrentPivot;
 
@@ -49,6 +52,7 @@ public class PlayerCharacterEntity : MonoBehaviour
     [SerializeField]
     private GameObject _spriteObject;
 
+   
     [SerializeField]
     private float _centerX;
 
@@ -70,10 +74,16 @@ public class PlayerCharacterEntity : MonoBehaviour
     {
         get { return _walkingSpeed; }
     }
+    
 
     public float WalkingAcceleraation
     {
         get { return _walkingAcceleration; }
+    }
+
+    public float WalkingStoppingDistance
+    {
+        get { return _stoppingDistance; }
     }
 
     public float RecoilDeacceleration

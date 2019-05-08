@@ -27,10 +27,16 @@ public class PlayerMovementController : PlayerCharacterComponent
     
     public void Update()
     {
-        if (PlayerCharacter.transform.position.x > PlayerCharacter.CenterX &&
+        float distanceFromCenter = PlayerCharacter.CenterX - PlayerCharacter.transform.position.x;
+        if (distanceFromCenter < PlayerCharacter.WalkingStoppingDistance &&
             PlayerCharacter.Rigidbody.velocity.x >= 0)
         {
-            PlayerCharacter.Rigidbody.velocity = Vector2.MoveTowards(PlayerCharacter.Rigidbody.velocity, Vector2.zero, Time.deltaTime * PlayerCharacter.WalkingAcceleraation);
+            float distanceRatio = distanceFromCenter / PlayerCharacter.WalkingStoppingDistance;
+            var vel = Vector2.Lerp(Vector2.right * PlayerCharacter.WalkingSpeed, Vector2.zero, 1 - distanceRatio);
+            if (vel.magnitude < PlayerCharacter.Rigidbody.velocity.magnitude)
+            {
+                PlayerCharacter.Rigidbody.velocity = vel;
+            }
         }
         else
         {

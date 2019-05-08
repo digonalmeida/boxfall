@@ -5,12 +5,10 @@ using UnityEngine;
 public class spawner : MonoBehaviour
 {
     public GameObject _prefab;
-    public float force = 2;
-    public float angle = 45;
     public float spawnInterval = 1.0f;
     public float spawnIntervalReduction = 0.1f;
     public float startDelay = 1.0f;
-    public List<Transform> spawnPoints;
+    public List<SpawnPoint> spawnPoints;
     private Coroutine _coroutine;
 
     private void Awake()
@@ -43,14 +41,20 @@ public class spawner : MonoBehaviour
 
     private void RefreshPoints()
     { 
-        spawnPoints = new List<Transform>();
+        spawnPoints = new List<SpawnPoint>();
         foreach(Transform child in transform)
         {
             if(!child.gameObject.activeInHierarchy)
             {
                 continue;
             }
-            spawnPoints.Add(child);
+
+            var sp = child.GetComponent<SpawnPoint>();
+            if (sp == null)
+            {
+                return;
+            }
+            spawnPoints.Add(sp);
         }
     }
 
@@ -87,9 +91,11 @@ public class spawner : MonoBehaviour
         var crate = Instantiate(_prefab);
         int pointIndex = Random.Range(0, spawnPoints.Count);
 
-        crate.transform.position = spawnPoints[pointIndex].position;
-        crate.transform.localScale = spawnPoints[pointIndex].localScale;
+        var sp = spawnPoints[pointIndex];
+        crate.transform.position = sp.transform.position;
+        crate.transform.localScale = sp.transform.localScale;
+        crate.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0,0,-sp.angle) * Vector2.left * sp.force;
         spawnPoints.RemoveAt(pointIndex);
-        crate.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0,0,-angle) * Vector2.left * force;
+        
     }
 }

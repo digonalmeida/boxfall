@@ -82,7 +82,7 @@ public class PlayerShootingController : PlayerCharacterComponent
     {
         if(_currentTarget != null)
         {
-            var time = Vector2.Distance(_currentTarget.transform.position, PlayerCharacter.TurrentPivot.transform.position) / PlayerCharacter.ShotSpeed;
+            var time = Vector2.Distance(_currentTarget.transform.position, PlayerCharacter.ShotOrigin.transform.position) / PlayerCharacter.ShotSpeed;
             var deflectionDistance = _currentTarget.Rigidbody.velocity * time;
             var aimPosition = _currentTarget.transform.position + (Vector3) deflectionDistance;
             if (aimPosition.y < -2.35f)
