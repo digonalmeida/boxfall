@@ -49,6 +49,9 @@ public class PlayerCharacterEntity : MonoBehaviour
     [SerializeField]
     private GameObject _spriteObject;
 
+    [SerializeField]
+    private float _centerX;
+
     public GameObject BulletPrefab
     {
         get { return _bulletPrefab; }
@@ -116,6 +119,11 @@ public class PlayerCharacterEntity : MonoBehaviour
     public GameObject SpriteObject
     {
         get { return _spriteObject; }
+    }
+
+    public float CenterX
+    {
+        get { return _centerX; }
     }
 
     public StateMachine<PlayerCharacterEntity> StateMachine { get; set; }

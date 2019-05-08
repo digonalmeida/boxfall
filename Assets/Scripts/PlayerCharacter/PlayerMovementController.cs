@@ -27,10 +27,10 @@ public class PlayerMovementController : PlayerCharacterComponent
     
     public void Update()
     {
-        if (PlayerCharacter.transform.position.x > 0 &&
+        if (PlayerCharacter.transform.position.x > PlayerCharacter.CenterX &&
             PlayerCharacter.Rigidbody.velocity.x >= 0)
         {
-            PlayerCharacter.Rigidbody.velocity = Vector2.zero;
+            PlayerCharacter.Rigidbody.velocity = Vector2.MoveTowards(PlayerCharacter.Rigidbody.velocity, Vector2.zero, Time.deltaTime * PlayerCharacter.WalkingAcceleraation);
         }
         else
         {
