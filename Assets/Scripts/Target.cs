@@ -19,6 +19,17 @@ public class Target : MonoBehaviour
         Collider = GetComponent<Collider2D>();
         Alive = true;
         Destroy(gameObject, 3.0f);
+        GameEvents.OnGameEnded += OnGameEnded;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnGameEnded -= OnGameEnded;
+    }
+
+    private void OnGameEnded()
+    {
+        DestroyTarget();
     }
 
     public void EnableTarget()
