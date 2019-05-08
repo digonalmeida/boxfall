@@ -18,41 +18,68 @@ public class PlayerShootingController : PlayerCharacterComponent
     private void Update()
     {
         UpdateTarget();
+        UpdateTurrent();
         if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             Shoot(_currentDirection);
         }
     }
 
+    private bool TryAimAtTarget(Target target)
+    {
+        if (!target.Alive)
+        {
+            return false;
+        }
+        
+        var distanceVec = target.transform.position - PlayerCharacter.transform.position;
+        if(Vector2.Angle(distanceVec, Vector2.right) > PlayerCharacter.AimMaxAngle)
+        {
+            return false;
+        }
+        
+        var distance = distanceVec.magnitude;
+        if(distance > PlayerCharacter.AimMaxRange)
+        {
+            return false;
+        }
+
+        return true;
+    }
+    
     private void UpdateTarget()
     {
+        if (_currentTarget != null)
+        {
+            if (TryAimAtTarget(_currentTarget))
+            {
+                return;
+            }
+        }
+        
         var targets = FindObjectsOfType<Target>();
         _currentTarget = null;
         var bestDistance = float.MaxValue;
         foreach(var target in targets)
         {
-            if(!target.Alive)
+            if(!TryAimAtTarget(target))
             {
                 continue;
             }
+            
             var distanceVec = target.transform.position - PlayerCharacter.transform.position;
-            if(Vector2.Angle(distanceVec, Vector2.right) > PlayerCharacter.AimMaxAngle)
-            {
-                continue;
-            }
-
             var distance = distanceVec.magnitude;
-            if(distance > PlayerCharacter.AimMaxRange)
-            {
-                continue;
-            }
+            
             if (distance < bestDistance)
             {
                 bestDistance = distance;
                 _currentTarget = target;
             }
         }
+    }
 
+    private void UpdateTurrent()
+    {
         if(_currentTarget != null)
         {
             var time = Vector2.Distance(_currentTarget.transform.position, PlayerCharacter.TurrentPivot.transform.position) / PlayerCharacter.ShotSpeed;
@@ -74,7 +101,6 @@ public class PlayerShootingController : PlayerCharacterComponent
 
         PlayerCharacter.TurrentPivot.right = _currentDirection;
     }
-
     private void Shoot(Vector2 direction)
     {
         var shot = Instantiate(PlayerCharacter.BulletPrefab);

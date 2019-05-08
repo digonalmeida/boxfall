@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Camera))]
 public class CameraCrop : MonoBehaviour {
 
     // Set this to your target aspect ratio, eg. (16, 9) or (4, 3).
     public Vector2 targetAspect = new Vector2(9, 16);
+    public CanvasScaler canvasScaler;
+    
     Camera _camera;
 
     void Start () {
@@ -29,12 +32,14 @@ public class CameraCrop : MonoBehaviour {
             float normalizedWidth = targetRatio / screenRatio;
             float barThickness = (1f - normalizedWidth)/2f;
             _camera.rect = new Rect(barThickness, 0, normalizedWidth, 1);
+            canvasScaler.matchWidthOrHeight = 1;
         }
         else {
             // Screen or window is narrower than the target: letterbox.
             float normalizedHeight = screenRatio / targetRatio;
             float barThickness = (1f - normalizedHeight) / 2f;
             _camera.rect = new Rect(0, barThickness, 1, normalizedHeight);
+            canvasScaler.matchWidthOrHeight = 0;
         }
     }
 }

@@ -9,6 +9,7 @@ public class spawner : MonoBehaviour
     public float angle = 45;
     public float spawnInterval = 1.0f;
     public float spawnIntervalReduction = 0.1f;
+    public float startDelay = 1.0f;
     public List<Transform> spawnPoints;
     private Coroutine _coroutine;
 
@@ -68,6 +69,7 @@ public class spawner : MonoBehaviour
     }
     private IEnumerator SpawnRoutine()
     {
+        yield return new WaitForSeconds(startDelay);
         for (; ; )
         {
             Spawn();
@@ -86,6 +88,7 @@ public class spawner : MonoBehaviour
         int pointIndex = Random.Range(0, spawnPoints.Count);
 
         crate.transform.position = spawnPoints[pointIndex].position;
+        crate.transform.localScale = spawnPoints[pointIndex].localScale;
         spawnPoints.RemoveAt(pointIndex);
         crate.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0,0,-angle) * Vector2.left * force;
     }
