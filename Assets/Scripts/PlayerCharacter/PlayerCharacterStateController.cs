@@ -10,7 +10,6 @@ public class PlayerCharacterStateController : PlayerCharacterComponent
         base.Awake();
         PlayerCharacter.StateMachine = new StateMachine<PlayerCharacterEntity>();
         PlayerCharacter.StateMachine.Entity = PlayerCharacter;
-        
     }
     
     private void Start()
