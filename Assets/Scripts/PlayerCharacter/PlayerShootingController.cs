@@ -33,7 +33,7 @@ public class PlayerShootingController : PlayerCharacterComponent
         }
         
         var distanceVec = target.transform.position - PlayerCharacter.transform.position;
-        if(Vector2.Angle(distanceVec, Vector2.right) > PlayerCharacter.AimMaxAngle)
+        if(Vector2.Angle(distanceVec, Quaternion.Euler(0,0,60) * Vector2.right) > PlayerCharacter.AimMaxAngle)
         {
             return false;
         }
@@ -49,6 +49,7 @@ public class PlayerShootingController : PlayerCharacterComponent
     
     private void UpdateTarget()
     {
+        return;
         if (_currentTarget != null)
         {
             if (TryAimAtTarget(_currentTarget))
@@ -95,7 +96,7 @@ public class PlayerShootingController : PlayerCharacterComponent
         }
         else
         {
-            _currentDirection = Vector2.right;
+            _currentDirection = Quaternion.Euler(0,0,60) * Vector2.right;
             PlayerCharacter.CrossHair.SetActive(false);
         }
 

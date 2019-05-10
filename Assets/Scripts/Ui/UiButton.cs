@@ -22,7 +22,7 @@ public class UiButton : UiElement
 
     public virtual void OnClick()
     {
-        
+        GameEvents.NotifyUiAccept();
     }
     
     protected override void Initialize()

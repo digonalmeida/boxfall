@@ -11,6 +11,9 @@ public static class GameEvents
     public static event Action OnGameStarted;
     public static event Action OnGameEnded;
     public static event Action OnScoreChanged;
+    public static event Action OnBirdSpawned;
+    public static event Action OnUiAccept;
+    
     public static void NotifyTankDestroyed()
     {
         OnTankDestroyed?.Invoke();
@@ -39,5 +42,15 @@ public static class GameEvents
     public static void NotifyScoreChanged()
     {
         OnScoreChanged?.Invoke();
+    }
+
+    public static void NotifyBirdSpawned()
+    {
+        OnBirdSpawned?.Invoke();
+    }
+
+    public static void NotifyUiAccept()
+    {
+        OnUiAccept?.Invoke();
     }
 }
