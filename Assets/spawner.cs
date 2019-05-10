@@ -5,11 +5,23 @@ using UnityEngine;
 public class spawner : MonoBehaviour
 {
     public GameObject _prefab;
-    public float spawnInterval = 1.0f;
-    public float spawnIntervalReduction = 0.1f;
     public float startDelay = 1.0f;
     public List<SpawnPoint> spawnPoints;
     private Coroutine _coroutine;
+
+    [SerializeField]
+    private AnimationCurve _frequencyOverTime;
+    
+    [SerializeField]
+    private float _maxFrequency = 2.0f;
+        
+    [SerializeField]
+    private float _minFrequency = 0.1f;
+
+    [SerializeField] 
+    private float _maxGameplayTime = 3 * 60;
+
+    private float _currentGameplayTime;
 
     private void Awake()
     {
@@ -26,6 +38,7 @@ public class spawner : MonoBehaviour
     
     private void StartSpawning()
     {
+        _currentGameplayTime = 0;
         StopSpawning();
         RefreshPoints();
         _coroutine = StartCoroutine(SpawnRoutine());
@@ -58,27 +71,26 @@ public class spawner : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        if (!enabled)
-        {
-            return;
-        }
-        
-        spawnInterval -= Time.deltaTime * spawnIntervalReduction;
-        if(spawnInterval <= 0.5f)
-        {
-            spawnInterval = 0.5f;
-        }
-    }
     private IEnumerator SpawnRoutine()
     {
+        _currentGameplayTime = 0;
         yield return new WaitForSeconds(startDelay);
         for (; ; )
         {
             Spawn();
+            float spawnInterval = GetSpawnInterval();
             yield return new WaitForSeconds(spawnInterval);
+            _currentGameplayTime += spawnInterval;
         }
+    }
+
+    private float GetSpawnInterval()
+    {
+        float clampedGameplayTime = Mathf.Clamp(_currentGameplayTime, 0, _maxGameplayTime);
+        float normalizedGameplayTime = clampedGameplayTime / _maxGameplayTime;
+        float normalizedFrequency = _frequencyOverTime.Evaluate(normalizedGameplayTime);
+        float spawnFrequency = Mathf.Lerp(_minFrequency, _maxFrequency, normalizedFrequency);
+        return 1.0f / spawnFrequency;
     }
 
     private void Spawn()
@@ -98,4 +110,6 @@ public class spawner : MonoBehaviour
         spawnPoints.RemoveAt(pointIndex);
         GameEvents.NotifyBirdSpawned();
     }
+    
+    
 }

@@ -568,7 +568,7 @@ RectTransform:
   - {fileID: 520258368}
   - {fileID: 178269161}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2195,7 +2195,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &683741887
 GameObject:
@@ -2542,10 +2542,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4138599621335625682, guid: a6d8e011fc9d3ea46bb8a50c1f2540cd, type: 3}
-  spawnInterval: 1
-  spawnIntervalReduction: 0.01
   startDelay: 1
   spawnPoints: []
+  _frequencyOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.09845543
+      value: 0.001953125
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxFrequency: 1.5
+  _minFrequency: 0.5
+  _maxGameplayTime: 60
 --- !u!4 &739231546
 Transform:
   m_ObjectHideFlags: 0
@@ -2600,7 +2625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -93, y: -109.1499}
+  m_AnchoredPosition: {x: -93, y: -109.15039}
   m_SizeDelta: {x: 109.6, y: 116}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &739892547
@@ -8830,10 +8855,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _prefab: {fileID: 4138599621335625682, guid: 3ae818f0d0108964e874305396121a65, type: 3}
-  spawnInterval: 3
-  spawnIntervalReduction: 0.01
   startDelay: 2
   spawnPoints: []
+  _frequencyOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0.09845543
+      value: 0.001953125
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _maxFrequency: 0.75
+  _minFrequency: 0.25
+  _maxGameplayTime: 60
 --- !u!4 &1241624811
 Transform:
   m_ObjectHideFlags: 0
@@ -8849,7 +8899,7 @@ Transform:
   - {fileID: 204591200}
   - {fileID: 497113851}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1331860250
 GameObject:
@@ -8886,7 +8936,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 10.2, y: -600.2}
+  m_AnchoredPosition: {x: 10.2, y: -600.1992}
   m_SizeDelta: {x: 269.2, y: 74.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1331860252
@@ -8959,7 +9009,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1405473030
 GameObject:
@@ -9126,7 +9176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -323.1}
+  m_AnchoredPosition: {x: 0, y: -323.0996}
   m_SizeDelta: {x: 0.000061035, y: 350.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1429414354
@@ -9711,7 +9761,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1774297537}
   - component: {fileID: 1774297536}
-  - component: {fileID: 1774297535}
   m_Layer: 0
   m_Name: fallback_camera
   m_TagString: MainCamera
@@ -9719,14 +9768,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &1774297535
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1774297534}
-  m_Enabled: 1
 --- !u!20 &1774297536
 Camera:
   m_ObjectHideFlags: 0
@@ -10007,7 +10048,7 @@ Transform:
   - {fileID: 1117434776}
   - {fileID: 1619338102}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1911409852
 MonoBehaviour:
