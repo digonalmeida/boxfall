@@ -9,14 +9,14 @@ public class Target : MonoBehaviour
 
     public Rigidbody2D Rigidbody { get; private set; }
     
-    public Collider2D Collider { get; private set; }
+    public Collider2D[] Colliders { get; private set; }
 
     public GameObject ExplosionEffect;
     public bool Alive { get; private set; }
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
-        Collider = GetComponent<Collider2D>();
+        Colliders = GetComponents<Collider2D>();
         Alive = true;
         Destroy(gameObject, 3.0f);
         GameEvents.OnGameEnded += OnGameEnded;
@@ -43,7 +43,10 @@ public class Target : MonoBehaviour
         Rigidbody.velocity = Vector3.zero;
         ExplosionEffect.SetActive(true);
         _spriteRenderer.enabled = false;
-        Collider.enabled = false;
+        foreach (var collider in Colliders)
+        {
+            collider.enabled = false;
+        }
         Alive = false;
         Destroy(gameObject, 1);
     }
