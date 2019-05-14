@@ -99,13 +99,19 @@ public class spawner : MonoBehaviour
         {
             RefreshPoints();
         }
-        
-        var crate = Instantiate(_prefab);
-        int pointIndex = Random.Range(0, spawnPoints.Count);
 
+        int pointIndex = Random.Range(0, spawnPoints.Count);
         var sp = spawnPoints[pointIndex];
+        
+        var prefab = sp.OverridePrefab != null
+            ? sp.OverridePrefab
+            : _prefab;
+        
+        var crate = Instantiate(prefab);
+      
         crate.transform.position = sp.transform.position;
         crate.transform.localScale = sp.transform.localScale;
+        
         crate.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0,0,-sp.angle) * Vector2.left * sp.force;
         spawnPoints.RemoveAt(pointIndex);
         GameEvents.NotifyBirdSpawned();

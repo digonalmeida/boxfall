@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SpawnPoint : MonoBehaviour
 {
+    public GameObject OverridePrefab;
     public float force = 2;
     public float angle = 45;
 }

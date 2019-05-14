@@ -18,7 +18,7 @@ public class Target : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody2D>();
         Colliders = GetComponents<Collider2D>();
         Alive = true;
-        Destroy(gameObject, 3.0f);
+        Destroy(gameObject, 10.0f);
         GameEvents.OnGameEnded += OnGameEnded;
     }
 
