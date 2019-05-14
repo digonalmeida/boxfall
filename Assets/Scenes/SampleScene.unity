@@ -2581,29 +2581,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.011884222
-      outSlope: 0.011884222
+      time: 0.0041656494
+      value: -0.0023498535
+      inSlope: 3.0183997
+      outSlope: 3.0183997
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 1
+      outWeight: 0.0251056
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0.01632805
+      outSlope: 0.01632805
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.435146
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _maxFrequency: 1.5
   _minFrequency: 0.5
-  _maxGameplayTime: 90
+  _maxGameplayTime: 120
 --- !u!4 &739231546
 Transform:
   m_ObjectHideFlags: 0
@@ -9032,29 +9032,29 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.011884222
-      outSlope: 0.011884222
+      time: 0.0041656494
+      value: -0.0023498535
+      inSlope: 3.0183997
+      outSlope: 3.0183997
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 1
+      outWeight: 0.0251056
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0.01632805
+      outSlope: 0.01632805
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.435146
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
   _maxFrequency: 0.75
   _minFrequency: 0.25
-  _maxGameplayTime: 90
+  _maxGameplayTime: 120
 --- !u!4 &1241624811
 Transform:
   m_ObjectHideFlags: 0

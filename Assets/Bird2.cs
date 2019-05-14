@@ -49,6 +49,7 @@ public class Bird2 : MonoBehaviour
     private void StartDiving()
     {
         _rigidbody.velocity = AimDirection * _diveSpeed;
+        //_rigidbody.gravityScale = 1;
     }
 
     private bool Scan()
