@@ -23,6 +23,9 @@ public class PlayerCharacterEntity : MonoBehaviour
     private float _recoilForce = 3;
 
     [SerializeField]
+    private float _maxRecoilForce = 4.5f;
+
+    [SerializeField]
     private float _recoilDeacceleration = 3;
 
     [SerializeField]
@@ -68,6 +71,11 @@ public class PlayerCharacterEntity : MonoBehaviour
     public float RecoilForce
     {
         get { return _recoilForce; }
+    }
+
+    public float MaxRecoilForce
+    {
+        get { return _maxRecoilForce; }
     }
 
     public float WalkingSpeed

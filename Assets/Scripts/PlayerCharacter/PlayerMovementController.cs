@@ -56,10 +56,12 @@ public class PlayerMovementController : PlayerCharacterComponent
 
     private void OnShot()
     {
-        if(PlayerCharacter.Rigidbody.velocity.x > 0)
+        if(PlayerCharacter.Rigidbody.velocity.x > 0 || true)
         {
             PlayerCharacter.Rigidbody.velocity = Vector2.zero;
         }
         PlayerCharacter.Rigidbody.velocity += Vector2.left * PlayerCharacter.RecoilForce;
+        PlayerCharacter.Rigidbody.velocity = Vector2.ClampMagnitude(PlayerCharacter.Rigidbody.velocity,
+            PlayerCharacter.MaxRecoilForce);
     }
 }
