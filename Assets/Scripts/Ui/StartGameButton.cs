@@ -8,6 +8,6 @@ public class StartGameButton : UiButton
     public override void OnClick()
     {
         base.OnClick();
-        GameEntity.Instance.StateMachine.SetState(GameEntity.InGameState);
+        GameController.Instance.StartGame();
     }
 }

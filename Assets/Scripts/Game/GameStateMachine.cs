@@ -3,6 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachine;
 
-public class GameStateMachine : StateMachine<GameEntity>
+public class GameStateMachine : StateMachine<GameController>
 {
 }

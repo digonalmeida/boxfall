@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class StartGameState : GameState
 {
-    public override void OnEnter(GameEntity entity)
+    public override void OnEnter()
     {
-        base.OnEnter(entity);
-        entity.Ui.ShowStartGameUi();
+        base.OnEnter();
+        Entity.Ui.ShowStartGameUi();
     }
 
-    public override void OnExit(GameEntity entity)
+    public override void OnExit()
     {
-        base.OnExit(entity);
-        entity.Ui.HideStartGameUi();
+        base.OnExit();
+        Entity.Ui.HideStartGameUi();
     }
 }

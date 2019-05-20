@@ -23,7 +23,7 @@ public class ScoreLabel : UiElement
 
     public void UpdateUI()
     {
-        _text.text = GameEntity.Instance.CurrentScore.ToString();
+        _text.text = GameController.Instance.CurrentScore.ToString();
     }
 
     protected override void Initialize()

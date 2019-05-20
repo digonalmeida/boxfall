@@ -11,28 +11,34 @@ namespace StateMachine
        
         public delegate void OnStateChangedDelegate(TEntity currentState);
 
-        public TEntity Entity { private get; set; }
+        private TEntity _entity;
+
+        public void Initialize(TEntity entity)
+        {
+            _entity = entity;
+        }
 
         public void SetState(State<TEntity> state)
         {
             if (_currentState != null)
             {
-                _currentState.OnExit(Entity);
+                _currentState.OnExit();
             }
 
             _currentState = state;
 
             if (_currentState != null)
             {
-                _currentState.OnEnter(Entity);
+                _currentState.Initialize(this, _entity);
+                _currentState.OnEnter();
             }
         }
 
-        public void Update(TEntity entity)
+        public void Update()
         {
             if (_currentState != null)
             {
-                _currentState.OnUpdate(entity);
+                _currentState.OnUpdate();
             }
         }
 
