@@ -17,7 +17,6 @@ public class CameraShake : MonoBehaviour
     private Coroutine _coroutine;
     private Vector3 _pointA;
     private Vector3 _pointB;
-    private bool _shaking;
 
     private void Awake()
     {
@@ -48,8 +47,7 @@ public class CameraShake : MonoBehaviour
             StopCoroutine(_coroutine);
             _coroutine = null;
         }
-
-        _shaking = false;
+        
         transform.position = _startPos;
     }
 

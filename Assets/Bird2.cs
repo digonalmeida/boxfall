@@ -55,7 +55,6 @@ public class Bird2 : MonoBehaviour
     private bool Scan()
     {
         var hit = Physics2D.Raycast(transform.position, AimDirection, 100,  _layerMask.value);
-        Debug.Log(hit.collider?.name ?? "null");
         return hit.collider != null;
     }
 

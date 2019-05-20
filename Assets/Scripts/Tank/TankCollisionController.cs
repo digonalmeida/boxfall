@@ -17,11 +17,12 @@ public class TankCollisionController : TankComponent
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        
         if (!enabled)
         {
             return;
         }
-        
+
         var target = other.collider.GetComponent<Target>();
         if (target != null)
         {
@@ -29,9 +30,13 @@ public class TankCollisionController : TankComponent
         }
     }
 
-    public void SetEnabled(bool enabled)
+    private void OnEnable()
     {
-        this.enabled = enabled;
-        _collider.enabled = enabled;
+        _collider.enabled = true;
+    }
+
+    private void OnDisable()
+    {
+        _collider.enabled = false;
     }
 }

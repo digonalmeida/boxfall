@@ -8,13 +8,13 @@ public class TurrentController : MonoBehaviour
     private const string _shotAnimationTrigger = "shot";
 
     [SerializeField]
-    private Bullet _bulletPrefab;
+    private Bullet _bulletPrefab = null;
 
     [SerializeField]
-    private float _shotSpeed;
-    
+    private float _shotSpeed = 17.0f;
+
     [SerializeField]
-    private Transform _shotOrigin;
+    private Transform _shotOrigin = null;
     
     private Animator _animator;
 

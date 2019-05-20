@@ -8,22 +8,28 @@ public class AliveState : State<TankController>
     public override void OnEnter()
     {
         base.OnEnter();
-        Entity.MovementController.Enable();
-        Entity.TurrentController.enabled = true;
+        Debug.Log("here");
         Entity.CollisionController.OnHitByTarget += OnHitByTarget;
+
+        Entity.MovementController.enabled = true;
+        Entity.TurrentController.enabled = true;
         Entity.CollisionController.enabled = true;
     }
 
     private void OnHitByTarget(Target target)
     {
-        ChangeState(TankController.DeadState);
+        Debug.Log("here");
+        ChangeState(Entity.DeadState);
+
     }
     
     public override void OnExit()
     {
         base.OnExit();
         Entity.CollisionController.OnHitByTarget -= OnHitByTarget;
-        Entity.MovementController.Disable();
+
+        Entity.MovementController.enabled = false;
         Entity.TurrentController.enabled = false;
+        Entity.CollisionController.enabled = false;
     }
 }

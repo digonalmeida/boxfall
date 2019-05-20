@@ -6,11 +6,17 @@ using UnityEngine;
 public class TankTurrentController : TankComponent
 {
     [SerializeField]
-    private TurrentController _turrent;
+    private TurrentController _turrent = null;
 
     public event Action OnShot;
+
     private void Update()
     {
+        if(!enabled)
+        {
+            return;
+        }
+
         if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
         {
             Shoot();

@@ -5,19 +5,16 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     [SerializeField]
-    private AudioSource _shot;
-    
+    private AudioSource _shot = null;
+
     [SerializeField]
-    private AudioSource _enemySpawn;
-    
+    private AudioSource _enemySpawn = null;
+
     [SerializeField]
-    private AudioSource _enemyDie;
-    
+    private AudioSource _enemyDie = null;
+
     [SerializeField]
-    private AudioSource _uiAccept;
-    
-    [SerializeField]
-    private AudioSource _uiBack;
+    private AudioSource _uiAccept = null;
 
     private void Awake()
     {
@@ -38,7 +35,6 @@ public class SoundManager : MonoBehaviour
     private void OnShotFired()
     {
         PlaySfx(_shot);
-        Debug.Log("play shot sound");
     }
 
     private void OnBirdKilled()

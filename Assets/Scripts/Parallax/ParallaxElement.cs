@@ -8,10 +8,10 @@ public class ParallaxElement : MonoBehaviour
     private float _ratio = 1.0f;
 
     [SerializeField]
-    private float _startPoint;
+    private float _startPoint = -1.0f;
 
     [SerializeField]
-    private float _endPoint;
+    private float _endPoint = 1.0f;
 
     public float Ratio
     {

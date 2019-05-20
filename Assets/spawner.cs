@@ -10,7 +10,7 @@ public class spawner : MonoBehaviour
     private Coroutine _coroutine;
 
     [SerializeField]
-    private AnimationCurve _frequencyOverTime;
+    private AnimationCurve _frequencyOverTime = AnimationCurve.Constant(0, 1, 0.5f);
     
     [SerializeField]
     private float _maxFrequency = 2.0f;

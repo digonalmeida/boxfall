@@ -6,23 +6,23 @@ public class TankMovementController : TankComponent
 {
     [Header("Moving Forward")]
     [SerializeField]
-    private float _walkingSpeed;
+    private float _walkingSpeed = 1.0f;
 
     [SerializeField]
-    private float _walkingStoppingDistance;
+    private float _walkingStoppingDistance = 0.5f;
 
     [SerializeField]
-    private float _centerX;
+    private float _centerX = 0.0f;
 
     [Header("Recoil")]
     [SerializeField]
-    private float _recoilForce;
+    private float _recoilForce = 1.0f;
 
     [SerializeField]
-    private float _maxRecoilForce;
+    private float _maxRecoilForce = 1.0f;
 
     [SerializeField]
-    private float _recoilDeacceleration;
+    private float _recoilDeacceleration = 1.0f;
     
     private Rigidbody2D _rigidbody;
 
@@ -31,12 +31,12 @@ public class TankMovementController : TankComponent
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    public void Enable()
+    private void OnEnable()
     {
         _rigidbody.velocity = Vector2.zero;
     }
 
-    public void Disable()
+    private void OnDisable()
     {
         _rigidbody.velocity = Vector2.zero;
     }

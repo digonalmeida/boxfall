@@ -13,9 +13,9 @@ public class GameController : MonoBehaviour
     private GameStateMachine _stateMachine;
 
     public int CurrentScore { get; set; }
-    
+
     [SerializeField]
-    private GameUi _ui;
+    private GameUi _ui = null;
 
     public GameUi Ui
     {

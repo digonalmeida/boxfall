@@ -5,18 +5,18 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     [SerializeField]
-    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer _spriteRenderer = null;
 
-    public Rigidbody2D Rigidbody { get; private set; }
-    
-    public Collider2D[] Colliders { get; private set; }
+    [SerializeField]
+    private GameObject _explosionEffect = null;
 
-    public GameObject ExplosionEffect;
+    private Rigidbody2D _rigidbody;
+    private Collider2D[] _colliders;
     public bool Alive { get; private set; }
     private void Awake()
     {
-        Rigidbody = GetComponent<Rigidbody2D>();
-        Colliders = GetComponents<Collider2D>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _colliders = GetComponents<Collider2D>();
         Alive = true;
         Destroy(gameObject, 10.0f);
         GameEvents.OnGameEnded += OnGameEnded;
@@ -31,19 +31,14 @@ public class Target : MonoBehaviour
     {
         DestroyTarget();
     }
-
-    public void EnableTarget()
-    {
-
-    }
-
+    
     public void DestroyTarget()
     {
-        Rigidbody.gravityScale = 0;
-        Rigidbody.velocity = Vector3.zero;
-        ExplosionEffect.SetActive(true);
+        _rigidbody.gravityScale = 0;
+        _rigidbody.velocity = Vector3.zero;
+        _explosionEffect.SetActive(true);
         _spriteRenderer.enabled = false;
-        foreach (var collider in Colliders)
+        foreach (var collider in _colliders)
         {
             collider.enabled = false;
         }

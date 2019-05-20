@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1070883979463414651}
   - component: {fileID: 6586976258220512270}
   m_Layer: 10
-  m_Name: targetBox
+  m_Name: bird1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 5868292971598965094}
-  ExplosionEffect: {fileID: 8376260787369698943}
+  _explosionEffect: {fileID: 8376260787369698943}
 --- !u!50 &4138599621335625694
 Rigidbody2D:
   serializedVersion: 4
