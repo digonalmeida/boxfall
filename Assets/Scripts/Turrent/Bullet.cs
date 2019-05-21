@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var target = other.GetComponent<Target>();
+        var target = other.GetComponent<BirdController>();
         if(target != null)
         {
             target.DestroyTarget();

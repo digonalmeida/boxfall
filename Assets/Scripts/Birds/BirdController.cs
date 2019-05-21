@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Target : MonoBehaviour
+public class BirdController : MonoBehaviour
 {
     [SerializeField]
     private SpriteRenderer _spriteRenderer = null;
@@ -12,7 +12,9 @@ public class Target : MonoBehaviour
 
     private Rigidbody2D _rigidbody;
     private Collider2D[] _colliders;
+    
     public bool Alive { get; private set; }
+    
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -38,6 +40,7 @@ public class Target : MonoBehaviour
         _rigidbody.velocity = Vector3.zero;
         _explosionEffect.SetActive(true);
         _spriteRenderer.enabled = false;
+        
         foreach (var collider in _colliders)
         {
             collider.enabled = false;

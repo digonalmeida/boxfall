@@ -8,7 +8,7 @@ public class ExplodeOnGround : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("floor"))
         {
-            GetComponent<Target>().DestroyTarget();
+            GetComponent<BirdController>().DestroyTarget();
         }
     }
 }

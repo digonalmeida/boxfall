@@ -13,6 +13,7 @@ public static class GameEvents
     public static event Action OnScoreChanged;
     public static event Action OnBirdSpawned;
     public static event Action OnUiAccept;
+    public static event Action<PowerUp> OnPickupPowerUp;
     
     public static void NotifyTankDestroyed()
     {
@@ -52,5 +53,10 @@ public static class GameEvents
     public static void NotifyUiAccept()
     {
         OnUiAccept?.Invoke();
+    }
+
+    public static void NotifyPickupPowerUp(PowerUp powerUp)
+    {
+        OnPickupPowerUp?.Invoke(powerUp);
     }
 }

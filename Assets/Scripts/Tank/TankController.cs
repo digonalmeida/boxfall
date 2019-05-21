@@ -11,6 +11,9 @@ public class TankController : MonoBehaviour
 
     [SerializeField]
     private GameObject _explosionEffect = null;
+
+    [SerializeField] 
+    private ShieldController _shield;
     
     private StateMachine<TankController> _stateMachine = new StateMachine<TankController>();
 
@@ -30,25 +33,38 @@ public class TankController : MonoBehaviour
         get { return _explosionEffect; }
     }
 
+    public ShieldController Shield
+    {
+        get { return _shield; }
+    }
+
     private void Awake()
     {
+        GameEvents.OnGameStarted += OnGameStarted;
+        
         MovementController = InitializeComponent<TankMovementController>();
         TurrentController = InitializeComponent<TankTurrentController>();
         CollisionController = InitializeComponent<TankCollisionController>();
+        
+        AliveState = new AliveState();
+        DeadState = new DeadState();
+        
         _stateMachine.Initialize(this);
     }
 
     private T InitializeComponent<T>() where T: TankComponent
     {
         var component = GetComponent<T>();
-        component?.Initialize(this);
+        if (component != null)
+        {
+            component.Initialize(this);
+        }
         return component;
     }
 
     private void Start()
     {
         gameObject.SetActive(false);
-        GameEvents.OnGameStarted += OnGameStarted;
     }
 
     private void OnDestroy()
@@ -64,11 +80,6 @@ public class TankController : MonoBehaviour
 
     private void Update()
     {
-        if (!isActiveAndEnabled)
-        {
-            return;
-        }
-
         _stateMachine.Update();
     }
 }

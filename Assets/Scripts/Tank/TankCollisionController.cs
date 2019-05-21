@@ -7,7 +7,7 @@ public class TankCollisionController : TankComponent
 {
     private Collider2D _collider = null;
 
-    public delegate void TargetHitDelegate(Target target);
+    public delegate void TargetHitDelegate(BirdController birdController);
     public event TargetHitDelegate OnHitByTarget;
 
     private void Awake()
@@ -23,7 +23,7 @@ public class TankCollisionController : TankComponent
             return;
         }
 
-        var target = other.collider.GetComponent<Target>();
+        var target = other.collider.GetComponent<BirdController>();
         if (target != null)
         {
             OnHitByTarget?.Invoke(target);
