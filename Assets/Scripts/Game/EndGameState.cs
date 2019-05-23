@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class EndGameState : GameState
 {
-    public override void OnEnter(GameEntity entity)
+    public override void OnEnter()
     {
-        base.OnEnter(entity);
-        entity.Ui.ShowEndGameUi();
+        base.OnEnter();
+        Entity.Ui.ShowEndGameUi();
         GameEvents.NotifyGameEnded();
     }
 
-    public override void OnExit(GameEntity entity)
+    public override void OnExit()
     {
-        base.OnExit(entity);
-        entity.Ui.HideEndGameUi();
+        base.OnExit();
+        Entity.Ui.HideEndGameUi();
     }
 }

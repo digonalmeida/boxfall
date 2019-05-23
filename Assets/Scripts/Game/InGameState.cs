@@ -4,33 +4,31 @@ using UnityEngine;
 
 public class InGameState : GameState
 {
-    private GameEntity entity;
-    public override void OnEnter(GameEntity entity)
+    public override void OnEnter()
     {
-        base.OnEnter(entity);
-        entity.CurrentScore = 0;
+        base.OnEnter();
+        Entity.CurrentScore = 0;
         GameEvents.OnBirdKilled += OnBirdKilled;
         GameEvents.OnTankDestroyed += OnTankDestroyed;
-        this.entity = entity;
-        entity.Ui.ShowInGameUi();
+        Entity.Ui.ShowInGameUi();
         GameEvents.NotifyGameStarted();
     }
 
-    public override void OnExit(GameEntity entity)
+    public override void OnExit()
     {
+        base.OnExit();
         GameEvents.OnBirdKilled -= OnBirdKilled;
-        entity.Ui.HideInGameUi();
-        base.OnExit(entity);
+        Entity.Ui.HideInGameUi();
     }
 
     private void OnBirdKilled()
     {
-        GameEntity.Instance.CurrentScore++;
+        Entity.CurrentScore++;
         GameEvents.NotifyScoreChanged();
     }
 
     private void OnTankDestroyed()
     {
-        entity.StateMachine.SetState(GameEntity.EndGameState);
+        ChangeState(Entity.EndGameState);
     }
 }

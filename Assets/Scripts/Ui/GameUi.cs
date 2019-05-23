@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class GameUi : MonoBehaviour
 {
     [SerializeField] 
-    private UiElement _startGameCanvas;
+    private UiElement _startGameCanvas = null;
         
     [SerializeField]
-    private UiElement _inGameCanvas;
+    private UiElement _inGameCanvas = null;
 
     [SerializeField]
-    private UiElement _endGameCanvas;
+    private UiElement _endGameCanvas = null;
 
     private void Awake()
     {
@@ -21,38 +21,58 @@ public class GameUi : MonoBehaviour
 
     private void HideAll()
     {
-        _startGameCanvas.Hide();
-        _inGameCanvas.Hide();
-        _endGameCanvas.Hide();
+        Hide(_startGameCanvas);
+        Hide(_inGameCanvas);
+        Hide(_endGameCanvas);
     }
     
     public void ShowInGameUi()
     {
-        _inGameCanvas.Show();
+        Show(_inGameCanvas);
     }
 
     public void HideInGameUi()
     {
-        _inGameCanvas.Hide();
+        Hide(_inGameCanvas);
     }
     
     public void ShowEndGameUi()
     {
-        _endGameCanvas.Show();
+        Show(_endGameCanvas);
     }
 
     public void HideEndGameUi()
     {
-        _endGameCanvas.Hide();
+        Hide(_endGameCanvas);
     }
 
     public void ShowStartGameUi()
     {
-        _startGameCanvas.Show();
+        Show(_startGameCanvas);
     }
 
     public void HideStartGameUi()
     {
-        _startGameCanvas.Hide();
+        Hide(_startGameCanvas);
+    }
+
+    private void Show(UiElement uiElement)
+    {
+        if(uiElement == null)
+        {
+            return;
+        }
+
+        uiElement.Show();
+    }
+
+    private void Hide(UiElement uiElement)
+    {
+        if(uiElement == null)
+        {
+            return;
+        }
+
+        uiElement.Hide();
     }
 }
