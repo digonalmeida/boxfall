@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUp
+public enum EPowerUpType
 {
-    public float remainingTime;
+    Shield
 }

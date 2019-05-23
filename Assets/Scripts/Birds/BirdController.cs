@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ public class BirdController : MonoBehaviour
     private Collider2D[] _colliders;
     
     public bool Alive { get; private set; }
+    public event Action OnKilled; 
     
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class BirdController : MonoBehaviour
         Alive = true;
         Destroy(gameObject, 10.0f);
         GameEvents.OnGameEnded += OnGameEnded;
+
     }
 
     private void OnDestroy()
@@ -31,10 +34,10 @@ public class BirdController : MonoBehaviour
 
     private void OnGameEnded()
     {
-        DestroyTarget();
+        DestroyBird();
     }
     
-    public void DestroyTarget()
+    private void DestroyBird()
     {
         _rigidbody.gravityScale = 0;
         _rigidbody.velocity = Vector3.zero;
@@ -47,5 +50,12 @@ public class BirdController : MonoBehaviour
         }
         Alive = false;
         Destroy(gameObject, 1);
+    }
+
+    public void KillBird()
+    {
+        GameEvents.NotifyBirdKilled();
+        OnKilled?.Invoke();
+        DestroyBird();
     }
 }

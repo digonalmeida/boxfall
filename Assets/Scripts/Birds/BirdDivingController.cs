@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Bird2 : MonoBehaviour
+public class BirdDivingController : BirdComponent
 {
     [SerializeField] 
     private float _aimAngle = 60;

@@ -24,10 +24,10 @@ public class Bullet : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var target = other.GetComponent<BirdController>();
-        if(target != null)
+        var bird = other.GetComponent<BirdController>();
+        if(bird != null)
         {
-            target.DestroyTarget();
+            bird.KillBird();
             Destroy(gameObject);
             GameEvents.NotifyBirdKilled();
         }

@@ -8,7 +8,6 @@ public class AliveState : State<TankController>
     public override void OnEnter()
     {
         base.OnEnter();
-        Debug.Log("here");
         Entity.CollisionController.OnHitByTarget += OnHitByTarget;
 
         Entity.MovementController.enabled = true;
@@ -19,11 +18,9 @@ public class AliveState : State<TankController>
 
     private void OnHitByTarget(BirdController birdController)
     {
-        birdController.DestroyTarget();
-        
         if (Entity.Shield.enabled)
         {
-            GameEvents.NotifyBirdKilled();
+            birdController.KillBird();
             return;
         }
         

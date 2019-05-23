@@ -6,20 +6,42 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
 
-    public InGameState InGameState = new InGameState();
-    public EndGameState EndGameState = new EndGameState();
-    public StartGameState StartGameState = new StartGameState();
-
-    private GameStateMachine _stateMachine;
-
-    public int CurrentScore { get; set; }
-
     [SerializeField]
     private GameUi _ui = null;
+
+    [SerializeField] 
+    private PowerUpsManager _powerUpsManager;
+    
+    private GameStateMachine _stateMachine;
+    private readonly InGameState _inGameState = new InGameState();
+    private readonly EndGameState _endGameState = new EndGameState();
+    private readonly StartGameState _startGameState = new StartGameState();
+
+    public int CurrentScore { get; set; }
 
     public GameUi Ui
     {
         get { return _ui; }
+    }
+
+    public PowerUpsManager PowerUpsManager
+    {
+        get { return _powerUpsManager; }
+    }
+
+    public InGameState InGameState
+    {
+        get { return _inGameState; }
+    }
+
+    public EndGameState EndGameState
+    {
+        get { return _endGameState; }
+    }
+
+    public StartGameState StartGameState
+    {
+        get { return _startGameState; }
     }
 
     public void StartGame()

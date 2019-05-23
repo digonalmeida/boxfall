@@ -45,6 +45,7 @@ public class TankController : MonoBehaviour
         MovementController = InitializeComponent<TankMovementController>();
         TurrentController = InitializeComponent<TankTurrentController>();
         CollisionController = InitializeComponent<TankCollisionController>();
+        InitializeComponent<TankPowerUpController>();
         
         AliveState = new AliveState();
         DeadState = new DeadState();

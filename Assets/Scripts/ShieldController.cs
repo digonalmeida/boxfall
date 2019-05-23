@@ -4,18 +4,15 @@ using UnityEngine;
 
 public class ShieldController : MonoBehaviour
 {
-    private void OnEnable()
-    {
-        gameObject.SetActive(true);
-    }
-
-    private void OnDisable()
+    public void Deactivate()
     {
         gameObject.SetActive(false);
+        enabled = false;
     }
 
-    private void SetupShield()
+    public void Activate()
     {
-        
+        gameObject.SetActive(true);
+        enabled = true;
     }
 }
