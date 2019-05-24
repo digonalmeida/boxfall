@@ -1,23 +1,76 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class PowerUpData
+{
+    public EPowerUpType Type;
+    public float TotalTime { get; private set; }
+    public float Time { get; private set; }
+    private bool _active;
+
+    public event Action OnActivate;
+    public event Action OnDeactivate;
+
+    public PowerUpData(EPowerUpType type, float totalTime)
+    {
+        TotalTime = totalTime;
+        Type = type;
+    }
+
+    public void Activate()
+    {
+        if(!_active)
+        {
+            GameEvents.NotifyActivatePowerUp(this);
+        }
+
+        _active = true;
+        Time = TotalTime;
+    }
+
+    public void Deactivate()
+    {
+        if(!_active)
+        {
+            return;
+        }
+
+        _active = false;
+        Time = 0;
+        GameEvents.NotifyDeactivatePowerup(this);
+    }
+
+    public void Update(float deltaTime)
+    {
+        if(!_active)
+        {
+            return;
+        }
+
+        Time -= deltaTime;
+
+        if(Time <= 0)
+        {
+            Deactivate();
+        }
+    }
+}
+
 public class PowerUpsManager : MonoBehaviour
 {
-    class PowerUpData
-    {
-        public float Time;
-    }
-    
     [SerializeField]
     private float _defaultPowerupTime = 5.0f;
-    
-    private Dictionary<EPowerUpType, PowerUpData> _powerUpTime = new Dictionary<EPowerUpType, PowerUpData>();
+
+    private List<PowerUpData> _powerUps;
 
     private void Awake()
     {
         GameEvents.OnPickupPowerUp += OnPickupPowerUp;
+        _powerUps = new List<PowerUpData>();
+        _powerUps.Add(new PowerUpData(EPowerUpType.Shield, _defaultPowerupTime));
     }
 
     private void OnDestroy()
@@ -37,68 +90,24 @@ public class PowerUpsManager : MonoBehaviour
 
     private void Reset()
     {
-        foreach (var type in _powerUpTime.Keys)
-        {
-            _powerUpTime[type].Time = 0;
-        }
+        _powerUps.ForEach(p => p.Deactivate());
     }
 
     private void OnPickupPowerUp(EPowerUpType type)
     {
-        ActivatePowerUp(type);
+        GetPowerUpData(type).Activate();
     }
 
-    private void ActivatePowerUp(EPowerUpType type)
+    private PowerUpData GetPowerUpData(EPowerUpType type)
     {
-        if (!CheckIsActive(type))
-        {
-            GameEvents.NotifyActivatePowerUp(type);
-        }
-
-        if (!_powerUpTime.ContainsKey(type))
-        {
-            _powerUpTime.Add(type, new PowerUpData());
-        }
-        
-        _powerUpTime[type].Time = _defaultPowerupTime;
-    }
-
-    private void DeactivatePowerUp(EPowerUpType type)
-    {
-        _powerUpTime[type].Time = 0;
-        GameEvents.NotifyDeactivatePowerup(type);
-    }
-
-    private bool CheckIsActive(EPowerUpType type)
-    {
-        PowerUpData data;
-        if(!_powerUpTime.TryGetValue(type, out data))
-        {
-            return false;
-        }
-
-        return data.Time > 0;
+        return _powerUps.Find(p => p.Type == type);
     }
 
     private void Update()
     {
-        foreach (var type in _powerUpTime.Keys.ToList())
+        foreach(var powerUp in _powerUps)
         {
-            var value = _powerUpTime[type];
-            
-            if (value.Time <= 0)
-            {
-                continue;
-            }
-            
-            value.Time -= Time.deltaTime;
-
-            _powerUpTime[type] = value;
-            
-            if (value.Time <= 0)
-            {
-                DeactivatePowerUp(type);
-            }
+            powerUp.Update(Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))

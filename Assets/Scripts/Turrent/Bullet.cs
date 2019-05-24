@@ -29,7 +29,6 @@ public class Bullet : MonoBehaviour
         {
             bird.KillBird();
             Destroy(gameObject);
-            GameEvents.NotifyBirdKilled();
         }
     }
 }

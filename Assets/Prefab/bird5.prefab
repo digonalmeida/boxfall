@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 6797613919470263322}
-  ExplosionEffect: {fileID: 8870912912070349571}
+  _explosionEffect: {fileID: 8870912912070349571}
 --- !u!50 &3912193111456209570
 Rigidbody2D:
   serializedVersion: 4

@@ -14,8 +14,8 @@ public static class GameEvents
     public static event Action OnBirdSpawned;
     public static event Action OnUiAccept;
     public static event Action<EPowerUpType> OnPickupPowerUp;
-    public static event Action<EPowerUpType> OnActivatePowerUp;
-    public static event Action<EPowerUpType> OnDeactivatePowerUp;
+    public static event Action<PowerUpData> OnActivatePowerUp;
+    public static event Action<PowerUpData> OnDeactivatePowerUp;
     
     public static void NotifyTankDestroyed()
     {
@@ -62,13 +62,13 @@ public static class GameEvents
         OnPickupPowerUp?.Invoke(type);
     }
     
-    public static void NotifyActivatePowerUp(EPowerUpType type)
+    public static void NotifyActivatePowerUp(PowerUpData data)
     {
-        OnActivatePowerUp?.Invoke(type);
+        OnActivatePowerUp?.Invoke(data);
     }
     
-    public static void NotifyDeactivatePowerup(EPowerUpType type)
+    public static void NotifyDeactivatePowerup(PowerUpData data)
     {
-        OnDeactivatePowerUp?.Invoke(type);
+        OnDeactivatePowerUp?.Invoke(data);
     }
 }

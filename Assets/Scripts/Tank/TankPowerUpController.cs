@@ -24,10 +24,10 @@ public class TankPowerUpController : TankComponent
         Tank.Shield.Deactivate();
     }
 
-    private void OnActivatePowerUp(EPowerUpType type)
+    private void OnActivatePowerUp(PowerUpData powerUp)
     {
         Debug.Log("here");
-        if (type != EPowerUpType.Shield)
+        if (powerUp.Type != EPowerUpType.Shield)
         {
             return;
         }
@@ -35,9 +35,9 @@ public class TankPowerUpController : TankComponent
         Tank.Shield.Activate();
     }
     
-    private void OnDeactivatePowerUp(EPowerUpType type)
+    private void OnDeactivatePowerUp(PowerUpData powerUp)
     {
-        if (type != EPowerUpType.Shield)
+        if (powerUp.Type != EPowerUpType.Shield)
         {
             return;
         }

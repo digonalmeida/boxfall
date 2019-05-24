@@ -37,7 +37,7 @@ public class BirdController : MonoBehaviour
         DestroyBird();
     }
     
-    private void DestroyBird()
+    public void DestroyBird()
     {
         _rigidbody.gravityScale = 0;
         _rigidbody.velocity = Vector3.zero;
@@ -54,6 +54,10 @@ public class BirdController : MonoBehaviour
 
     public void KillBird()
     {
+        if(!Alive)
+        {
+            return;
+        }
         GameEvents.NotifyBirdKilled();
         OnKilled?.Invoke();
         DestroyBird();

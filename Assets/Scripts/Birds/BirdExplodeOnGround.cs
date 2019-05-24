@@ -9,7 +9,7 @@ public class BirdExplodeOnGround : BirdComponent
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("floor"))
         {
-            Bird.KillBird();
+            Bird.DestroyBird();
         }
     }
 }
