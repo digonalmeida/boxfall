@@ -6,6 +6,7 @@ using UnityEngine;
 public class TurrentController : MonoBehaviour
 {
     private const string _shotAnimationTrigger = "shot";
+    private const string _invulnerableAnimationProperty = "Invulnerable";
 
     [SerializeField]
     private Bullet _bulletPrefab = null;
@@ -30,6 +31,18 @@ public class TurrentController : MonoBehaviour
         PlayShotAnimation();
     }
 
+    public void SetInvulnerable(bool invulnerable)
+    {
+        if(invulnerable)
+        {
+            PlayInvulnerableAnimation();
+        }
+        else
+        {
+            StopInvulnerableAnimation();
+        }
+    }
+
     private void Awake()
     {
         _animator = GetComponent<Animator>();
@@ -38,5 +51,15 @@ public class TurrentController : MonoBehaviour
     private void PlayShotAnimation()
     {
         _animator.SetTrigger(_shotAnimationTrigger);
+    }
+
+    private void PlayInvulnerableAnimation()
+    {
+        _animator.SetBool(_invulnerableAnimationProperty, true);
+    }
+
+    private void StopInvulnerableAnimation()
+    {
+        _animator.SetBool(_invulnerableAnimationProperty, false);
     }
 }

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class TankPowerUpController : TankComponent
 {
+    private readonly static int _invulnerableAnimationHash;
+    [SerializeField]
+    private Animator _animator = null;
+
+    static TankPowerUpController()
+    {
+        _invulnerableAnimationHash = Animator.StringToHash("Invulnerable");
+    }
+    public bool Invulnerable { get; private set; }
     public override void Initialize(TankController tank)
     {
         base.Initialize(tank);
@@ -21,18 +30,24 @@ public class TankPowerUpController : TankComponent
 
     private void OnGameStarted()
     {
-        Tank.Shield.Deactivate();
+        SetInvulnerable(false);
+    }
+
+    private void SetInvulnerable(bool invulnerable)
+    {
+        Invulnerable = invulnerable;
+        _animator?.SetBool(_invulnerableAnimationHash, invulnerable);
+        Tank.TurrentController.SetInvulnerable(invulnerable);
     }
 
     private void OnActivatePowerUp(PowerUpData powerUp)
     {
-        Debug.Log("here");
         if (powerUp.Type != EPowerUpType.Shield)
         {
             return;
         }
 
-        Tank.Shield.Activate();
+        SetInvulnerable(true);
     }
     
     private void OnDeactivatePowerUp(PowerUpData powerUp)
@@ -42,6 +57,6 @@ public class TankPowerUpController : TankComponent
             return;
         }
 
-        Tank.Shield.Deactivate();
+        SetInvulnerable(false);
     }
 }

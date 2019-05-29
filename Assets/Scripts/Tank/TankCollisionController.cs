@@ -22,12 +22,21 @@ public class TankCollisionController : TankComponent
         {
             return;
         }
-
+        
         var target = other.collider.GetComponent<BirdController>();
-        if (target != null)
+        if (target == null)
         {
-            OnHitByTarget?.Invoke(target);
+            return;
         }
+
+        var powerupController = other.collider.GetComponent<BirdPowerUpController>();
+        if (powerupController != null)
+        {
+            target.KillBird();
+            return;
+        }
+
+        OnHitByTarget?.Invoke(target);
     }
 
     private void OnEnable()

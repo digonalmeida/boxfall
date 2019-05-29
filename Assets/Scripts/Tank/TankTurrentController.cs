@@ -23,6 +23,11 @@ public class TankTurrentController : TankComponent
         }
     }
     
+    public void SetInvulnerable(bool invulnerable)
+    {
+        _turrent.SetInvulnerable(invulnerable);
+    }
+
     private void Shoot()
     {
         _turrent.Fire();
