@@ -7,23 +7,30 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class ScoreLabel : UiElement
 {
+    private LevelController _levelController;
     private Text _text;
     public override void OnShow()
     {
         base.OnShow();
-        GameEvents.OnScoreChanged += UpdateUI;
+
+        if(_levelController == null)
+        {
+            _levelController = GameController.Instance.LevelController;
+        }
+
+        _levelController.OnScoreChanged += UpdateUI;
         UpdateUI();
     }
 
     public override void OnHide()
     {
         base.OnHide();
-        GameEvents.OnScoreChanged -= UpdateUI;
+        _levelController.OnScoreChanged -= UpdateUI;
     }
 
     public void UpdateUI()
     {
-        _text.text = GameController.Instance.CurrentScore.ToString();
+        _text.text = _levelController.CurrentScore.ToString();
     }
 
     protected override void Initialize()

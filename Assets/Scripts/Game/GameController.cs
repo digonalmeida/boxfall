@@ -11,14 +11,12 @@ public class GameController : MonoBehaviour
 
     [SerializeField] 
     private PowerUpsManager _powerUpsManager;
+
+    [SerializeField]
+    private LevelController _levelController;
     
     private GameStateMachine _stateMachine;
-    private readonly InGameState _inGameState = new InGameState();
-    private readonly EndGameState _endGameState = new EndGameState();
-    private readonly StartGameState _startGameState = new StartGameState();
-
-    public int CurrentScore { get; set; }
-
+    
     public GameUi Ui
     {
         get { return _ui; }
@@ -29,20 +27,14 @@ public class GameController : MonoBehaviour
         get { return _powerUpsManager; }
     }
 
-    public InGameState InGameState
+    public LevelController LevelController
     {
-        get { return _inGameState; }
+        get { return _levelController; }
     }
 
-    public EndGameState EndGameState
-    {
-        get { return _endGameState; }
-    }
-
-    public StartGameState StartGameState
-    {
-        get { return _startGameState; }
-    }
+    public InGameState InGameState { get; private set; }
+    public EndGameState EndGameState { get; private set; }
+    public StartGameState StartGameState { get; private set; }
 
     public void StartGame()
     {
@@ -52,6 +44,11 @@ public class GameController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+
+        InGameState = new InGameState();
+        EndGameState = new EndGameState();
+        StartGameState = new StartGameState();
+
         _stateMachine = new GameStateMachine();
         _stateMachine.Initialize(this);
     }
