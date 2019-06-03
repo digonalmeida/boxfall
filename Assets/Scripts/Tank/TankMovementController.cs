@@ -54,7 +54,7 @@ public class TankMovementController : TankComponent
         transform.position = pos;
         _rigidbody.velocity = Vector2.zero;
     }
-    
+
     protected override void OnGamePaused()
     {
         base.OnGamePaused();

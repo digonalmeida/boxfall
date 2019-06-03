@@ -11,34 +11,50 @@ public class ParallaxController : GameAgent
     [SerializeField]
     private float maxSpeed = 5.0f;
 
-    [SerializeField]
-    private float acceleration = 0.2f;
+    [SerializeField] 
+    private int _maxSpeedLevel = 10;
 
-    private float speed;
+    private int _currentLevel;
+    private LevelController _levelController;
+    
+    private float _speed;
 
     protected override void Awake()
     {
         base.Awake();
         _parallaxElements = transform.GetComponentsInChildren<ParallaxElement>();
-        speed = startSpeed;
-
-        enabled = false;
+        _currentLevel = 1;
     }
 
     protected override void OnGameStarted()
     {
         base.OnGameStarted();
         
-        speed = startSpeed;
-        enabled = true;
+        _speed = startSpeed;
+
+        if (_levelController == null)
+        {
+            _levelController = GameController.Instance.LevelController;
+        }
+
+        _levelController.OnLevelChanged += OnLevelChanged;
+        _currentLevel = 1;
+        
     }
 
     protected override void OnGameEnded()
     {
-        speed = 0;
-        enabled = false;
+        _currentLevel = 1;
+        _levelController.OnLevelChanged -= OnLevelChanged;
     }
 
+    private void OnLevelChanged()
+    {
+        _currentLevel = _levelController.CurrentLevel;
+    }
+
+    public float t;
+    
     private void Update()
     {
         if (IsPaused)
@@ -51,12 +67,13 @@ public class ParallaxController : GameAgent
             return;
         }
         
-        speed = Mathf.Min(maxSpeed, speed + (acceleration * Time.deltaTime));
+        t = Mathf.Clamp01((float)(_currentLevel -1) / (float)(_maxSpeedLevel -1));
+        _speed = Mathf.Lerp(startSpeed, maxSpeed, t);
         foreach(var element in _parallaxElements)
         {
             var pos = element.gameObject.transform.position;
             
-            pos += Vector3.left * speed * Time.deltaTime * element.Ratio;
+            pos += Vector3.left * _speed * Time.deltaTime * element.Ratio;
             if(pos.x <= element.EndPoint)
             {
                 pos.x += element.StartPoint - element.EndPoint;
