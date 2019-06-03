@@ -8,14 +8,28 @@ public class InGameState : GameState
     {
         base.OnEnter();
         GameEvents.OnTankDestroyed += OnTankDestroyed;
-        Entity.Ui.ShowInGameUi();
         GameEvents.NotifyGameStarted();
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        Entity.Ui.HideInGameUi();
+        GameEvents.NotifyGameUnpaused();
+        GameEvents.NotifyGameEnded();
+    }
+
+    public override void OnUpdate()
+    {
+        base.OnUpdate();
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            GameEvents.NotifyGamePaused();
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            GameEvents.NotifyGameUnpaused();
+        }
     }
 
     private void OnTankDestroyed()

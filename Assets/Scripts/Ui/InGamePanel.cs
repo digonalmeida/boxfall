@@ -4,4 +4,8 @@ using UnityEngine;
 
 public class InGamePanel : UiElement
 {
+    public void Pause()
+    {
+        GameEvents.NotifyGamePaused();
+    }
 }

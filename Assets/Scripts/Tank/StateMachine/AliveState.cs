@@ -10,6 +10,7 @@ public class AliveState : State<TankController>
         base.OnEnter();
         Entity.CollisionController.OnHitByTarget += OnHitByTarget;
 
+        Entity.MovementController.Reset();
         Entity.MovementController.enabled = true;
         Entity.TurrentController.enabled = true;
         Entity.CollisionController.enabled = true;

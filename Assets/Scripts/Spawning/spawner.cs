@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class spawner : MonoBehaviour
+public class spawner : GameAgent
 {
     public GameObject _prefab;
     public float startDelay = 1.0f;
@@ -19,26 +19,43 @@ public class spawner : MonoBehaviour
     private float _minFrequency = 0.1f;
 
     [SerializeField] 
-    private float _maxGameplayTime = 3 * 60;
+    private int _minLevel = 0;
+    
+    [SerializeField] 
+    private int _maxLevel = 5;
 
-    private float _currentGameplayTime;
 
-    private void Awake()
+    private int _currentLevel;
+
+    protected override void Awake()
     {
+        base.Awake();
         enabled = false;
-        GameEvents.OnGameStarted += StartSpawning;
-        GameEvents.OnGameEnded += StopSpawning;
+
     }
 
-    private void OnDestroy()
+
+    protected override void OnGameStarted()
     {
-        GameEvents.OnGameStarted -= StartSpawning;
-        GameEvents.OnGameEnded -= StopSpawning;
+        GameController.Instance.LevelController.OnLevelChanged += OnLevelChanged;
+        OnLevelChanged();
+        StartSpawning();
+    }
+
+    protected override void OnGameEnded()
+    {
+        GameController.Instance.LevelController.OnLevelChanged -= OnLevelChanged;
+        StopSpawning();
+    }
+
+    private void OnLevelChanged()
+    {
+        _currentLevel = GameController.Instance.LevelController.CurrentLevel;
     }
     
     private void StartSpawning()
     {
-        _currentGameplayTime = 0;
+        _currentLevel = 1;
         StopSpawning();
         RefreshPoints();
         _coroutine = StartCoroutine(SpawnRoutine());
@@ -73,22 +90,43 @@ public class spawner : MonoBehaviour
 
     private IEnumerator SpawnRoutine()
     {
-        _currentGameplayTime = 0;
         yield return new WaitForSeconds(startDelay);
+        float timeout = startDelay;
+        
         for (; ; )
         {
+            if (IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+            
+            if (_currentLevel < _minLevel)
+            {
+                yield return null;
+                continue;
+            }
+
+            timeout -= Time.deltaTime;
+            
+            if (timeout > 0)
+            {
+                yield return null;
+                continue;
+            }
+            
             Spawn();
-            float spawnInterval = GetSpawnInterval();
-            yield return new WaitForSeconds(spawnInterval);
-            _currentGameplayTime += spawnInterval;
+            
+            timeout = GetSpawnInterval();
+            yield return null;
         }
     }
 
     private float GetSpawnInterval()
     {
-        float clampedGameplayTime = Mathf.Clamp(_currentGameplayTime, 0, _maxGameplayTime);
-        float normalizedGameplayTime = clampedGameplayTime / _maxGameplayTime;
-        float normalizedFrequency = _frequencyOverTime.Evaluate(normalizedGameplayTime);
+        float clampedLevel = Mathf.Clamp(_currentLevel, _minLevel, _maxLevel);
+        float normalizedLevel = clampedLevel / _maxLevel;
+        float normalizedFrequency = _frequencyOverTime.Evaluate(normalizedLevel);
         float spawnFrequency = Mathf.Lerp(_minFrequency, _maxFrequency, normalizedFrequency);
         return 1.0f / spawnFrequency;
     }

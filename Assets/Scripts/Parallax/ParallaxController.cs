@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParallaxController : MonoBehaviour
+public class ParallaxController : GameAgent
 {
     private ParallaxElement[] _parallaxElements;
     [SerializeField]
@@ -16,28 +16,24 @@ public class ParallaxController : MonoBehaviour
 
     private float speed;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _parallaxElements = transform.GetComponentsInChildren<ParallaxElement>();
         speed = startSpeed;
-        GameEvents.OnGameStarted += StartParallax;
-        GameEvents.OnGameEnded += StopParallax;
+
         enabled = false;
     }
 
-    private void OnDestroy()
+    protected override void OnGameStarted()
     {
-        GameEvents.OnGameStarted -= StartParallax;
-        GameEvents.OnGameEnded -= StopParallax;
-    }
-
-    private void StartParallax()
-    {
+        base.OnGameStarted();
+        
         speed = startSpeed;
         enabled = true;
     }
 
-    private void StopParallax()
+    protected override void OnGameEnded()
     {
         speed = 0;
         enabled = false;
@@ -45,6 +41,11 @@ public class ParallaxController : MonoBehaviour
 
     private void Update()
     {
+        if (IsPaused)
+        {
+            return;
+        }
+        
         if (!isActiveAndEnabled)
         {
             return;

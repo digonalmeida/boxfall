@@ -7,12 +7,11 @@ public class StartGameState : GameState
     public override void OnEnter()
     {
         base.OnEnter();
-        Entity.Ui.ShowStartGameUi();
+        GameEvents.NotifyShowHomeScreen();
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        Entity.Ui.HideStartGameUi();
     }
 }

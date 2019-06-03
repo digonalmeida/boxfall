@@ -4,4 +4,13 @@ using UnityEngine;
 
 public class EndGamePanel : UiElement
 {
+    public void GoHome()
+    {
+        GameController.Instance.GoHome();
+    }
+
+    public void PlayAgain()
+    {
+        GameController.Instance.StartGame();
+    }
 }

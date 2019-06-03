@@ -10,7 +10,9 @@ public static class GameEvents
     public static event Action OnShotFired;
     public static event Action OnGameStarted;
     public static event Action OnGameEnded;
-    public static event Action OnScoreChanged;
+    public static event Action OnGamePaused;
+    public static event Action OnGameUnpaused;
+    public static event Action OnShowHomeScreen;
     public static event Action OnBirdSpawned;
     public static event Action OnUiAccept;
     public static event Action<EPowerUpType> OnPickupPowerUp;
@@ -42,11 +44,6 @@ public static class GameEvents
         OnGameEnded?.Invoke();
     }
     
-    public static void NotifyScoreChanged()
-    {
-        OnScoreChanged?.Invoke();
-    }
-
     public static void NotifyBirdSpawned()
     {
         OnBirdSpawned?.Invoke();
@@ -70,5 +67,20 @@ public static class GameEvents
     public static void NotifyDeactivatePowerup(PowerUpData data)
     {
         OnDeactivatePowerUp?.Invoke(data);
+    }
+
+    public static void NotifyGamePaused()
+    {
+        OnGamePaused?.Invoke();
+    }
+
+    public static void NotifyGameUnpaused()
+    {
+        OnGameUnpaused?.Invoke();
+    }
+
+    public static void NotifyShowHomeScreen()
+    {
+        OnShowHomeScreen?.Invoke();
     }
 }

@@ -34,11 +34,16 @@ public class GameController : MonoBehaviour
 
     public InGameState InGameState { get; private set; }
     public EndGameState EndGameState { get; private set; }
-    public StartGameState StartGameState { get; private set; }
+    public StartGameState HomeState { get; private set; }
 
     public void StartGame()
     {
         _stateMachine.SetState(InGameState);
+    }
+
+    public void GoHome()
+    {
+        _stateMachine.SetState(HomeState);
     }
 
     private void Awake()
@@ -47,7 +52,7 @@ public class GameController : MonoBehaviour
 
         InGameState = new InGameState();
         EndGameState = new EndGameState();
-        StartGameState = new StartGameState();
+        HomeState = new StartGameState();
 
         _stateMachine = new GameStateMachine();
         _stateMachine.Initialize(this);
@@ -55,7 +60,7 @@ public class GameController : MonoBehaviour
 
     private void Start()
     {
-        _stateMachine.SetState(StartGameState);
+        _stateMachine.SetState(HomeState);
     }
 
     private void Update()

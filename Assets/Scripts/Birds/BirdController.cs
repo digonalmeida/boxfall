@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdController : MonoBehaviour
+public class BirdController : GameAgent
 {
     [SerializeField]
     private SpriteRenderer _spriteRenderer = null;
@@ -15,28 +15,41 @@ public class BirdController : MonoBehaviour
     private Collider2D[] _colliders;
     
     public bool Alive { get; private set; }
-    public event Action OnKilled; 
-    
-    private void Awake()
+    public event Action OnKilled;
+
+    private Vector2 _pausedVelocity;
+
+    protected override void Awake()
     {
+        base.Awake();
+
         _rigidbody = GetComponent<Rigidbody2D>();
         _colliders = GetComponents<Collider2D>();
         Alive = true;
-        Destroy(gameObject, 10.0f);
-        GameEvents.OnGameEnded += OnGameEnded;
-
     }
 
-    private void OnDestroy()
+    protected override void OnGameEnded()
     {
-        GameEvents.OnGameEnded -= OnGameEnded;
-    }
+        base.OnGameEnded();
 
-    private void OnGameEnded()
-    {
         DestroyBird();
     }
+
+    protected override void OnGamePaused()
+    {
+        base.OnGamePaused();
+        _pausedVelocity = _rigidbody.velocity;
+        _rigidbody.isKinematic = true;
+        _rigidbody.velocity = Vector2.zero;
+    }
     
+    protected override void OnGameUnpaused()
+    {
+        base.OnGameUnpaused();
+        _rigidbody.isKinematic = false;
+        _rigidbody.velocity = _pausedVelocity;
+    }
+
     public void DestroyBird()
     {
         _rigidbody.gravityScale = 0;

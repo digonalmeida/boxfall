@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7978232892419565905}
   - component: {fileID: 4595991411173944647}
   - component: {fileID: 2476615926047120141}
+  - component: {fileID: 5302806968804397411}
   m_Layer: 10
   m_Name: Sprite
   m_TagString: Untagged
@@ -204,6 +205,18 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!114 &5302806968804397411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 42949113153568388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a2636aa3c3f34438ee1093cd5e6a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &479492328677191653
 GameObject:
   m_ObjectHideFlags: 0
@@ -393,6 +406,7 @@ GameObject:
   - component: {fileID: 558592993658893648}
   - component: {fileID: 6001707414863048840}
   - component: {fileID: 348731882147295460}
+  - component: {fileID: 1362872445903313116}
   m_Layer: 0
   m_Name: explosion
   m_TagString: Untagged
@@ -481,6 +495,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &1362872445903313116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5473642767280694856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88a2636aa3c3f34438ee1093cd5e6a32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5809703843197326202
 GameObject:
   m_ObjectHideFlags: 0

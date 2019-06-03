@@ -59,15 +59,17 @@ public class PowerUpData
     }
 }
 
-public class PowerUpsManager : MonoBehaviour
+public class PowerUpsManager : GameAgent
 {
     [SerializeField]
     private float _defaultPowerupTime = 5.0f;
 
     private List<PowerUpData> _powerUps;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        
         GameEvents.OnPickupPowerUp += OnPickupPowerUp;
         _powerUps = new List<PowerUpData>();
         _powerUps.Add(new PowerUpData(EPowerUpType.Shield, _defaultPowerupTime));
@@ -78,13 +80,15 @@ public class PowerUpsManager : MonoBehaviour
         GameEvents.OnPickupPowerUp -= OnPickupPowerUp;
     }
 
-    private void OnGameStart()
+    protected override void OnGameStarted()
     {
+        base.OnGameStarted();
         Reset();
     }
 
-    private void OnGameEnd()
+    protected override void OnGameEnded()
     {
+        base.OnGameEnded();
         Reset();
     }
 
@@ -105,6 +109,11 @@ public class PowerUpsManager : MonoBehaviour
 
     private void Update()
     {
+        if (IsPaused)
+        {
+            return;
+        }
+        
         foreach(var powerUp in _powerUps)
         {
             powerUp.Update(Time.deltaTime);

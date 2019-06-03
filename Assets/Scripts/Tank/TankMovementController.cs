@@ -4,30 +4,26 @@ using UnityEngine;
 
 public class TankMovementController : TankComponent
 {
-    [Header("Moving Forward")]
-    [SerializeField]
+    [Header("Moving Forward")] [SerializeField]
     private float _walkingSpeed = 1.0f;
 
-    [SerializeField]
-    private float _walkingStoppingDistance = 0.5f;
+    [SerializeField] private float _walkingStoppingDistance = 0.5f;
 
-    [SerializeField]
-    private float _centerX = 0.0f;
+    [SerializeField] private float _centerX = 0.0f;
 
-    [Header("Recoil")]
-    [SerializeField]
-    private float _recoilForce = 1.0f;
+    [Header("Recoil")] [SerializeField] private float _recoilForce = 1.0f;
 
-    [SerializeField]
-    private float _maxRecoilForce = 1.0f;
+    [SerializeField] private float _maxRecoilForce = 1.0f;
 
-    [SerializeField]
-    private float _recoilDeacceleration = 1.0f;
-    
+    [SerializeField] private float _recoilDeacceleration = 1.0f;
+
     private Rigidbody2D _rigidbody;
 
-    private void Awake()
+    private Vector2 _pausedVelocity;
+
+    protected override void Awake()
     {
+        base.Awake();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -50,9 +46,37 @@ public class TankMovementController : TankComponent
     {
         Tank.TurrentController.OnShot -= OnShot;
     }
+
+    public void Reset()
+    {
+        var pos = transform.position;
+        pos.x = _centerX;
+        transform.position = pos;
+        _rigidbody.velocity = Vector2.zero;
+    }
     
+    protected override void OnGamePaused()
+    {
+        base.OnGamePaused();
+        _pausedVelocity = _rigidbody.velocity;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.isKinematic = true;
+    }
+
+    protected override void OnGameUnpaused()
+    {
+        base.OnGameUnpaused();
+        _rigidbody.velocity = _pausedVelocity;
+        _rigidbody.isKinematic = false;
+    }
+
     private void Update()
     {
+        if (IsPaused)
+        {
+            return;
+        }
+        
         if(!enabled)
         {
             return;

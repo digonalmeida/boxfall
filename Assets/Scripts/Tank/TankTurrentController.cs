@@ -12,6 +12,11 @@ public class TankTurrentController : TankComponent
 
     private void Update()
     {
+        if (IsPaused)
+        {
+            return;
+        }
+        
         if(!enabled)
         {
             return;

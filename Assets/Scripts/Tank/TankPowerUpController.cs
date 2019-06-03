@@ -18,18 +18,23 @@ public class TankPowerUpController : TankComponent
         base.Initialize(tank);
         GameEvents.OnActivatePowerUp += OnActivatePowerUp;
         GameEvents.OnDeactivatePowerUp += OnDeactivatePowerUp;
-        GameEvents.OnGameStarted += OnGameStarted;
     }
 
     private void OnDestroy()
     {
         GameEvents.OnActivatePowerUp -= OnActivatePowerUp;
         GameEvents.OnDeactivatePowerUp -= OnDeactivatePowerUp;
-        GameEvents.OnGameStarted -= OnGameStarted;
     }
 
-    private void OnGameStarted()
+    protected override void OnGameStarted()
     {
+        base.OnGameStarted();
+        SetInvulnerable(false);
+    }
+    
+    protected override void OnGameEnded()
+    {
+        base.OnGameEnded();
         SetInvulnerable(false);
     }
 

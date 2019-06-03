@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Bullet : MonoBehaviour
+public class Bullet : GameAgent
 {
     private Rigidbody2D _rigidbody;
+
+    private Vector2 _pausedVelocity;
 
     public void Fire(Vector2 startPosition, Vector2 direction, float speed)
     {
@@ -16,12 +18,27 @@ public class Bullet : MonoBehaviour
         GameEvents.NotifyShotFired();
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _rigidbody = GetComponent<Rigidbody2D>();
-        Destroy(gameObject, 2);
     }
-    
+
+    protected override void OnGamePaused()
+    {
+        base.OnGamePaused();
+        _pausedVelocity = _rigidbody.velocity;
+        _rigidbody.velocity = Vector2.zero;
+        _rigidbody.isKinematic = true;
+    }
+
+    protected override void OnGameUnpaused()
+    {
+        base.OnGameUnpaused();
+        _rigidbody.isKinematic = false;
+        _rigidbody.velocity = _pausedVelocity;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         var bird = other.GetComponent<BirdController>();
@@ -31,4 +48,5 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    
 }

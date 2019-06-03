@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StateMachine;
 
-public class TankController : MonoBehaviour
+public class TankController : GameAgent
 {
     [SerializeField]
     private GameObject _spriteObject = null;
@@ -20,6 +20,7 @@ public class TankController : MonoBehaviour
     public TankPowerUpController TankPowerUpController { get; private set; }
     public AliveState AliveState { get; private set; }
     public DeadState DeadState { get; private set; }
+    public IdleState IdleState { get; private set; }
     
     public GameObject SpriteObject
     {
@@ -31,9 +32,9 @@ public class TankController : MonoBehaviour
         get { return _explosionEffect; }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
-        GameEvents.OnGameStarted += OnGameStarted;
+        base.Awake();
         
         MovementController = InitializeComponent<TankMovementController>();
         TurrentController = InitializeComponent<TankTurrentController>();
@@ -42,8 +43,15 @@ public class TankController : MonoBehaviour
         
         AliveState = new AliveState();
         DeadState = new DeadState();
+        IdleState = new IdleState();
         
         _stateMachine.Initialize(this);
+        GameEvents.OnShowHomeScreen += OnHomeScreen;
+    }
+
+    private void OnDestroy()
+    {
+        GameEvents.OnShowHomeScreen -= OnHomeScreen;
     }
 
     private T InitializeComponent<T>() where T: TankComponent
@@ -58,22 +66,26 @@ public class TankController : MonoBehaviour
 
     private void Start()
     {
-        gameObject.SetActive(false);
+        _stateMachine.SetState(IdleState);
     }
 
-    private void OnDestroy()
+    private void OnHomeScreen()
     {
-        GameEvents.OnGameStarted -= OnGameStarted;
+        _stateMachine.SetState(IdleState);
     }
-
-    private void OnGameStarted()
+    
+    protected override void OnGameStarted()
     {
-        gameObject.SetActive(true);
         _stateMachine.SetState(AliveState);
     }
 
     private void Update()
     {
+        if (IsPaused)
+        {
+            return;
+        }
+        
         _stateMachine.Update();
     }
 }
