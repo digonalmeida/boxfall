@@ -91,4 +91,9 @@ public class GameUi : MonoBehaviour
 
         uiElement.Hide();
     }
+
+    public void OnBackgroundClicked()
+    {
+        GameEvents.NotifyBackgroundClicked();
+    }
 }

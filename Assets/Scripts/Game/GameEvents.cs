@@ -18,6 +18,7 @@ public static class GameEvents
     public static event Action<EPowerUpType> OnPickupPowerUp;
     public static event Action<PowerUpData> OnActivatePowerUp;
     public static event Action<PowerUpData> OnDeactivatePowerUp;
+    public static event Action OnBackgroundClicked;
     
     public static void NotifyTankDestroyed()
     {
@@ -82,5 +83,10 @@ public static class GameEvents
     public static void NotifyShowHomeScreen()
     {
         OnShowHomeScreen?.Invoke();
+    }
+
+    public static void NotifyBackgroundClicked()
+    {
+        OnBackgroundClicked?.Invoke();
     }
 }

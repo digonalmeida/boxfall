@@ -10,7 +10,19 @@ public class TankTurrentController : TankComponent
 
     public event Action OnShot;
 
-    private void Update()
+    protected override void OnGameStarted()
+    {
+        base.OnGameStarted();
+        GameEvents.OnBackgroundClicked += OnBackgroundClicked;
+    }
+
+    protected override void OnGameEnded()
+    {
+        base.OnGameEnded();
+        GameEvents.OnBackgroundClicked -= OnBackgroundClicked;
+    }
+
+    public void OnBackgroundClicked()
     {
         if (IsPaused)
         {
@@ -22,10 +34,7 @@ public class TankTurrentController : TankComponent
             return;
         }
 
-        if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space))
-        {
-            Shoot();
-        }
+        Shoot();
     }
     
     public void SetInvulnerable(bool invulnerable)
