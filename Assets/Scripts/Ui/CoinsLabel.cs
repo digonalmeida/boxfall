@@ -7,13 +7,13 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Text))]
 public class CoinsLabel : UiElement
 {
-    private LevelController _levelController;
+    private InventoryManager _inventoryManager;
     private Text _text;
 
     protected override void Initialize()
     {
         base.Initialize();
-        _levelController = GameController.Instance.LevelController;
+        _inventoryManager = InventoryManager.Instance;
         _text = GetComponent<Text>();
     }
 
@@ -21,18 +21,18 @@ public class CoinsLabel : UiElement
     {
         base.OnShow();
 
-        _levelController.OnCoinsChanged += UpdateUI;
+        _inventoryManager.OnCoinsChanged += UpdateUI;
         UpdateUI();
     }
 
     public override void OnHide()
     {
         base.OnHide();
-        _levelController.OnCoinsChanged -= UpdateUI;
+        _inventoryManager.OnCoinsChanged -= UpdateUI;
     }
 
     public void UpdateUI()
     {
-        _text.text = _levelController.Coins.ToString();
+        _text.text = _inventoryManager.Coins.ToString();
     }
 }

@@ -10,8 +10,7 @@ public class LevelController : MonoBehaviour
     public int BestScore { get; private set; }
     public int CurrentLevelScore { get; private set; }
     public int CurrentLevelTargetScore { get; private set; }
-    public int Coins;
-
+    
     private int _currentLevelTarget = 0;
 
     public event Action OnScoreChanged;
@@ -22,7 +21,6 @@ public class LevelController : MonoBehaviour
     private void Awake()
     {
         LoadBestScore();
-        LoadCoins();
         ResetScore();
         GameEvents.OnGameStarted += OnGameStarted;
         GameEvents.OnGameEnded += OnGameEnded;
@@ -82,9 +80,8 @@ public class LevelController : MonoBehaviour
             SaveBestScore();
         }
 
-        Coins++;
+        InventoryManager.Instance.AddCoins(1);
         OnCoinsChanged?.Invoke();
-        SaveCoins();
     }
 
     private int GetTargetScore(int level)
@@ -101,15 +98,6 @@ public class LevelController : MonoBehaviour
     {
         BestScore = PlayerPrefs.GetInt("best_score", 0);
     }
-
-    public void SaveCoins()
-    {
-        PlayerPrefs.SetInt("coins", Coins);
-    }
-
-    public void LoadCoins()
-    {
-        Coins = PlayerPrefs.GetInt("coins", 0);
-    }
+    
 }
 

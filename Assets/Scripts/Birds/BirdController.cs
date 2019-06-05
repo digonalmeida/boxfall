@@ -62,7 +62,7 @@ public class BirdController : GameAgent
             collider.enabled = false;
         }
         Alive = false;
-        Destroy(gameObject, 1);
+        gameObject.SetActive(false);
     }
 
     public void KillBird()
