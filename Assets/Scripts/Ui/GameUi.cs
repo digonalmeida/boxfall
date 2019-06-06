@@ -16,6 +16,9 @@ public class GameUi : MonoBehaviour
 
     [SerializeField] 
     private UiElement _pauseGameCanvas = null;
+
+    [SerializeField]
+    private UiElement _shopCanvas = null;
     
     private void Awake()
     {
@@ -25,6 +28,7 @@ public class GameUi : MonoBehaviour
         GameEvents.OnGamePaused += OnGamePaused;
         GameEvents.OnGameUnpaused += OnGameUnpaused;
         GameEvents.OnShowHomeScreen += OnShowHomeScreen;
+        GameEvents.OnShowShop += OnShowShop;
     }
 
     private void OnDestroy()
@@ -34,6 +38,7 @@ public class GameUi : MonoBehaviour
         GameEvents.OnGamePaused -= OnGamePaused;
         GameEvents.OnGameUnpaused -= OnGameUnpaused;
         GameEvents.OnShowHomeScreen -= OnShowHomeScreen;
+        GameEvents.OnShowShop -= OnShowShop;
     }
 
     private void OnShowHomeScreen()
@@ -64,12 +69,19 @@ public class GameUi : MonoBehaviour
         Hide(_pauseGameCanvas);
     }
 
+    private void OnShowShop()
+    {
+        HideAll();
+        Show(_shopCanvas);
+    }
+
     private void HideAll()
     {
         Hide(_homeScreenPanel);
         Hide(_inGameCanvas);
         Hide(_endGameCanvas);
         Hide(_pauseGameCanvas);
+        Hide(_shopCanvas);
     }
 
     private void Show(UiElement uiElement)

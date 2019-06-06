@@ -31,7 +31,6 @@ public class spawner : GameAgent
     {
         base.Awake();
         enabled = false;
-
     }
 
 
@@ -82,8 +81,14 @@ public class spawner : GameAgent
             var sp = child.GetComponent<SpawnPoint>();
             if (sp == null)
             {
-                return;
+                continue;
             }
+
+            if(sp.minLevel > _currentLevel)
+            {
+                continue;
+            }
+
             spawnPoints.Add(sp);
         }
     }
@@ -125,7 +130,7 @@ public class spawner : GameAgent
     private float GetSpawnInterval()
     {
         float clampedLevel = Mathf.Clamp(_currentLevel, _minLevel, _maxLevel);
-        float normalizedLevel = clampedLevel / _maxLevel;
+        float normalizedLevel = (clampedLevel - _minLevel) / (_maxLevel - _minLevel);
         float normalizedFrequency = _frequencyOverTime.Evaluate(normalizedLevel);
         float spawnFrequency = Mathf.Lerp(_minFrequency, _maxFrequency, normalizedFrequency);
         return 1.0f / spawnFrequency;

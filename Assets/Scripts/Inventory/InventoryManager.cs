@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField]
+    private ItemConfig[] AllItems;
+
     public static InventoryManager Instance { get; private set; }
     
     public event Action OnCoinsChanged; 
@@ -14,7 +17,48 @@ public class InventoryManager : MonoBehaviour
     private List<string> _inventory;
     
     public int Coins { get; private set; }
+
+    public float GetStarPowerupDuration()
+    {
+        var items = GetItems<StarUpgradeConfig>();
+        float val = 0;
+        foreach(var item in items)
+        {
+            if(item.Duration > val)
+            {
+                val = item.Duration;
+            }
+        }
+
+        return val;
+    }
     
+    public List<T> GetItems<T>() where T:ItemConfig
+    {
+        var list = new List<T>();
+        foreach(var item in AllItems)
+        {
+            if(item is T)
+            {
+                list.Add(item as T);
+            }
+        }
+        return list;
+    }
+
+    public ItemConfig GetItem(string id)
+    {
+        foreach(var item in AllItems)
+        {
+            if(item.Id == id)
+            {
+                return item;
+            }
+        }
+
+        return null;
+    }
+
     public void Clear()
     {
         _inventory.Clear();

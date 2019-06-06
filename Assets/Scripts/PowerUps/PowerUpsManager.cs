@@ -7,7 +7,7 @@ using UnityEngine;
 public class PowerUpData
 {
     public EPowerUpType Type;
-    public float TotalTime { get; private set; }
+    public float TotalTime { get; set; }
     public float Time { get; private set; }
     private bool _active;
 
@@ -84,6 +84,7 @@ public class PowerUpsManager : GameAgent
     {
         base.OnGameStarted();
         Reset();
+        GetPowerUpData(EPowerUpType.Shield).TotalTime = InventoryManager.Instance.GetStarPowerupDuration();
     }
 
     protected override void OnGameEnded()
