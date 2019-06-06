@@ -9,13 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d5efc92982db24b854748ef4dece2e, type: 3}
-  m_Name: star_upgrade_8
+  m_Script: {fileID: 11500000, guid: 92f74f4f2317b1f40b687db86bd14bb6, type: 3}
+  m_Name: star_powerup
   m_EditorClassIdentifier: 
-  _id: star_upgrade_8
-  _name: Star Upgrade 8
-  _price: 1480
-  _requiredItems:
+  _id: star_powerup
+  _name: Star
+  _price: 0
+  _icon: {fileID: 21300000, guid: 3113a8bd08529b64398082870d24779a, type: 3}
+  _description: '{0} seconds'
+  _allUpgrades:
   - {fileID: 11400000, guid: ca4f1af7ba2e89f4ba0bcd024bd8081a, type: 2}
   - {fileID: 11400000, guid: 48c629f5533906145b9de1c69bec981e, type: 2}
   - {fileID: 11400000, guid: 6f58940ea67c1aa448362a0a3e08c989, type: 2}
@@ -23,6 +25,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5edea1cd026ab26439c370be9087c275, type: 2}
   - {fileID: 11400000, guid: 5ee7862d1affa494cb6611c1173ffc15, type: 2}
   - {fileID: 11400000, guid: 0810677b6e4dd1a449b44abed42be8f7, type: 2}
-  _icon: {fileID: 21300000, guid: 09365ffa16e7b664e9bdc9361f5fe0d2, type: 3}
-  _description: Upgrade star powerup duration to {0} seconds
-  _duration: 9
+  - {fileID: 11400000, guid: b9afc4dde4af73c45b93c0377c7c1f6e, type: 2}
+  - {fileID: 11400000, guid: c1a4fcd494801f348a734e2423a192da, type: 2}
+  - {fileID: 11400000, guid: 81cad6b7968e60348816216f1ac4ce4b, type: 2}
+  _baseDuration: 5

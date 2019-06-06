@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 22d5efc92982db24b854748ef4dece2e, type: 3}
-  m_Name: star_upgrade_1
+  m_Name: star_upgrade_9
   m_EditorClassIdentifier: 
-  _id: star_upgrade_1
-  _name: Star Upgrade 1
-  _price: 10
-  _requiredItems: []
+  _id: star_upgrade_9
+  _name: Star Upgrade 9
+  _price: 2960
   _icon: {fileID: 21300000, guid: 09365ffa16e7b664e9bdc9361f5fe0d2, type: 3}
-  _description: Upgrade star powerup duration to {0} seconds
-  _duration: 5.5
+  _description: +{0}s
+  _duration: 0.5

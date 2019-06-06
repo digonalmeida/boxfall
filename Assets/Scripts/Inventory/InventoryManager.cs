@@ -9,6 +9,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField]
     private ItemConfig[] AllItems;
 
+    [SerializeField] 
+    private ItemConfig[] InitialItems;
+
     public static InventoryManager Instance { get; private set; }
     
     public event Action OnCoinsChanged; 
@@ -20,13 +23,14 @@ public class InventoryManager : MonoBehaviour
 
     public float GetStarPowerupDuration()
     {
-        var items = GetItems<StarUpgradeConfig>();
+        var items = GetItems<StarPowerupConfig>();
         float val = 0;
         foreach(var item in items)
         {
-            if(item.Duration > val)
+            var duration = item.GetDuration();
+            if(duration > val)
             {
-                val = item.Duration;
+                val = duration;
             }
         }
 
@@ -63,9 +67,18 @@ public class InventoryManager : MonoBehaviour
     {
         _inventory.Clear();
         Coins = 0;
+        
         OnCoinsChanged?.Invoke();
         OnInventoryChanged?.Invoke();
         Save();
+    }
+
+    private void AddInitialItems()
+    {
+        foreach (var item in InitialItems)
+        {
+            _inventory.Add(item.Id);
+        }
     }
 
     public void Add(string itemId)

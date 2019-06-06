@@ -15,9 +15,6 @@ public class ItemConfig : ScriptableObject
     private int _price;
 
     [SerializeField] 
-    private ItemConfig[] _requiredItems;
-
-    [SerializeField] 
     private Sprite _icon;
 
     [SerializeField] 
@@ -36,11 +33,6 @@ public class ItemConfig : ScriptableObject
     public int Price
     {
         get { return _price; }
-    }
-
-    public ItemConfig[] RequiredItems
-    {
-        get { return _requiredItems; }
     }
 
     public Sprite Icon

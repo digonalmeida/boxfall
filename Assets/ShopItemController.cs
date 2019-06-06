@@ -15,11 +15,13 @@ public class ShopItemController : UiElement
     [SerializeField] private GameObject _boughtButton;
     [SerializeField] private GameObject _buyButton;
     [SerializeField] private Button _buyButtonInteractable;
+    [SerializeField] private Text _upgradeDescription;
 
     private void Start()
     {
         InventoryManager.Instance.OnInventoryChanged += OnInventoryChanged;
         InventoryManager.Instance.OnCoinsChanged += OnInventoryChanged;
+        SetItem(_item);
     }
 
     private void OnDestroy()
@@ -41,41 +43,62 @@ public class ShopItemController : UiElement
     public void SetItem(ItemConfig item)
     {
         _item = item;
-        _icon.sprite = item.Icon;
-        _title.text = item.Name;
-        _description.text = item.Description;
-        _price.text = item.Price.ToString();
-        _unavailableButton.SetActive(false);
-        _boughtButton.SetActive(false);
-        _buyButton.SetActive(false);
-        _buyButtonInteractable.interactable = InventoryManager.Instance.Coins >= _item.Price;
-        
-        if (InventoryManager.Instance.Check(_item.Id))
-        {
-            _boughtButton.SetActive(true);
-            return;
-        }
 
-        foreach (var itemRequiredItem in _item.RequiredItems)
+        if (item is StarPowerupConfig)
         {
-            if (!InventoryManager.Instance.Check(itemRequiredItem.Id))
-            {
-                _unavailableButton.SetActive(true);
-                return;
-            }
+            SetupStarPowerup((StarPowerupConfig)item);
         }
+    }
+
+    private void SetupStarPowerup(StarPowerupConfig item)
+    {
+        _item = item;
         
-        _buyButton.SetActive(true);
+        _title.text = item.Name;
+        _item = item;
+        _icon.sprite = item.Icon;
+        _description.text = item.Description;
+        
+        _unavailableButton.SetActive(false);
+        
+        var upgrade = item.GetNextUpgrade();
+        if (upgrade == null)
+        {
+            _buyButton.SetActive(false);
+            _boughtButton.SetActive(true);
+        }
+        else
+        {
+            _buyButton.SetActive(true);
+            _boughtButton.SetActive(false);
+            _price.text = upgrade.Price.ToString();
+            _buyButtonInteractable.interactable = InventoryManager.Instance.Coins >= _item.Price;
+            _upgradeDescription.text = upgrade.Description;
+        }
     }
 
     public void Buy()
     {
-        if (InventoryManager.Instance.Coins < _item.Price)
+        var starPowerup =  _item as StarPowerupConfig;
+        if (starPowerup == null)
         {
             return;
         }
         
-        InventoryManager.Instance.RemoveCoins(_item.Price);
-        InventoryManager.Instance.Add(_item.Id);
+        var upgrade = starPowerup.GetNextUpgrade();
+        
+        if (upgrade == null)
+        {
+            return;
+        }
+
+        if (InventoryManager.Instance.Coins < upgrade.Price)
+        {
+            return;
+        }
+        
+        InventoryManager.Instance.RemoveCoins(upgrade.Price);
+        InventoryManager.Instance.Add(upgrade.Id);
+        
     }
 }

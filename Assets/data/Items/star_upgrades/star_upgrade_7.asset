@@ -15,13 +15,6 @@ MonoBehaviour:
   _id: star_upgrade_7
   _name: Star Upgrade 7
   _price: 720
-  _requiredItems:
-  - {fileID: 11400000, guid: ca4f1af7ba2e89f4ba0bcd024bd8081a, type: 2}
-  - {fileID: 11400000, guid: 48c629f5533906145b9de1c69bec981e, type: 2}
-  - {fileID: 11400000, guid: 6f58940ea67c1aa448362a0a3e08c989, type: 2}
-  - {fileID: 11400000, guid: 679fbb3180040c74fad2b9173d19d97b, type: 2}
-  - {fileID: 11400000, guid: 5edea1cd026ab26439c370be9087c275, type: 2}
-  - {fileID: 11400000, guid: 5ee7862d1affa494cb6611c1173ffc15, type: 2}
   _icon: {fileID: 21300000, guid: 09365ffa16e7b664e9bdc9361f5fe0d2, type: 3}
-  _description: Upgrade star powerup duration to {0} seconds
-  _duration: 8.5
+  _description: +{0}s
+  _duration: 0.5
