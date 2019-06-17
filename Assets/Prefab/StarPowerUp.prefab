@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 70824335944579082}
   - component: {fileID: 8255973025354730705}
   - component: {fileID: 6939209566651498425}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: StarPowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4870,7 +4870,7 @@ GameObject:
   - component: {fileID: 5354204103538545102}
   - component: {fileID: 6990957951042373973}
   - component: {fileID: 3306216813692369673}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4885,7 +4885,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091043469591060096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.39, y: -0.28, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 656329308834861039}
@@ -4957,7 +4957,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 637889e8e74682f4786fbf264998c3e5, type: 2}
+  - {fileID: 2100000, guid: 2d2bb20faa2b93c43a38059e155383cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5007,8 +5007,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.65882355, g: 0, b: 0.16078432, a: 1}
-      key1: {r: 0.65882355, g: 0, b: 0.16078432, a: 1}
+      key0: {r: 1, g: 0.87843144, b: 0.11764707, a: 1}
+      key1: {r: 1, g: 0.9686275, b: 0.43137258, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5031,13 +5031,13 @@ TrailRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
@@ -5054,7 +5054,7 @@ GameObject:
   - component: {fileID: 611428394682078548}
   - component: {fileID: 6698795090010099852}
   - component: {fileID: 822556126950035680}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5151,7 +5151,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5705314132071300305}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: explosionContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}

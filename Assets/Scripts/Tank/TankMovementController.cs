@@ -10,13 +10,15 @@ public class TankMovementController : TankComponent
     [SerializeField] private float _walkingStoppingDistance = 0.5f;
 
     [SerializeField] private float _centerX = 0.0f;
-
+    
     [Header("Recoil")] [SerializeField] private float _recoilForce = 1.0f;
 
     [SerializeField] private float _maxRecoilForce = 1.0f;
 
     [SerializeField] private float _recoilDeacceleration = 1.0f;
-
+    
+    [SerializeField] private float _minX = -2.17f;
+    
     private Rigidbody2D _rigidbody;
 
     private Vector2 _pausedVelocity;
@@ -133,13 +135,22 @@ public class TankMovementController : TankComponent
 
     private void UpdateMovingForward()
     {
-        _rigidbody.AddForce(Vector2.right * _walkingSpeed);
+        _rigidbody.velocity += Vector2.right * _walkingSpeed * Time.deltaTime;
         _rigidbody.velocity = Vector2.ClampMagnitude(_rigidbody.velocity, _walkingSpeed);
     }
 
     private void UpdateRecoilDeacceleration()
     {
-        _rigidbody.AddForce(Vector2.right * _recoilDeacceleration);
+        
+        if (transform.position.x <= _minX)
+        {
+            var pos = transform.position;
+            pos.x = _minX;
+            transform.position = pos;
+            _rigidbody.velocity = Vector2.zero;
+        }
+        
+        _rigidbody.velocity += Vector2.right * _recoilDeacceleration * Time.deltaTime;
     }
 
     private bool IsMovingForward()
