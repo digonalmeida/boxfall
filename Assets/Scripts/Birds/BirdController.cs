@@ -61,6 +61,7 @@ public class BirdController : GameAgent
         Alive = true;
         _explosionEffect.SetActive(false);
         _spriteRenderer.enabled = true;
+        _spriteRenderer.gameObject.SetActive(true);
         foreach (var collider in _colliders)
         {
             collider.enabled = true;
@@ -80,11 +81,13 @@ public class BirdController : GameAgent
         _rigidbody.velocity = Vector3.zero;
         _explosionEffect.SetActive(true);
         _spriteRenderer.enabled = false;
+        _spriteRenderer.gameObject.SetActive(false);
         
         foreach (var collider in _colliders)
         {
             collider.enabled = false;
         }
+
         Alive = false;
         StartCoroutine(WaitAndDestroy());
     }

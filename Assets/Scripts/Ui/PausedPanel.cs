@@ -11,6 +11,11 @@ public class PausedPanel : UiElement
 
     public void GoHome()
     {
-        GameController.Instance.GoHome();
+        GameEvents.NotifyShowConfirmQuit();
+    }
+
+    public void Config()
+    {
+        GameEvents.NotifyShowConfig();
     }
 }

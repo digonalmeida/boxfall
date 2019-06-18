@@ -19,6 +19,12 @@ public class GameUi : MonoBehaviour
 
     [SerializeField]
     private UiElement _shopCanvas = null;
+
+    [SerializeField] 
+    private UiElement _confirmQuitPanel = null;
+    
+    [SerializeField] 
+    private UiElement _configPanel = null;
     
     private void Awake()
     {
@@ -29,6 +35,8 @@ public class GameUi : MonoBehaviour
         GameEvents.OnGameUnpaused += OnGameUnpaused;
         GameEvents.OnShowHomeScreen += OnShowHomeScreen;
         GameEvents.OnShowShop += OnShowShop;
+        GameEvents.OnShowConfig += OnShowConfig;
+        GameEvents.OnShowConfirmQuit += OnShowConfirmQuit;
     }
 
     private void OnDestroy()
@@ -39,6 +47,8 @@ public class GameUi : MonoBehaviour
         GameEvents.OnGameUnpaused -= OnGameUnpaused;
         GameEvents.OnShowHomeScreen -= OnShowHomeScreen;
         GameEvents.OnShowShop -= OnShowShop;
+        GameEvents.OnShowConfig -= OnShowConfig;
+        GameEvents.OnShowConfirmQuit -= OnShowConfirmQuit;
     }
 
     private void OnShowHomeScreen()
@@ -71,17 +81,35 @@ public class GameUi : MonoBehaviour
 
     private void OnShowShop()
     {
-        HideAll();
+        //HideAll();
         Show(_shopCanvas);
     }
 
+    private void OnShowConfig()
+    {
+        Show(_configPanel);
+    }
+
+    private void OnShowConfirmQuit()
+    {
+        HideAllKeepPause();
+        Show(_confirmQuitPanel);
+    }
+    
     private void HideAll()
+    {
+        HideAllKeepPause();
+        Hide(_pauseGameCanvas);
+    }
+
+    private void HideAllKeepPause()
     {
         Hide(_homeScreenPanel);
         Hide(_inGameCanvas);
         Hide(_endGameCanvas);
-        Hide(_pauseGameCanvas);
         Hide(_shopCanvas);
+        Hide(_configPanel);
+        Hide(_confirmQuitPanel);
     }
 
     private void Show(UiElement uiElement)
@@ -108,4 +136,5 @@ public class GameUi : MonoBehaviour
     {
         GameEvents.NotifyBackgroundClicked();
     }
+    
 }

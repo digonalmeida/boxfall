@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 92f74f4f2317b1f40b687db86bd14bb6, type: 3}
-  m_Name: star_powerup
+  m_Name: 1_star_powerup
   m_EditorClassIdentifier: 
   _id: star_powerup
-  _name: Star
+  _name: Star Power Up Upgrade
   _price: 0
   _icon: {fileID: 21300000, guid: 3113a8bd08529b64398082870d24779a, type: 3}
-  _description: '{0} seconds'
+  _description: Duration from {0}s to {1}s
   _allUpgrades:
   - {fileID: 11400000, guid: ca4f1af7ba2e89f4ba0bcd024bd8081a, type: 2}
   - {fileID: 11400000, guid: 48c629f5533906145b9de1c69bec981e, type: 2}
@@ -29,3 +29,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c1a4fcd494801f348a734e2423a192da, type: 2}
   - {fileID: 11400000, guid: 81cad6b7968e60348816216f1ac4ce4b, type: 2}
   _baseDuration: 5
+  _maxedDescription: 'Duration: {0} seconds'

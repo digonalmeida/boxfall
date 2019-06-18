@@ -14,6 +14,9 @@ public static class GameEvents
     public static event Action OnGameUnpaused;
     public static event Action OnShowHomeScreen;
     public static event Action OnShowShop;
+    public static event Action OnShowConfig;
+    public static event Action OnShowConfirmQuit;
+    
     public static event Action OnBirdSpawned;
     public static event Action OnUiAccept;
     public static event Action<EPowerUpType> OnPickupPowerUp;
@@ -94,5 +97,15 @@ public static class GameEvents
     public static void NotifyShowShop()
     {
         OnShowShop?.Invoke();
+    }
+
+    public static void NotifyShowConfig()
+    {
+        OnShowConfig?.Invoke();
+    }
+
+    public static void NotifyShowConfirmQuit()
+    {
+        OnShowConfirmQuit?.Invoke();
     }
 }

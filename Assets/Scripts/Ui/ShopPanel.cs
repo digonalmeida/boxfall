@@ -16,6 +16,6 @@ public class ShopPanel : UiElement
 
     public void GetMoney()
     {
-        InventoryManager.Instance.AddCoins(100);
+        InventoryManager.Instance.AddCoins(1000);
     }
 }

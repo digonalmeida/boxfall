@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 70824335944579082}
   - component: {fileID: 8255973025354730705}
   - component: {fileID: 6939209566651498425}
+  - component: {fileID: 8135966271165416808}
   m_Layer: 15
   m_Name: StarPowerUp
   m_TagString: Untagged
@@ -4859,6 +4860,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &8135966271165416808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656329308834861025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704b0915ec93fa4aa2618e784aa790a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1091043469591060096
 GameObject:
   m_ObjectHideFlags: 0

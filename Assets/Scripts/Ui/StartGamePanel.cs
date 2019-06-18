@@ -8,4 +8,14 @@ public class StartGamePanel : UiElement
     {
         GameEvents.NotifyShowShop();
     }
+    
+    public void Config()
+    {
+        GameEvents.NotifyShowConfig();
+    }
+
+    public void Leaderboards()
+    {
+        Debug.Log("Show leaderboards");
+    }
 }

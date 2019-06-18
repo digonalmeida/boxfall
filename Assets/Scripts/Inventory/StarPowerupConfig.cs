@@ -11,11 +11,22 @@ public class StarPowerupConfig : ItemConfig
     [SerializeField] 
     private float _baseDuration = 5.0f;
 
+    [SerializeField] private string _maxedDescription;
+
     public override string Description
     {
         get
         {
-            return string.Format(base.Description, GetDuration());
+            var duration = GetDuration();
+            var nextUpgrade = GetNextUpgrade();
+
+            if (nextUpgrade == null)
+            {
+                return string.Format(_maxedDescription, duration);
+            }
+            
+            var nextDuration = duration + nextUpgrade.Duration;
+            return string.Format(base.Description, duration, nextDuration);
         }
     }
 

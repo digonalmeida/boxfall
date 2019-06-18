@@ -1,0 +1,58 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Experimental.UIElements;
+using Button = UnityEngine.UI.Button;
+
+public class ConfigPanel : UiElement
+{
+    [SerializeField] 
+    private GameObject _soundOnButton;
+    
+    [SerializeField] 
+    private GameObject _soundOffButton;
+    
+    [SerializeField]
+    private Button _socialLoginButton;
+
+    //TODO implement options
+    private static bool _soundOn = true;
+    
+    //TODO implement options
+    public static bool _socialLogin = true;
+    
+    public void GoHome()
+    {
+        GameController.Instance.GoHome();
+    }
+
+    public void Close()
+    {
+        Hide();
+    }
+
+    public override void OnShow()
+    {
+        _socialLogin = true;
+        UpdateUi();
+    }
+
+    public void ToggleSound()
+    {
+        _soundOn = !_soundOn;
+        UpdateUi();
+    }
+
+    public void ToggleLogin()
+    {
+        _socialLogin = !_socialLogin;
+        UpdateUi();
+    }
+
+    private void UpdateUi()
+    {
+        _soundOnButton.SetActive(_soundOn);
+        _soundOffButton.SetActive(!_soundOn);
+        _socialLoginButton.interactable = _socialLogin;
+    }
+}
