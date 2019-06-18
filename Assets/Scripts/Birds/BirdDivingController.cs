@@ -26,13 +26,35 @@ public class BirdDivingController : BirdComponent
         }
     }
 
-    private void Awake()
+    protected void Awake()
     {
+        base.Awake();
         _rigidbody = GetComponent<Rigidbody2D>();
     }
-    
+
+    public override void OnShow()
+    {
+        base.OnShow();
+        _diving = false;
+    }
+
+    public override void OnHide()
+    {
+        base.OnHide();
+        _diving = false;
+    }
+
     private void Update()
     {
+        if(!enabled)
+        {
+            return;
+        }
+        
+        if(!Bird.Alive)
+        {
+            return;
+        }
         Debug.DrawRay(transform.position, AimDirection, Color.yellow, 1.0f);
         if (_diving)
         {

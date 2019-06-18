@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 656329307927471413}
   - component: {fileID: 4129089259247270200}
   - component: {fileID: 4514868680723788616}
-  - component: {fileID: 7718367578102133821}
   - component: {fileID: 70824335944579082}
   - component: {fileID: 8255973025354730705}
   - component: {fileID: 6939209566651498425}
+  - component: {fileID: 3088295579861558020}
   m_Layer: 10
   m_Name: StarPowerUp
   m_TagString: Untagged
@@ -165,22 +165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16e76f85036f5b47b25ab47583521c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!58 &7718367578102133821
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 656329308834861025}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.4
 --- !u!114 &70824335944579082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4859,6 +4843,18 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &3088295579861558020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 656329308834861025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704b0915ec93fa4aa2618e784aa790a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1091043469591060096
 GameObject:
   m_ObjectHideFlags: 0
@@ -4885,7 +4881,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1091043469591060096}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.39, y: -0.28, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 656329308834861039}
@@ -4957,7 +4953,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 637889e8e74682f4786fbf264998c3e5, type: 2}
+  - {fileID: 2100000, guid: 2d2bb20faa2b93c43a38059e155383cb, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5007,8 +5003,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.65882355, g: 0, b: 0.16078432, a: 1}
-      key1: {r: 0.65882355, g: 0, b: 0.16078432, a: 1}
+      key0: {r: 1, g: 0.87843144, b: 0.11764707, a: 1}
+      key1: {r: 1, g: 0.9686275, b: 0.43137258, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -5031,13 +5027,13 @@ TrailRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1

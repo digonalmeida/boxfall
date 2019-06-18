@@ -11,4 +11,14 @@ public class BirdComponent : MonoBehaviour
     {
         Bird = GetComponent<BirdController>();
     }
+
+    public virtual void OnShow()
+    {
+        //
+    }
+
+    public virtual void OnHide()
+    {
+        //
+    }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PoolableObject))]
 public class BirdController : GameAgent
 {
     [SerializeField]
@@ -13,6 +14,8 @@ public class BirdController : GameAgent
 
     private Rigidbody2D _rigidbody;
     private Collider2D[] _colliders;
+    private BirdComponent[] _components;
+    private PoolableObject _poolable;
     
     public bool Alive { get; private set; }
     public event Action OnKilled;
@@ -25,9 +28,11 @@ public class BirdController : GameAgent
 
         _rigidbody = GetComponent<Rigidbody2D>();
         _colliders = GetComponents<Collider2D>();
-        Alive = true;
+        _poolable = GetComponent<PoolableObject>();
+        _components = GetComponents<BirdComponent>();
+        _poolable.OnShow += OnShow;
     }
-
+    
     protected override void OnGameEnded()
     {
         base.OnGameEnded();
@@ -50,9 +55,28 @@ public class BirdController : GameAgent
         _rigidbody.velocity = _pausedVelocity;
     }
 
+    private void OnShow()
+    {
+        gameObject.SetActive(true);
+        Alive = true;
+        _explosionEffect.SetActive(false);
+        _spriteRenderer.enabled = true;
+        foreach (var collider in _colliders)
+        {
+            collider.enabled = true;
+        }
+        foreach(var component in _components)
+        {
+            component.OnShow();
+        }
+    }
+
     public void DestroyBird()
     {
-        _rigidbody.gravityScale = 0;
+        if(!Alive)
+        {
+            return;
+        }
         _rigidbody.velocity = Vector3.zero;
         _explosionEffect.SetActive(true);
         _spriteRenderer.enabled = false;
@@ -62,7 +86,19 @@ public class BirdController : GameAgent
             collider.enabled = false;
         }
         Alive = false;
-        Destroy(gameObject, 1.0f);
+        StartCoroutine(WaitAndDestroy());
+    }
+
+    private IEnumerator WaitAndDestroy()
+    {
+        yield return new WaitForSeconds(1.0f);
+        foreach(var component in _components)
+        {
+            component.OnHide();
+        }
+
+        gameObject.SetActive(false);
+        _poolable.Recycle();
     }
 
     public void KillBird()

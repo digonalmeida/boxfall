@@ -5,6 +5,7 @@ using UnityEngine;
 public class spawner : GameAgent
 {
     public GameObject _prefab;
+    public ObjectPool _pool;
     public float startDelay = 1.0f;
     public List<SpawnPoint> spawnPoints;
     private Coroutine _coroutine;
@@ -32,7 +33,6 @@ public class spawner : GameAgent
         base.Awake();
         enabled = false;
     }
-
 
     protected override void OnGameStarted()
     {
@@ -149,8 +149,10 @@ public class spawner : GameAgent
         var prefab = sp.OverridePrefab != null
             ? sp.OverridePrefab
             : _prefab;
-        
-        var crate = Instantiate(prefab);
+
+        var pool = sp.OverridePool ?? _pool;
+   
+        var crate = pool?.GetInstance() ?? Instantiate(prefab);
       
         crate.transform.position = sp.transform.position;
         crate.transform.localScale = sp.transform.localScale;

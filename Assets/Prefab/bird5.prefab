@@ -233,6 +233,7 @@ GameObject:
   - component: {fileID: 440330366893698167}
   - component: {fileID: 142197414911518215}
   - component: {fileID: 6074230566423568754}
+  - component: {fileID: 8111068593171290527}
   m_Layer: 10
   m_Name: bird5
   m_TagString: Untagged
@@ -395,6 +396,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.4
+--- !u!114 &8111068593171290527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3912193111456209582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704b0915ec93fa4aa2618e784aa790a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6939395627444364849
 GameObject:
   m_ObjectHideFlags: 0

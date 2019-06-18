@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 4138599622575703302}
   - component: {fileID: 8192218267423622607}
   - component: {fileID: 8672017048560971630}
+  - component: {fileID: 5701634899678891003}
   m_Layer: 10
   m_Name: bird3
   m_TagString: Untagged
@@ -287,6 +288,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &5701634899678891003
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4138599621335625682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d704b0915ec93fa4aa2618e784aa790a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4562331327361007283
 GameObject:
   m_ObjectHideFlags: 0
