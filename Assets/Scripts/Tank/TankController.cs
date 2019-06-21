@@ -46,12 +46,12 @@ public class TankController : GameAgent
         IdleState = new IdleState();
         
         _stateMachine.Initialize(this);
-        GameEvents.OnShowHomeScreen += OnHomeScreen;
+        GameEvents.OnEnterTitleState += OnHomeScreen;
     }
 
     private void OnDestroy()
     {
-        GameEvents.OnShowHomeScreen -= OnHomeScreen;
+        GameEvents.OnEnterTitleState -= OnHomeScreen;
     }
 
     private T InitializeComponent<T>() where T: TankComponent

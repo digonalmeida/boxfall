@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Experimental.UIElements;
 using Button = UnityEngine.UI.Button;
 
-public class ConfigPanel : UiElement
+public class ConfigPanel : UIStatePanel
 {
     [SerializeField] 
     private GameObject _soundOnButton;
@@ -14,21 +14,17 @@ public class ConfigPanel : UiElement
     
     [SerializeField]
     private Button _socialLoginButton;
-
+    
     //TODO implement options
     private static bool _soundOn = true;
     
     //TODO implement options
     public static bool _socialLogin = true;
     
-    public void GoHome()
+    public ConfigPanel() 
+        : base(EUiState.ConfigPanel)
     {
-        GameController.Instance.GoHome();
-    }
-
-    public void Close()
-    {
-        Hide();
+        //
     }
 
     public override void OnShow()

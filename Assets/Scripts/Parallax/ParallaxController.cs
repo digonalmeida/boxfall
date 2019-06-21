@@ -15,7 +15,7 @@ public class ParallaxController : GameAgent
     private int _maxSpeedLevel = 10;
 
     private int _currentLevel;
-    private LevelController _levelController;
+    private ScoringSystem _scoringSystem;
     
     private float _speed;
 
@@ -32,12 +32,12 @@ public class ParallaxController : GameAgent
         
         _speed = startSpeed;
 
-        if (_levelController == null)
+        if (_scoringSystem == null)
         {
-            _levelController = GameController.Instance.LevelController;
+            _scoringSystem = GameController.Instance.ScoringSystem;
         }
 
-        _levelController.OnLevelChanged += OnLevelChanged;
+        _scoringSystem.OnLevelChanged += OnLevelChanged;
         _currentLevel = 1;
         
     }
@@ -45,12 +45,12 @@ public class ParallaxController : GameAgent
     protected override void OnGameEnded()
     {
         _currentLevel = 1;
-        _levelController.OnLevelChanged -= OnLevelChanged;
+        _scoringSystem.OnLevelChanged -= OnLevelChanged;
     }
 
     private void OnLevelChanged()
     {
-        _currentLevel = _levelController.CurrentLevel;
+        _currentLevel = _scoringSystem.CurrentLevel;
     }
 
     public float t;

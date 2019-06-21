@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndGamePanel : UiElement
+public class EndGamePanel : UIStatePanel
 {
+    public EndGamePanel() 
+        : base(EUiState.EndGame)
+    {
+        //
+    }
+    
     public void GoHome()
     {
         GameController.Instance.GoHome();

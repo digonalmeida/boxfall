@@ -36,20 +36,20 @@ public class spawner : GameAgent
 
     protected override void OnGameStarted()
     {
-        GameController.Instance.LevelController.OnLevelChanged += OnLevelChanged;
+        GameController.Instance.ScoringSystem.OnLevelChanged += OnLevelChanged;
         OnLevelChanged();
         StartSpawning();
     }
 
     protected override void OnGameEnded()
     {
-        GameController.Instance.LevelController.OnLevelChanged -= OnLevelChanged;
+        GameController.Instance.ScoringSystem.OnLevelChanged -= OnLevelChanged;
         StopSpawning();
     }
 
     private void OnLevelChanged()
     {
-        _currentLevel = GameController.Instance.LevelController.CurrentLevel;
+        _currentLevel = GameController.Instance.ScoringSystem.CurrentLevel;
     }
     
     private void StartSpawning()

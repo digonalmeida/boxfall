@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConfirmQuitPanel : UiElement
+public class ConfirmQuitPanel : UIStatePanel
 {
-    public void Close()
+    public ConfirmQuitPanel() 
+        : base(EUiState.ConfirmQuit)
     {
-        Hide();
+        //
     }
 
     public void GoHome()

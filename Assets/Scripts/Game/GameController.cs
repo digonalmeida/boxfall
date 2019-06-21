@@ -5,36 +5,23 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
-
-    [SerializeField]
-    private GameUi _ui = null;
-
+    
     [SerializeField] 
     private PowerUpsManager _powerUpsManager;
 
-    [SerializeField]
-    private LevelController _levelController;
-    
     private GameStateMachine _stateMachine;
     
-    public GameUi Ui
-    {
-        get { return _ui; }
-    }
+    public GameUi Ui { get; private set; }
 
     public PowerUpsManager PowerUpsManager
     {
         get { return _powerUpsManager; }
     }
 
-    public LevelController LevelController
-    {
-        get { return _levelController; }
-    }
-
+    public ScoringSystem ScoringSystem { get; private set; }
     public InGameState InGameState { get; private set; }
     public EndGameState EndGameState { get; private set; }
-    public StartGameState HomeState { get; private set; }
+    public TitleGameState HomeState { get; private set; }
 
     public void StartGame()
     {
@@ -52,8 +39,11 @@ public class GameController : MonoBehaviour
 
         InGameState = new InGameState();
         EndGameState = new EndGameState();
-        HomeState = new StartGameState();
+        HomeState = new TitleGameState();
 
+        ScoringSystem = new ScoringSystem(this);
+        Ui = new GameUi();
+        
         _stateMachine = new GameStateMachine();
         _stateMachine.Initialize(this);
     }

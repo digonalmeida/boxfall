@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartGameState : GameState
+public class TitleGameState : GameState
 {
     public override void OnEnter()
     {
         base.OnEnter();
-        GameEvents.NotifyShowHomeScreen();
+        Entity.Ui.SetState(EUiState.TitleScreen);
+        GameEvents.NotifyEnterTitleState();
     }
 
     public override void OnExit()

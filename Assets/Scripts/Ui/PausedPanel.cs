@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PausedPanel : UiElement
+public class PausedPanel : UIStatePanel
 {
+    public PausedPanel() 
+        : base(EUiState.PauseGame)
+    {
+        //
+    }
+    
     public void Unpause()
     {
         GameEvents.NotifyGameUnpaused();
@@ -11,11 +17,11 @@ public class PausedPanel : UiElement
 
     public void GoHome()
     {
-        GameEvents.NotifyShowConfirmQuit();
+        GameController.Instance.Ui.SetState(EUiState.ConfirmQuit);
     }
 
     public void Config()
     {
-        GameEvents.NotifyShowConfig();
+        GameController.Instance.Ui.SetState(EUiState.ConfigPanel);
     }
 }

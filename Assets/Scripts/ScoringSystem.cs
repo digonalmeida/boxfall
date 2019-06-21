@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class LevelController : MonoBehaviour
+public class ScoringSystem
 {
     public int CurrentScore { get; private set; }
     public int CurrentLevel { get; private set; }
     public int BestScore { get; private set; }
     public int CurrentLevelScore { get; private set; }
     public int CurrentLevelTargetScore { get; private set; }
-    
-    private int _currentLevelTarget = 0;
 
     public event Action OnScoreChanged;
     public event Action OnLevelChanged;
     public event Action OnLevelScoreChanged;
     public event Action OnCoinsChanged;
 
-    private void Awake()
+    public ScoringSystem(GameController gameController)
     {
         LoadBestScore();
         ResetScore();
@@ -26,7 +24,7 @@ public class LevelController : MonoBehaviour
         GameEvents.OnGameEnded += OnGameEnded;
     }
 
-    private void OnDestroy()
+    ~ScoringSystem()
     {
         GameEvents.OnGameStarted -= OnGameStarted;
         GameEvents.OnGameEnded -= OnGameEnded;
@@ -98,6 +96,5 @@ public class LevelController : MonoBehaviour
     {
         BestScore = PlayerPrefs.GetInt("best_score", 0);
     }
-    
 }
 

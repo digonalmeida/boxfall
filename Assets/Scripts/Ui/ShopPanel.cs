@@ -2,8 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopPanel : UiElement
+public class ShopPanel : UIStatePanel
 {
+    public ShopPanel() 
+        : base(EUiState.Shop)
+    {
+        //
+    }
+    
     public void GoHome()
     {
         GameController.Instance.GoHome();

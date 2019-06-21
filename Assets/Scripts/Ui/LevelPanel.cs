@@ -10,32 +10,32 @@ public class LevelPanel : UiElement
     [SerializeField]
     private Text _levelText;
 
-    private LevelController _levelController;
+    private ScoringSystem _scoringSystem;
 
     protected override void Initialize()
     {
         base.Initialize();
-        _levelController = GameController.Instance.LevelController;
+        _scoringSystem = GameController.Instance.ScoringSystem;
     }
 
     public override void OnShow()
     {
         base.OnShow();
-        _levelController.OnLevelScoreChanged += UpdateUi;
+        _scoringSystem.OnLevelScoreChanged += UpdateUi;
         UpdateUi();
     }
 
     public override void OnHide()
     {
         base.OnHide();
-        _levelController.OnLevelScoreChanged -= UpdateUi;
+        _scoringSystem.OnLevelScoreChanged -= UpdateUi;
     }
 
     private void UpdateUi()
     {
-        var total = _levelController.CurrentLevelTargetScore;
-        var current = _levelController.CurrentLevelScore;
+        var total = _scoringSystem.CurrentLevelTargetScore;
+        var current = _scoringSystem.CurrentLevelScore;
         _levelProgress.fillAmount = (float)current / (float)total;
-        _levelText.text = _levelController.CurrentLevel.ToString();
+        _levelText.text = _scoringSystem.CurrentLevel.ToString();
     }
 }

@@ -12,10 +12,7 @@ public static class GameEvents
     public static event Action OnGameEnded;
     public static event Action OnGamePaused;
     public static event Action OnGameUnpaused;
-    public static event Action OnShowHomeScreen;
-    public static event Action OnShowShop;
-    public static event Action OnShowConfig;
-    public static event Action OnShowConfirmQuit;
+    public static event Action OnEnterTitleState;
     
     public static event Action OnBirdSpawned;
     public static event Action OnUiAccept;
@@ -23,6 +20,7 @@ public static class GameEvents
     public static event Action<PowerUpData> OnActivatePowerUp;
     public static event Action<PowerUpData> OnDeactivatePowerUp;
     public static event Action OnBackgroundClicked;
+    
     
     public static void NotifyTankDestroyed()
     {
@@ -77,16 +75,13 @@ public static class GameEvents
     public static void NotifyGamePaused()
     {
         OnGamePaused?.Invoke();
+        GameController.Instance.Ui.SetState(EUiState.PauseGame);
     }
 
     public static void NotifyGameUnpaused()
     {
         OnGameUnpaused?.Invoke();
-    }
-
-    public static void NotifyShowHomeScreen()
-    {
-        OnShowHomeScreen?.Invoke();
+        GameController.Instance.Ui.SetState(EUiState.None);
     }
 
     public static void NotifyBackgroundClicked()
@@ -94,18 +89,8 @@ public static class GameEvents
         OnBackgroundClicked?.Invoke();
     }
 
-    public static void NotifyShowShop()
+    public static void NotifyEnterTitleState()
     {
-        OnShowShop?.Invoke();
-    }
-
-    public static void NotifyShowConfig()
-    {
-        OnShowConfig?.Invoke();
-    }
-
-    public static void NotifyShowConfirmQuit()
-    {
-        OnShowConfirmQuit?.Invoke();
+        OnEnterTitleState?.Invoke();
     }
 }

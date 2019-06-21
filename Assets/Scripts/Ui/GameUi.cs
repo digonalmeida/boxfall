@@ -1,140 +1,74 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameUi : MonoBehaviour
+public class GameUi
 {
-    [SerializeField] 
-    private UiElement _homeScreenPanel = null;
+    public delegate void ChangeStateDelegate(EUiState oldEUiState, EUiState newEUiState);
+
+    public event ChangeStateDelegate OnChangeState;
+
+    private readonly Dictionary<EUiLayer, EUiState> _currentStates;
+
+    public void SetState(EUiState state)
+    {
+        EUiLayer layer = GetLayer(state);
+        SetState(state, layer);
+    }
+
+    private EUiLayer GetLayer(EUiState state)
+    {
+        switch (state)
+        {
+            case EUiState.TitleScreen:
+            case EUiState.InGame:
+            case EUiState.EndGame:
+                return EUiLayer.Base;
+            case EUiState.PauseGame:
+            case EUiState.Shop:
+            case EUiState.ConfirmQuit:
+            case EUiState.ConfigPanel:
+                return EUiLayer.Popup;
+            default:
+                return EUiLayer.Base;
+        }
+    }
+
+    public void UnsetState(EUiState state)
+    {
+        SetState(EUiState.None, GetLayer(state));
+    }
+    
+    private void SetState(EUiState state, EUiLayer layer)
+    {
+        //close popups
+        foreach (var stateLayer in _currentStates.Keys.ToList())
+        {
+            if (stateLayer <= layer)
+            {
+                continue;
+            }
+
+            var lastState = _currentStates[stateLayer];
+            _currentStates[stateLayer] = EUiState.None;
+            OnChangeState?.Invoke(lastState, EUiState.None);
+        }
         
-    [SerializeField]
-    private UiElement _inGameCanvas = null;
-
-    [SerializeField]
-    private UiElement _endGameCanvas = null;
-
-    [SerializeField] 
-    private UiElement _pauseGameCanvas = null;
-
-    [SerializeField]
-    private UiElement _shopCanvas = null;
-
-    [SerializeField] 
-    private UiElement _confirmQuitPanel = null;
-    
-    [SerializeField] 
-    private UiElement _configPanel = null;
-    
-    private void Awake()
-    {
-        HideAll();
-        GameEvents.OnGameStarted += OnGameStarted;
-        GameEvents.OnGameEnded += OnGameEnded;
-        GameEvents.OnGamePaused += OnGamePaused;
-        GameEvents.OnGameUnpaused += OnGameUnpaused;
-        GameEvents.OnShowHomeScreen += OnShowHomeScreen;
-        GameEvents.OnShowShop += OnShowShop;
-        GameEvents.OnShowConfig += OnShowConfig;
-        GameEvents.OnShowConfirmQuit += OnShowConfirmQuit;
-    }
-
-    private void OnDestroy()
-    {
-        GameEvents.OnGameStarted -= OnGameStarted;
-        GameEvents.OnGameEnded -= OnGameEnded;
-        GameEvents.OnGamePaused -= OnGamePaused;
-        GameEvents.OnGameUnpaused -= OnGameUnpaused;
-        GameEvents.OnShowHomeScreen -= OnShowHomeScreen;
-        GameEvents.OnShowShop -= OnShowShop;
-        GameEvents.OnShowConfig -= OnShowConfig;
-        GameEvents.OnShowConfirmQuit -= OnShowConfirmQuit;
-    }
-
-    private void OnShowHomeScreen()
-    {
-        HideAll();
-        Show(_homeScreenPanel);
+        EUiState currentState = _currentStates[layer];
+        
+        _currentStates[layer] = state;
+        
+        OnChangeState?.Invoke(currentState, state);
     }
     
-    private void OnGameStarted()
+    public GameUi()
     {
-        HideAll();
-        Show(_inGameCanvas);
+        _currentStates = new Dictionary<EUiLayer, EUiState>();
+        _currentStates[EUiLayer.Base] = EUiState.None;
+        _currentStates[EUiLayer.Popup] = EUiState.None;
+        _currentStates[EUiLayer.PopupConfirmation] = EUiState.None;
     }
-
-    private void OnGameEnded()
-    {
-        HideAll();
-        Show(_endGameCanvas);
-    }
-
-    private void OnGamePaused()
-    {
-        Show(_pauseGameCanvas);
-    }
-
-    private void OnGameUnpaused()
-    {
-        Hide(_pauseGameCanvas);
-    }
-
-    private void OnShowShop()
-    {
-        //HideAll();
-        Show(_shopCanvas);
-    }
-
-    private void OnShowConfig()
-    {
-        Show(_configPanel);
-    }
-
-    private void OnShowConfirmQuit()
-    {
-        HideAllKeepPause();
-        Show(_confirmQuitPanel);
-    }
-    
-    private void HideAll()
-    {
-        HideAllKeepPause();
-        Hide(_pauseGameCanvas);
-    }
-
-    private void HideAllKeepPause()
-    {
-        Hide(_homeScreenPanel);
-        Hide(_inGameCanvas);
-        Hide(_endGameCanvas);
-        Hide(_shopCanvas);
-        Hide(_configPanel);
-        Hide(_confirmQuitPanel);
-    }
-
-    private void Show(UiElement uiElement)
-    {
-        if(uiElement == null)
-        {
-            return;
-        }
-
-        uiElement.Show();
-    }
-
-    private void Hide(UiElement uiElement)
-    {
-        if(uiElement == null)
-        {
-            return;
-        }
-
-        uiElement.Hide();
-    }
-
-    public void OnBackgroundClicked()
-    {
-        GameEvents.NotifyBackgroundClicked();
-    }
-    
 }
