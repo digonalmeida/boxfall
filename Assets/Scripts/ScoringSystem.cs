@@ -8,6 +8,7 @@ public class ScoringSystem
     public int CurrentScore { get; private set; }
     public int CurrentLevel { get; private set; }
     public int BestScore { get; private set; }
+    public int BestLevel { get; private set; }
     public int CurrentLevelScore { get; private set; }
     public int CurrentLevelTargetScore { get; private set; }
 
@@ -19,6 +20,7 @@ public class ScoringSystem
     public ScoringSystem(GameController gameController)
     {
         LoadBestScore();
+        LoadBestLevel();
         ResetScore();
         GameEvents.OnGameStarted += OnGameStarted;
         GameEvents.OnGameEnded += OnGameEnded;
@@ -34,6 +36,7 @@ public class ScoringSystem
     {
         ResetScore();
         LoadBestScore();
+        LoadBestLevel();
         GameEvents.OnBirdKilled += OnBirdKilled;
     }
 
@@ -42,6 +45,7 @@ public class ScoringSystem
         CurrentScore = 0;
         CurrentLevel = 1;
         CurrentLevelScore = 0;
+        BestLevel = 1;
         CurrentLevelTargetScore = GetTargetScore(CurrentLevel);
 
         OnScoreChanged?.Invoke();
@@ -78,6 +82,12 @@ public class ScoringSystem
             SaveBestScore();
         }
 
+        if(CurrentLevel > BestLevel)
+        {
+            BestLevel = CurrentLevel;
+            SaveBestLevel();
+        }
+
         InventoryManager.Instance.AddCoins(1);
         OnCoinsChanged?.Invoke();
     }
@@ -95,6 +105,16 @@ public class ScoringSystem
     public void LoadBestScore()
     {
         BestScore = PlayerPrefs.GetInt("best_score", 0);
+    }
+
+    public void SaveBestLevel()
+    {
+        PlayerPrefs.SetInt("best_level", BestLevel);
+    }
+
+    public void LoadBestLevel()
+    {
+        BestLevel = PlayerPrefs.GetInt("best_level", 1);
     }
 }
 

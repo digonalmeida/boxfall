@@ -17,6 +17,7 @@ public class InGameState : GameState
         base.OnExit();
         GameEvents.NotifyGameUnpaused();
         GameEvents.NotifyGameEnded();
+        Entity.Ui.SetState(EUiState.EndGame);
     }
 
     private void OnTankDestroyed()

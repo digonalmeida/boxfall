@@ -7,8 +7,12 @@ public class LevelPanel : UiElement
 {
     [SerializeField]
     private Image _levelProgress;
+
     [SerializeField]
     private Text _levelText;
+
+    [SerializeField]
+    private int _bestLevel;
 
     private ScoringSystem _scoringSystem;
 

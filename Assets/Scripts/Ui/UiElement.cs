@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class UiElement: MonoBehaviour
 {
     private bool _initialized = false;
+    private List<Action> _updateEvents = new List<Action>();
+
     public void CheckInitialized()
     {
         if (_initialized)
@@ -18,7 +21,7 @@ public abstract class UiElement: MonoBehaviour
 
     protected virtual void Initialize()
     {
-        
+        //
     }
     
     public void Show()
@@ -48,7 +51,6 @@ public abstract class UiElement: MonoBehaviour
 
     public virtual void OnHide()
     {
-        
     }
 
     private void OnEnable()
