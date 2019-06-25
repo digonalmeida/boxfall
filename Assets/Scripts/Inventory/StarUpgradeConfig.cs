@@ -7,7 +7,7 @@ public class StarUpgradeConfig : ItemConfig
 {
     [Header("Star Configuration")]
     [SerializeField] 
-    private float _duration;
+    private float _duration = 0.5f;
 
     public float Duration
     {

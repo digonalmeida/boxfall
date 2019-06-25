@@ -8,19 +8,19 @@ public class EndGamePanel : UIStatePanel
     private InventoryManager _inventoryManager;
 
     [SerializeField]
-    private Text _lastScore;
+    private Text _lastScore = null;
 
     [SerializeField]
-    private Text _bestScore;
+    private Text _bestScore = null;
 
     [SerializeField]
-    private Text _lastLevel;
+    private Text _lastLevel = null;
 
     [SerializeField]
-    private Text _bestLevel;
+    private Text _bestLevel = null;
 
     [SerializeField]
-    private Text _currency;
+    private Text _currency = null;
 
     public EndGamePanel() 
         : base(EUiState.EndGame)

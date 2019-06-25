@@ -2,23 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ShieldPowerupUI : MonoBehaviour
+public class ShieldPowerupUI : UiElement
 {
     [SerializeField]
     private Image _progressBar;
 
+    private PowerUpsManager _powerUpsManager;
     private PowerUpData _powerUpData;
 
-    private void Awake()
+    protected override void Initialize()
     {
-        GameEvents.OnActivatePowerUp += OnActivatePowerUp;
-        GameEvents.OnDeactivatePowerUp += OnDeactivatePowerUp;
+        base.Initialize();
     }
 
-    private void OnDestroy()
+    public override void OnShow()
     {
-        GameEvents.OnActivatePowerUp -= OnActivatePowerUp;
-        GameEvents.OnDeactivatePowerUp -= OnDeactivatePowerUp;
+        base.OnShow();
+        
+        _powerUpsManager.OnActivatePowerUp += OnActivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp += OnDeactivatePowerUp;
+        
+        _progressBar.fillAmount = 0;
+    }
+
+    public override void OnHide()
+    {
+        base.OnHide();
+
+        _powerUpsManager.OnActivatePowerUp -= OnActivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp -= OnDeactivatePowerUp;
     }
 
     private void OnActivatePowerUp(PowerUpData powerUp)
@@ -38,8 +50,7 @@ public class ShieldPowerupUI : MonoBehaviour
         _progressBar.fillAmount = _powerUpData.Time / _powerUpData.TotalTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if(_powerUpData == null)
         {

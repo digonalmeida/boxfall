@@ -18,7 +18,7 @@ public class ItemConfig : ScriptableObject
     private Sprite _icon;
 
     [SerializeField] 
-    private string _description;
+    private string _description = string.Empty;
 
     public string Name
     {

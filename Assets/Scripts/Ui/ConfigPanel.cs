@@ -7,13 +7,13 @@ using Button = UnityEngine.UI.Button;
 public class ConfigPanel : UIStatePanel
 {
     [SerializeField] 
-    private GameObject _soundOnButton;
+    private GameObject _soundOnButton = null;
     
     [SerializeField] 
-    private GameObject _soundOffButton;
+    private GameObject _soundOffButton = null;
     
     [SerializeField]
-    private Button _socialLoginButton;
+    private Button _socialLoginButton = null;
     
     //TODO implement options
     private static bool _soundOn = true;

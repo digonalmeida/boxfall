@@ -7,10 +7,10 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField]
-    private ItemConfig[] AllItems;
+    private ItemConfig[] AllItems = null;
 
     [SerializeField] 
-    private ItemConfig[] InitialItems;
+    private ItemConfig[] InitialItems = null;
 
     public static InventoryManager Instance { get; private set; }
     

@@ -62,6 +62,7 @@ public class BirdController : GameAgent
         _explosionEffect.SetActive(false);
         _spriteRenderer.enabled = true;
         _spriteRenderer.gameObject.SetActive(true);
+        
         foreach (var collider in _colliders)
         {
             collider.enabled = true;
@@ -70,6 +71,8 @@ public class BirdController : GameAgent
         {
             component.OnShow();
         }
+        
+        GameEvents.NotifyBirdSpawned();
     }
 
     public void DestroyBird()

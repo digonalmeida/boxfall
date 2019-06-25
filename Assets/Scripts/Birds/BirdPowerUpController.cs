@@ -10,6 +10,11 @@ public class BirdPowerUpController : BirdComponent
         Bird.OnKilled += OnKilled;
     }
 
+    private void Start()
+    {
+        
+    }
+
     private void OnDestroy()
     {
         Bird.OnKilled -= OnKilled;
@@ -17,6 +22,6 @@ public class BirdPowerUpController : BirdComponent
 
     private void OnKilled()
     {
-        GameEvents.NotifyPickupPowerUp(EPowerUpType.Shield);
+        GameEvents.NotifyPickupPowerUp(EPowerUpType.Star);
     }
 }

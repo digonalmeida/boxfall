@@ -6,13 +6,10 @@ using UnityEngine.UI;
 public class LevelPanel : UiElement
 {
     [SerializeField]
-    private Image _levelProgress;
+    private Image _levelProgress = null;
 
     [SerializeField]
-    private Text _levelText;
-
-    [SerializeField]
-    private int _bestLevel;
+    private Text _levelText = null;
 
     private ScoringSystem _scoringSystem;
 

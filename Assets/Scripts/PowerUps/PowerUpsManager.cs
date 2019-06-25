@@ -11,20 +11,22 @@ public class PowerUpData
     public float Time { get; private set; }
     private bool _active;
 
-    public event Action OnActivate;
-    public event Action OnDeactivate;
+    public event Action<PowerUpData> OnActivate;
+    public event Action<PowerUpData> OnDeactivate;
 
-    public PowerUpData(EPowerUpType type, float totalTime)
+    public PowerUpData(EPowerUpType type, float totalTime, Action<PowerUpData> activateCallback, Action<PowerUpData> deactivateCallback)
     {
         TotalTime = totalTime;
         Type = type;
+        OnActivate += activateCallback;
+        OnDeactivate += deactivateCallback;
     }
 
     public void Activate()
     {
         if(!_active)
         {
-            GameEvents.NotifyActivatePowerUp(this);
+            OnActivate?.Invoke(this);
         }
 
         _active = true;
@@ -40,7 +42,7 @@ public class PowerUpData
 
         _active = false;
         Time = 0;
-        GameEvents.NotifyDeactivatePowerup(this);
+        OnDeactivate?.Invoke(this);
     }
 
     public void Update(float deltaTime)
@@ -59,37 +61,54 @@ public class PowerUpData
     }
 }
 
-public class PowerUpsManager : GameAgent
+public class PowerUpsManager 
 {
-    [SerializeField]
-    private float _defaultPowerupTime = 5.0f;
+    public event Action<PowerUpData> OnActivatePowerUp;
+    public event Action<PowerUpData> OnDeactivatePowerUp;
+    
+    private const float _defaultPowerupTime = 5.0f;
 
     private List<PowerUpData> _powerUps;
 
-    protected override void Awake()
+    private GameController _gameController;
+    
+    public PowerUpsManager(GameController gameController)
     {
-        base.Awake();
+        _gameController = gameController;
         
         GameEvents.OnPickupPowerUp += OnPickupPowerUp;
+        GameEvents.OnGameStarted += OnGameStarted;
+        GameEvents.OnGameEnded += OnGameEnded;
+        
         _powerUps = new List<PowerUpData>();
-        _powerUps.Add(new PowerUpData(EPowerUpType.Shield, _defaultPowerupTime));
+        _powerUps.Add(new PowerUpData(EPowerUpType.Star, _defaultPowerupTime, OnActivatePowerUpInternal, OnDeactivatePowerUpInternal));
     }
-
-    private void OnDestroy()
+    
+    ~PowerUpsManager()
     {
         GameEvents.OnPickupPowerUp -= OnPickupPowerUp;
+        GameEvents.OnGameStarted -= OnGameStarted;
+        GameEvents.OnGameEnded -= OnGameEnded;
     }
 
-    protected override void OnGameStarted()
+    private void OnActivatePowerUpInternal(PowerUpData data)
     {
-        base.OnGameStarted();
+        OnActivatePowerUp?.Invoke(data);
+    }
+
+    private void OnDeactivatePowerUpInternal(PowerUpData data)
+    {
+        OnDeactivatePowerUp?.Invoke(data);
+    }
+
+    private void OnGameStarted()
+    {
         Reset();
-        GetPowerUpData(EPowerUpType.Shield).TotalTime = InventoryManager.Instance.GetStarPowerupDuration();
+        GetPowerUpData(EPowerUpType.Star).TotalTime = InventoryManager.Instance.GetStarPowerupDuration();
     }
 
-    protected override void OnGameEnded()
+    private void OnGameEnded()
     {
-        base.OnGameEnded();
         Reset();
     }
 
@@ -108,9 +127,9 @@ public class PowerUpsManager : GameAgent
         return _powerUps.Find(p => p.Type == type);
     }
 
-    private void Update()
+    public void Update()
     {
-        if (IsPaused)
+        if (_gameController.IsPaused)
         {
             return;
         }
@@ -122,7 +141,7 @@ public class PowerUpsManager : GameAgent
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            GameEvents.NotifyPickupPowerUp(EPowerUpType.Shield);
+            GameEvents.NotifyPickupPowerUp(EPowerUpType.Star);
         }
     }
 }

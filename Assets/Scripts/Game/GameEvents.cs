@@ -17,8 +17,6 @@ public static class GameEvents
     public static event Action OnBirdSpawned;
     public static event Action OnUiAccept;
     public static event Action<EPowerUpType> OnPickupPowerUp;
-    public static event Action<PowerUpData> OnActivatePowerUp;
-    public static event Action<PowerUpData> OnDeactivatePowerUp;
     public static event Action OnBackgroundClicked;
     
     
@@ -60,16 +58,6 @@ public static class GameEvents
     public static void NotifyPickupPowerUp(EPowerUpType type)
     {
         OnPickupPowerUp?.Invoke(type);
-    }
-    
-    public static void NotifyActivatePowerUp(PowerUpData data)
-    {
-        OnActivatePowerUp?.Invoke(data);
-    }
-    
-    public static void NotifyDeactivatePowerup(PowerUpData data)
-    {
-        OnDeactivatePowerUp?.Invoke(data);
     }
 
     public static void NotifyGamePaused()

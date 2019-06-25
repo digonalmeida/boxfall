@@ -7,13 +7,26 @@ public class ShopItemController : UiElement
 {
     public ItemConfig _item = null;
 
-    [SerializeField] private Image _icon;
-    [SerializeField] private Text _title;
-    [SerializeField] private Text _description;
-    [SerializeField] private Text _price;
-    [SerializeField] private GameObject _boughtButton;
-    [SerializeField] private GameObject _buyButton;
-    [SerializeField] private Button _buyButtonInteractable;
+    [SerializeField] 
+    private Image _icon = null;
+    
+    [SerializeField] 
+    private Text _title = null;
+    
+    [SerializeField] 
+    private Text _description = null;
+    
+    [SerializeField] 
+    private Text _price = null;
+    
+    [SerializeField] 
+    private GameObject _boughtButton = null;
+    
+    [SerializeField] 
+    private GameObject _buyButton = null;
+    
+    [SerializeField] 
+    private Button _buyButtonInteractable = null;
 
     private void Start()
     {

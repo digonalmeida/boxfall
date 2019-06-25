@@ -10,8 +10,9 @@ public class TankCollisionController : TankComponent
     public delegate void TargetHitDelegate(BirdController birdController);
     public event TargetHitDelegate OnHitByTarget;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _collider = GetComponent<Collider2D>();
     }
 

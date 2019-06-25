@@ -8,34 +8,36 @@ public class TankPowerUpController : TankComponent
     [SerializeField]
     private Animator _animator = null;
 
+    private PowerUpsManager _powerUpsManager;
+    
     static TankPowerUpController()
     {
         _invulnerableAnimationHash = Animator.StringToHash("Invulnerable");
     }
+    
     public bool Invulnerable { get; private set; }
     public override void Initialize(TankController tank)
     {
         base.Initialize(tank);
-        GameEvents.OnActivatePowerUp += OnActivatePowerUp;
-        GameEvents.OnDeactivatePowerUp += OnDeactivatePowerUp;
+        _powerUpsManager = GameController.Instance.PowerUpsManager;
     }
-
-    private void OnDestroy()
-    {
-        GameEvents.OnActivatePowerUp -= OnActivatePowerUp;
-        GameEvents.OnDeactivatePowerUp -= OnDeactivatePowerUp;
-    }
-
+    
     protected override void OnGameStarted()
     {
         base.OnGameStarted();
         SetInvulnerable(false);
+        
+        
+        _powerUpsManager.OnActivatePowerUp += OnActivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp += OnDeactivatePowerUp;
     }
     
     protected override void OnGameEnded()
     {
         base.OnGameEnded();
         SetInvulnerable(false);
+        _powerUpsManager.OnActivatePowerUp -= OnActivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp -= OnDeactivatePowerUp;
     }
 
     private void SetInvulnerable(bool invulnerable)
@@ -47,7 +49,7 @@ public class TankPowerUpController : TankComponent
 
     private void OnActivatePowerUp(PowerUpData powerUp)
     {
-        if (powerUp.Type != EPowerUpType.Shield)
+        if (powerUp.Type != EPowerUpType.Star)
         {
             return;
         }
@@ -57,7 +59,7 @@ public class TankPowerUpController : TankComponent
     
     private void OnDeactivatePowerUp(PowerUpData powerUp)
     {
-        if (powerUp.Type != EPowerUpType.Shield)
+        if (powerUp.Type != EPowerUpType.Star)
         {
             return;
         }

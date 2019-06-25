@@ -18,10 +18,13 @@ public class StarNightOverlay : GameAgent
     private float _targetAlpha = 0;
     private float _alphaPerSecond = 2.0f;
 
+    private PowerUpsManager _powerUpsManager;
     protected override void Awake()
     {
         base.Awake();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        _powerUpsManager = GameController.Instance.PowerUpsManager;
     }
 
     private void Reset()
@@ -33,22 +36,22 @@ public class StarNightOverlay : GameAgent
     {
         base.OnGameStarted();
 
-        GameEvents.OnActivatePowerUp += OnActivatePowerUp;
-        GameEvents.OnDeactivatePowerUp += OnDeactivatePowerUp;
+        _powerUpsManager.OnActivatePowerUp += OnActivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp += OnDeactivatePowerUp;
         Reset();
     }
 
     protected override void OnGameEnded()
     {
         base.OnGameEnded();
-        GameEvents.OnDeactivatePowerUp -= OnActivatePowerUp;
-        GameEvents.OnDeactivatePowerUp -= OnDeactivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp -= OnActivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp -= OnDeactivatePowerUp;
         Reset();
     }
 
     private void OnActivatePowerUp(PowerUpData powerUp)
     {
-        if (powerUp.Type != EPowerUpType.Shield)
+        if (powerUp.Type != EPowerUpType.Star)
         {
             return;
         }
@@ -59,7 +62,7 @@ public class StarNightOverlay : GameAgent
 
     private void OnDeactivatePowerUp(PowerUpData powerUp)
     {
-        if (powerUp.Type != EPowerUpType.Shield)
+        if (powerUp.Type != EPowerUpType.Star)
         {
             return;
         }

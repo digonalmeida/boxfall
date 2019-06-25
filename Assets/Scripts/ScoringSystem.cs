@@ -15,7 +15,6 @@ public class ScoringSystem
     public event Action OnScoreChanged;
     public event Action OnLevelChanged;
     public event Action OnLevelScoreChanged;
-    public event Action OnCoinsChanged;
 
     public ScoringSystem(GameController gameController)
     {
@@ -51,7 +50,6 @@ public class ScoringSystem
         OnScoreChanged?.Invoke();
         OnLevelScoreChanged?.Invoke();
         OnLevelScoreChanged?.Invoke();
-        OnCoinsChanged?.Invoke();
     }
 
     private void OnGameEnded()
@@ -89,7 +87,6 @@ public class ScoringSystem
         }
 
         InventoryManager.Instance.AddCoins(1);
-        OnCoinsChanged?.Invoke();
     }
 
     private int GetTargetScore(int level)

@@ -159,7 +159,6 @@ public class spawner : GameAgent
         
         crate.GetComponent<Rigidbody2D>().velocity = Quaternion.Euler(0,0,-sp.angle) * Vector2.left * sp.force;
         spawnPoints.RemoveAt(pointIndex);
-        GameEvents.NotifyBirdSpawned();
     }
     
     

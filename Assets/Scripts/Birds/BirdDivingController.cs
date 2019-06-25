@@ -26,7 +26,7 @@ public class BirdDivingController : BirdComponent
         }
     }
 
-    protected void Awake()
+    protected override void Awake()
     {
         base.Awake();
         _rigidbody = GetComponent<Rigidbody2D>();

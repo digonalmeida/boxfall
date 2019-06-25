@@ -5,10 +5,10 @@ using UnityEngine;
 public class ShopList : MonoBehaviour
 {
     [SerializeField] 
-    private ShopItemController _template;
+    private ShopItemController _template = null;
 
     [SerializeField] 
-    public List<ItemConfig> _items;
+    public List<ItemConfig> _items = null;
 
     private List<ShopItemController> _instantiatedShopItems = new List<ShopItemController>();
 
