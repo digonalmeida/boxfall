@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UiManager : MonoBehaviour
 {
-    public void Start()
+    public void Awake()
     {
         var uiSystem = GameController.Instance.Ui;
         var statePanels = GetComponentsInChildren<UIStatePanel>(true);

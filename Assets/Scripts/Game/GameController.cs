@@ -34,13 +34,15 @@ public class GameController : MonoBehaviour
     {
         Instance = this;
 
+        IsPaused = false;
+
         InGameState = new InGameState();
         EndGameState = new EndGameState();
         HomeState = new TitleGameState();
 
+        Ui = new GameUi();
         ScoringSystem = new ScoringSystem(this);
         PowerUpsManager = new PowerUpsManager(this);
-        Ui = new GameUi();
         
         _stateMachine = new GameStateMachine();
         _stateMachine.Initialize(this);

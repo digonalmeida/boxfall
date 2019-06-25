@@ -11,7 +11,7 @@ public class StarPowerupConfig : ItemConfig
     [SerializeField] 
     private float _baseDuration = 5.0f;
 
-    [SerializeField] private string _maxedDescription;
+    [SerializeField] private string _maxedDescription = "";
 
     public override string Description
     {

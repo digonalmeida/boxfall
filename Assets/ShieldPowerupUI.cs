@@ -13,6 +13,7 @@ public class ShieldPowerupUI : UiElement
     protected override void Initialize()
     {
         base.Initialize();
+        _powerUpsManager = GameController.Instance.PowerUpsManager;
     }
 
     public override void OnShow()

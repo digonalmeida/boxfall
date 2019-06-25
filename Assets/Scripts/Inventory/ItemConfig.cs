@@ -6,16 +6,16 @@ using UnityEngine;
 public class ItemConfig : ScriptableObject
 {
     [SerializeField] 
-    private string _id;
+    private string _id = "";
     
     [SerializeField]
-    private string _name;
+    private string _name = "";
 
     [SerializeField] 
-    private int _price;
+    private int _price = 0;
 
     [SerializeField] 
-    private Sprite _icon;
+    private Sprite _icon = null;
 
     [SerializeField] 
     private string _description = string.Empty;
