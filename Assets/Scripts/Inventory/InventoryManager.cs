@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
+    private const string _starPowerupId = "star_powerup";
+    
     [SerializeField]
-    private ItemConfig[] AllItems = null;
-
-    [SerializeField] 
-    private ItemConfig[] InitialItems = null;
+    private List<ItemConfig> AllItems = null;
 
     public static InventoryManager Instance { get; private set; }
     
@@ -23,18 +21,28 @@ public class InventoryManager : MonoBehaviour
 
     public float GetStarPowerupDuration()
     {
-        var items = GetItems<StarPowerupConfig>();
-        float val = 0;
-        foreach(var item in items)
+        var item = GetItem(_starPowerupId);
+        return item.GetCurrentValue();
+    }
+
+    public void SetupItems(List<ItemConfig> allItems)
+    {
+        AllItems = allItems;
+    }
+
+    public List<ItemConfig> GetShopItems()
+    {
+        List<ItemConfig> shopItems = new List<ItemConfig>();
+
+        foreach (var item in AllItems)
         {
-            var duration = item.GetDuration();
-            if(duration > val)
+            if (item.ShowOnShop)
             {
-                val = duration;
+                shopItems.Add(item);
             }
         }
 
-        return val;
+        return shopItems;
     }
     
     public List<T> GetItems<T>() where T:ItemConfig
@@ -66,6 +74,7 @@ public class InventoryManager : MonoBehaviour
     public void Clear()
     {
         _inventory.Clear();
+        AddInitialItems();
         Coins = 0;
         
         OnCoinsChanged?.Invoke();
@@ -75,9 +84,12 @@ public class InventoryManager : MonoBehaviour
 
     private void AddInitialItems()
     {
-        foreach (var item in InitialItems)
+        foreach (var item in AllItems)
         {
-            _inventory.Add(item.Id);
+            if (item.IsInitial)
+            {
+                _inventory.Add(item.Id);
+            }
         }
     }
 
@@ -138,6 +150,7 @@ public class InventoryManager : MonoBehaviour
         if (string.IsNullOrEmpty(jsonData))
         {
             _inventory = new List<string>();
+            AddInitialItems();
             return;
         }
         

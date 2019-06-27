@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopList : MonoBehaviour
+public class ShopList : UiElement
 {
     [SerializeField] 
     private ShopItemController _template = null;
@@ -12,8 +12,10 @@ public class ShopList : MonoBehaviour
 
     private List<ShopItemController> _instantiatedShopItems = new List<ShopItemController>();
 
-    public void Start()
+    protected override void Initialize()
     {
+        base.Initialize();
+        _items = InventoryManager.Instance.GetShopItems();
         CreateList();
     }
     
@@ -36,7 +38,6 @@ public class ShopList : MonoBehaviour
     public void CreateItem(ItemConfig config)
     {
         var item = Instantiate(_template.gameObject, _template.transform.parent).GetComponent<ShopItemController>();
-        item.transform.parent = _template.transform.parent;
         item.transform.SetAsLastSibling();
         item.gameObject.SetActive(true);
         item.SetItem(config);

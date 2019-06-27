@@ -55,61 +55,49 @@ public class ShopItemController : UiElement
     {
         _item = item;
 
-        if (item is StarPowerupConfig)
-        {
-            SetupStarPowerup((StarPowerupConfig)item);
-        }
-        else
-        {
-            SetupItem(item);
-        }
-    }
-
-    private void SetupItem(ItemConfig item)
-    {
         _title.text = item.Name;
         _icon.sprite = item.Icon;
-        _description.text = item.Description;
-        _price.text = item.Price.ToString();
+        
         bool bought = InventoryManager.Instance.Check(item.Id);
-        
-        _buyButton.SetActive(!bought);
-        _boughtButton.SetActive(bought);
-        _buyButtonInteractable.interactable = InventoryManager.Instance.Coins >= _item.Price;
-    }
+        _buyButton.SetActive(false);
+        _boughtButton.SetActive(false);
 
-    private void SetupStarPowerup(StarPowerupConfig item)
-    {
-        _title.text = item.Name;
-        _icon.sprite = item.Icon;
-        _description.text = item.Description;
-        
-        var upgrade = item.GetNextUpgrade();
-        if (upgrade == null)
-        {
-            _buyButton.SetActive(false);
-            _boughtButton.SetActive(true);
-        }
-        else
+        if (!bought)
         {
             _buyButton.SetActive(true);
-            _boughtButton.SetActive(false);
-            _price.text = upgrade.Price.ToString();
-            _buyButtonInteractable.interactable = InventoryManager.Instance.Coins >= upgrade.Price;
-          //  _upgradeDescription.text = upgrade.Description;
+            _buyButtonInteractable.interactable = InventoryManager.Instance.Coins >= _item.Price;
+            _price.text = item.Price.ToString();
+            _description.text = item.Description;
+        }
+        else
+        {
+            var upgrade = item.GetNextUpgrade();
+            if (upgrade == null)
+            {
+                _boughtButton.SetActive(true);
+                _description.text = item.Description;
+            }
+            else
+            {
+                _buyButton.SetActive(true);
+                _price.text = upgrade.Price.ToString();
+                _buyButtonInteractable.interactable = InventoryManager.Instance.Coins >= upgrade.Price;
+                _description.text = item.GetNextUpgradeDescription();
+            }
         }
     }
-
+    
     public void Buy()
     {
-        var starPowerup =  _item as StarPowerupConfig;
-        if (starPowerup != null)
+        bool bought = InventoryManager.Instance.Check(_item.Id);
+        if (!bought)
         {
-            BuyUpgrade(starPowerup);
-            return;
+            BuyItem(_item);
         }
-        
-        BuyItem(_item);
+        else
+        {
+            BuyNextUpgrade(_item);
+        }
     }
 
     public void BuyItem(ItemConfig item)
@@ -123,15 +111,15 @@ public class ShopItemController : UiElement
         InventoryManager.Instance.Add(item.Id);
     }
 
-    public void BuyUpgrade(StarPowerupConfig starPowerup)
+    public void BuyNextUpgrade(ItemConfig item)
     {
-        var upgrade = starPowerup.GetNextUpgrade();
-        
-        if (upgrade == null)
+        var upgrade = item.GetNextUpgrade();
+        if (InventoryManager.Instance.Coins < upgrade.Price)
         {
             return;
         }
         
-        BuyItem(upgrade);    
+        InventoryManager.Instance.RemoveCoins(upgrade.Price);
+        InventoryManager.Instance.Add(item.GetNextUpgradeId());
     }
 }
