@@ -6336,19 +6336,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllItems:
-  - {fileID: 11400000, guid: ca4f1af7ba2e89f4ba0bcd024bd8081a, type: 2}
-  - {fileID: 11400000, guid: 48c629f5533906145b9de1c69bec981e, type: 2}
-  - {fileID: 11400000, guid: 6f58940ea67c1aa448362a0a3e08c989, type: 2}
-  - {fileID: 11400000, guid: 679fbb3180040c74fad2b9173d19d97b, type: 2}
-  - {fileID: 11400000, guid: 5edea1cd026ab26439c370be9087c275, type: 2}
-  - {fileID: 11400000, guid: 5ee7862d1affa494cb6611c1173ffc15, type: 2}
-  - {fileID: 11400000, guid: 0810677b6e4dd1a449b44abed42be8f7, type: 2}
-  - {fileID: 11400000, guid: b9afc4dde4af73c45b93c0377c7c1f6e, type: 2}
-  - {fileID: 11400000, guid: c1a4fcd494801f348a734e2423a192da, type: 2}
-  - {fileID: 11400000, guid: 81cad6b7968e60348816216f1ac4ce4b, type: 2}
   - {fileID: 11400000, guid: 95bf734d27621c946aa7c93f0345e2d8, type: 2}
-  InitialItems:
-  - {fileID: 11400000, guid: 95bf734d27621c946aa7c93f0345e2d8, type: 2}
+  - {fileID: 11400000, guid: 7d6923c05483018478f8a6e515fa3c95, type: 2}
+  - {fileID: 11400000, guid: a537f6fbad4dd0d4ca5523c1b27f4d6b, type: 2}
+  - {fileID: 11400000, guid: ef211aa5af153bc4ab550bc6f54b3773, type: 2}
+  - {fileID: 11400000, guid: 5844ca85828f9cb4bbdb72b764321cfa, type: 2}
+  - {fileID: 11400000, guid: ff5a593d413af3d4fb5af9b9239e8f5d, type: 2}
+  - {fileID: 11400000, guid: 2bb076b231319fc448ef4fa63b42c259, type: 2}
 --- !u!1 &891021282
 GameObject:
   m_ObjectHideFlags: 0
@@ -17730,7 +17724,7 @@ PrefabInstance:
     - target: {fileID: 1862109249105280142, guid: 3d52de11eb191284fbf66ad9201e7b09,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -76.09999
+      value: -76.1
       objectReference: {fileID: 0}
     - target: {fileID: 1862109249105280142, guid: 3d52de11eb191284fbf66ad9201e7b09,
         type: 3}
@@ -17771,6 +17765,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9126394032958827798, guid: 3d52de11eb191284fbf66ad9201e7b09,
+        type: 3}
+      propertyPath: m_Text
+      value: Spawns Stars that gives you immunity for {0}s
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d52de11eb191284fbf66ad9201e7b09, type: 3}

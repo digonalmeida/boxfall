@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    private const string _starPowerupId = "star_powerup";
+    public const string StarPowerupId = "star_powerup";
     
     [SerializeField]
     private List<ItemConfig> AllItems = null;
@@ -18,10 +18,12 @@ public class InventoryManager : MonoBehaviour
     private List<string> _inventory;
     
     public int Coins { get; private set; }
+    
+    public EquipmentSystem EquipmentSystem { get; private set; }
 
     public float GetStarPowerupDuration()
     {
-        var item = GetItem(_starPowerupId);
+        var item = GetItem(StarPowerupId);
         return item.GetCurrentValue();
     }
 
@@ -125,6 +127,7 @@ public class InventoryManager : MonoBehaviour
     
     private void Awake()
     {
+        EquipmentSystem = new EquipmentSystem(this);
         Load();
         Instance = this;
     }

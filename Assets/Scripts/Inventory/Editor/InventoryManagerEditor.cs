@@ -15,6 +15,7 @@ public class InventoryManagerEditor : Editor
         if(GUILayout.Button("ReloadInventory"))
         {
             var itemConfigs = FindItemConfigs();
+            Undo.RecordObject(inventoryManager, "Update Inventory Manager.");
             inventoryManager.SetupItems(itemConfigs);
             EditorUtility.SetDirty(inventoryManager);
         }

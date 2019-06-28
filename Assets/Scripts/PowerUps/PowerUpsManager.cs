@@ -104,7 +104,11 @@ public class PowerUpsManager
     private void OnGameStarted()
     {
         Reset();
-        GetPowerUpData(EPowerUpType.Star).TotalTime = InventoryManager.Instance.GetStarPowerupDuration();
+        var starPowerupItem = InventoryManager.Instance.GetItem(InventoryManager.StarPowerupId);
+        if (starPowerupItem != null)
+        {
+            GetPowerUpData(EPowerUpType.Star).TotalTime = starPowerupItem.GetCurrentValue();
+        }
     }
 
     private void OnGameEnded()

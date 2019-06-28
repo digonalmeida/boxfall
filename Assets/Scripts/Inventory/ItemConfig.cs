@@ -67,7 +67,7 @@ public class ItemConfig : ScriptableObject
 
     public virtual string Description
     {
-        get { return _description; }
+        get { return string.Format(_description, _baseValue); }
     }
 
     public bool IsInitial

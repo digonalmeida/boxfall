@@ -22,6 +22,7 @@ public class EndGamePanel : UIStatePanel
     [SerializeField]
     private Text _currency = null;
 
+
     public EndGamePanel() 
         : base(EUiState.EndGame)
     {
@@ -37,6 +38,7 @@ public class EndGamePanel : UIStatePanel
     {
         GameController.Instance.StartGame();
     }
+
 
     public override void OnShow()
     {
@@ -58,7 +60,7 @@ public class EndGamePanel : UIStatePanel
 
     private void UpdateUi()
     {
-        _lastScore.text = _scoringSystem.CurrentLevelScore.ToString();
+        _lastScore.text = _scoringSystem.CurrentScore.ToString();
         _bestScore.text = _scoringSystem.BestScore.ToString();
         _lastLevel.text = _scoringSystem.CurrentLevel.ToString();
         _bestLevel.text = _scoringSystem.BestLevel.ToString();
