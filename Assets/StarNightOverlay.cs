@@ -11,6 +11,9 @@ public class StarNightOverlay : GameAgent
     [SerializeField]
     [Range(0.0f, 1.0f)]
     private float _maxAlpha = 0.4f;
+
+    [SerializeField] 
+    private AnimationCurve _curve = AnimationCurve.Linear(0, 0, 1, 1);
     
     private SpriteRenderer _spriteRenderer;
     private PowerUpData _powerUpData = null;
@@ -80,7 +83,8 @@ public class StarNightOverlay : GameAgent
         }
 
         float ratio = _powerUpData.Time / _powerUpData.TotalTime;
-        _targetAlpha = Mathf.Lerp(_minAlpha, _maxAlpha, ratio);
+        var curveRatio = _curve.Evaluate(ratio);
+        _targetAlpha = Mathf.Lerp(_minAlpha, _maxAlpha, curveRatio);
     }
     
     private void Update()
