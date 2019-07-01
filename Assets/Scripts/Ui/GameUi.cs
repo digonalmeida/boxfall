@@ -26,9 +26,9 @@ public class GameUi
             case EUiState.TitleScreen:
             case EUiState.InGame:
             case EUiState.EndGame:
+            case EUiState.Shop:
                 return EUiLayer.Base;
             case EUiState.PauseGame:
-            case EUiState.Shop:
             case EUiState.ConfirmQuit:
             case EUiState.ConfigPanel:
                 return EUiLayer.Popup;

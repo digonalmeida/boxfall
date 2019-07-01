@@ -14,11 +14,18 @@ public class AliveState : State<TankController>
         Entity.MovementController.enabled = true;
         Entity.TurrentController.enabled = true;
         Entity.CollisionController.enabled = true;
+        Entity.TankEquipmentController.UpdateEquipment();
     }
 
     private void OnHitByTarget(BirdController birdController)
     {
         if (Entity.TankPowerUpController.Invulnerable)
+        {
+            birdController.KillBird();
+            return;
+        }
+
+        if(Entity.TankEquipmentController.TakeDamage())
         {
             birdController.KillBird();
             return;

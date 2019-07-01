@@ -18,7 +18,6 @@ public class TankCollisionController : TankComponent
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        
         if (!enabled)
         {
             return;

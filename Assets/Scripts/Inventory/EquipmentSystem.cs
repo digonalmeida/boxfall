@@ -38,6 +38,8 @@ public class EquipmentSystem
         }
 
         _currentEquipment[item.EquipmentSlot] = string.Empty;
+        Save();
+        NotifyEquipmentChanged();
     }
 
     public ItemConfig GetEquipment(EquipmentSlot slot)
@@ -92,6 +94,8 @@ public class EquipmentSystem
         var equipmentData = new EquipmentData(itemData);
         var json = JsonUtility.ToJson(equipmentData);
         PlayerPrefs.SetString("equipment", json);
+
+        Load();
     }
 
     private void Load()
@@ -126,7 +130,12 @@ public class EquipmentSystem
     [Serializable]
     private class EquipmentData
     {
-        public readonly EquipmentItemData[] Items;
+        [SerializeField]
+        public EquipmentItemData[] Items;
+        public EquipmentData()
+        {
+
+        }
 
         public EquipmentData(EquipmentItemData[] items)
         {
@@ -137,8 +146,12 @@ public class EquipmentSystem
     [Serializable]
     private class EquipmentItemData
     {
-        public readonly string Id;
-        public readonly EquipmentSlot Slot;
+        public string Id;
+        public EquipmentSlot Slot;
+        public EquipmentItemData()
+        {
+
+        }
 
         public EquipmentItemData(EquipmentSlot slot, string id)
         {

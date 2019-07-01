@@ -6,7 +6,7 @@ using UnityEngine;
 public static class GameEvents
 {
     public static event Action OnTankDestroyed;
-    public static event Action OnBirdKilled;
+    public static event Action<BirdController> OnBirdKilled;
     public static event Action OnShotFired;
     public static event Action OnGameStarted;
     public static event Action OnGameEnded;
@@ -25,9 +25,9 @@ public static class GameEvents
         OnTankDestroyed?.Invoke();
     }
 
-    public static void NotifyBirdKilled()
+    public static void NotifyBirdKilled(BirdController bird)
     {
-        OnBirdKilled?.Invoke();
+        OnBirdKilled?.Invoke(bird);
     }
 
     public static void NotifyShotFired()
@@ -69,7 +69,6 @@ public static class GameEvents
     public static void NotifyGameUnpaused()
     {
         OnGameUnpaused?.Invoke();
-        GameController.Instance.Ui.SetState(EUiState.None);
     }
 
     public static void NotifyBackgroundClicked()

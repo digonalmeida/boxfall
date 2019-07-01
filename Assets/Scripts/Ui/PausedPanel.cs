@@ -12,6 +12,7 @@ public class PausedPanel : UIStatePanel
     
     public void Unpause()
     {
+        GameController.Instance.Ui.UnsetState(EUiState.PauseGame);
         GameEvents.NotifyGameUnpaused();
     }
 

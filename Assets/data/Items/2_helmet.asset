@@ -14,6 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: helmet
   _name: Pig Helmet
-  _price: 500
+  _price: 1000
   _icon: {fileID: 21300000, guid: d15bad9a3f7474a4faad4555d692d691, type: 3}
-  _description: Protects your head
+  _description: Protects your head.
+  _upgradeDescription: 
+  _isInitial: 0
+  _showOnShop: 1
+  _equipmentSlot: 2
+  _baseValue: 0
+  _upgrades: []

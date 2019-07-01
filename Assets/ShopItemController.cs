@@ -28,10 +28,25 @@ public class ShopItemController : UiElement
     [SerializeField] 
     private Button _buyButtonInteractable = null;
 
+    [SerializeField]
+    private Button _equipButton = null;
+
+    [SerializeField]
+    private Button _unequipButton = null;
+
+    private EquipmentSystem _equipmentSystem;
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+        _equipmentSystem = InventoryManager.Instance.EquipmentSystem;
+    }
+
     private void Start()
     {
         InventoryManager.Instance.OnInventoryChanged += OnInventoryChanged;
         InventoryManager.Instance.OnCoinsChanged += OnInventoryChanged;
+        _equipmentSystem.OnEquipmentChanged += OnInventoryChanged;
         SetItem(_item);
     }
 
@@ -39,6 +54,7 @@ public class ShopItemController : UiElement
     {
         InventoryManager.Instance.OnInventoryChanged -= OnInventoryChanged;
         InventoryManager.Instance.OnCoinsChanged -= OnInventoryChanged;
+        _equipmentSystem.OnEquipmentChanged -= OnInventoryChanged;
     }
 
     private void OnInventoryChanged()
@@ -61,6 +77,8 @@ public class ShopItemController : UiElement
         bool bought = InventoryManager.Instance.Check(item.Id);
         _buyButton.SetActive(false);
         _boughtButton.SetActive(false);
+        _equipButton.gameObject.SetActive(false);
+        _unequipButton.gameObject.SetActive(false);
 
         if (!bought)
         {
@@ -83,6 +101,18 @@ public class ShopItemController : UiElement
                 _price.text = upgrade.Price.ToString();
                 _buyButtonInteractable.interactable = InventoryManager.Instance.Coins >= upgrade.Price;
                 _description.text = item.GetNextUpgradeDescription();
+            }
+
+            if(_item.IsEquipment)
+            {
+                if(_equipmentSystem.CheckIsEquipped(_item))
+                {
+                    _unequipButton.gameObject.SetActive(true);
+                }
+                else
+                {
+                    _equipButton.gameObject.SetActive(true);
+                }
             }
         }
     }
@@ -121,5 +151,15 @@ public class ShopItemController : UiElement
         
         InventoryManager.Instance.RemoveCoins(upgrade.Price);
         InventoryManager.Instance.Add(item.GetNextUpgradeId());
+    }
+
+    public void Equip()
+    {
+        _equipmentSystem.EquipItem(_item);
+    }
+
+    public void Unequip()
+    {
+        _equipmentSystem.RemoveItem(_item);
     }
 }

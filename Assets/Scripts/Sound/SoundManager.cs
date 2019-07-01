@@ -37,7 +37,7 @@ public class SoundManager : MonoBehaviour
         PlaySfx(_shot);
     }
 
-    private void OnBirdKilled()
+    private void OnBirdKilled(BirdController bird)
     {
         PlaySfx(_enemyDie);
     }

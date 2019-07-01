@@ -45,44 +45,25 @@ public class ItemConfig : ScriptableObject
     [SerializeField] 
     public ItemUpgradeConfig[] _upgrades;
 
-    public string Name
-    {
-        get { return _name; }
-    }
+    public string Name => _name;
 
-    public string Id
-    {
-        get { return _id; }
-    }
+    public string Id => _id;
 
-    public int Price
-    {
-        get { return _price; }
-    }
+    public int Price => _price;
 
-    public Sprite Icon
-    {
-        get { return _icon; }
-    }
+    public Sprite Icon => _icon;
+    
+    public bool IsInitial => _isInitial;
+
+    public bool ShowOnShop => _showOnShop;
+
+    public EquipmentSlot EquipmentSlot => _equipmentSlot;
+
+    public bool IsEquipment => _equipmentSlot != EquipmentSlot.None;
 
     public virtual string Description
     {
         get { return string.Format(_description, _baseValue); }
-    }
-
-    public bool IsInitial
-    {
-        get { return _isInitial; }
-    }
-
-    public bool ShowOnShop
-    {
-        get { return _showOnShop; }
-    }
-
-    public EquipmentSlot EquipmentSlot
-    {
-        get { return _equipmentSlot; }
     }
 
     public string GetUpgradeId(int id)
@@ -92,6 +73,12 @@ public class ItemConfig : ScriptableObject
     
     private int GetNextUpgradeIndex()
     {
+        if (_upgrades == null ||
+            _upgrades.Length == 0)
+        {
+            return -1;
+        }
+
         for (int i = 0; i < _upgrades.Length; i++)
         {
             string upgradeId = GetUpgradeId(i);
@@ -108,6 +95,12 @@ public class ItemConfig : ScriptableObject
     
     private int GetCurrentUpgradeIndex()
     {
+        if (_upgrades == null ||
+            _upgrades.Length == 0)
+        {
+            return -1;
+        }
+
         int i = 0;
         for (i = 0; i < _upgrades.Length; i++)
         {
@@ -118,7 +111,7 @@ public class ItemConfig : ScriptableObject
             }
         }
 
-        return i;
+        return i-1;
     }
     
     public ItemUpgradeConfig GetNextUpgrade()

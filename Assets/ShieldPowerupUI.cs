@@ -14,6 +14,7 @@ public class ShieldPowerupUI : UiElement
     {
         base.Initialize();
         _powerUpsManager = GameController.Instance.PowerUpsManager;
+        gameObject.SetActive(false);
     }
 
     public override void OnShow()
@@ -38,12 +39,14 @@ public class ShieldPowerupUI : UiElement
     {
         _progressBar.gameObject.SetActive(true);
         _powerUpData = powerUp;
+        gameObject.SetActive(true);
     }
 
     private void OnDeactivatePowerUp(PowerUpData powerUp)
     {
         _progressBar.gameObject.SetActive(false);
         _powerUpData = null;
+        gameObject.SetActive(false);
     }
 
     private void UpdateBar()

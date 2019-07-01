@@ -18,6 +18,8 @@ public class TankController : GameAgent
     public TankTurrentController TurrentController { get; private set; }
     public TankCollisionController CollisionController { get; private set; }
     public TankPowerUpController TankPowerUpController { get; private set; }
+    public TankEquipmentController TankEquipmentController { get; private set; }
+
     public AliveState AliveState { get; private set; }
     public DeadState DeadState { get; private set; }
     public IdleState IdleState { get; private set; }
@@ -40,6 +42,7 @@ public class TankController : GameAgent
         TurrentController = InitializeComponent<TankTurrentController>();
         CollisionController = InitializeComponent<TankCollisionController>();
         TankPowerUpController = InitializeComponent<TankPowerUpController>();
+        TankEquipmentController = InitializeComponent<TankEquipmentController>();
         
         AliveState = new AliveState();
         DeadState = new DeadState();

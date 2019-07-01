@@ -235,7 +235,7 @@ GameObject:
   - component: {fileID: 6074230566423568754}
   - component: {fileID: 8111068593171290527}
   m_Layer: 10
-  m_Name: bird5
+  m_Name: pink_bird
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,6 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055c5a089403aa34996351664f7f7d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _birdType: 1
   _spriteRenderer: {fileID: 6797613919470263322}
   _explosionEffect: {fileID: 8870912912070349571}
 --- !u!50 &3912193111456209570

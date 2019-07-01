@@ -13,5 +13,6 @@ public class IdleState : State<TankController>
         Entity.MovementController.enabled = true;
         Entity.TurrentController.enabled = false;
         Entity.CollisionController.enabled = false;
+        Entity.TankEquipmentController.UpdateEquipment();
     }
 }

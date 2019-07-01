@@ -6,7 +6,6 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
     
-
     private GameStateMachine _stateMachine;
     
     public GameUi Ui { get; private set; }
@@ -41,7 +40,7 @@ public class GameController : MonoBehaviour
         HomeState = new TitleGameState();
 
         Ui = new GameUi();
-        ScoringSystem = new ScoringSystem(this);
+        ScoringSystem = new ScoringSystem(this, InventoryManager.Instance.EquipmentSystem);
         PowerUpsManager = new PowerUpsManager(this);
         
         _stateMachine = new GameStateMachine();

@@ -22,6 +22,9 @@ public class EndGamePanel : UIStatePanel
     [SerializeField]
     private Text _currency = null;
 
+    [SerializeField]
+    private Text _deltaCurrency = null;
+
 
     public EndGamePanel() 
         : base(EUiState.EndGame)
@@ -65,5 +68,6 @@ public class EndGamePanel : UIStatePanel
         _lastLevel.text = _scoringSystem.CurrentLevel.ToString();
         _bestLevel.text = _scoringSystem.BestLevel.ToString();
         _currency.text = _inventoryManager.Coins.ToString();
+        _deltaCurrency.text = string.Format("(+{0})", _scoringSystem.CurrentScore);
     }
 }

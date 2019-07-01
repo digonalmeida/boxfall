@@ -7,6 +7,9 @@ using UnityEngine;
 public class BirdController : GameAgent
 {
     [SerializeField]
+    private MaskItemBirdType _birdType;
+
+    [SerializeField]
     private SpriteRenderer _spriteRenderer = null;
 
     [SerializeField]
@@ -18,10 +21,12 @@ public class BirdController : GameAgent
     private PoolableObject _poolable;
     
     public bool Alive { get; private set; }
+    public MaskItemBirdType BirdType => _birdType;
     public event Action OnKilled;
 
     private Vector2 _pausedVelocity;
 
+   
     protected override void Awake()
     {
         base.Awake();
@@ -113,7 +118,7 @@ public class BirdController : GameAgent
         {
             return;
         }
-        GameEvents.NotifyBirdKilled();
+        GameEvents.NotifyBirdKilled(this);
         OnKilled?.Invoke();
         DestroyBird();
     }

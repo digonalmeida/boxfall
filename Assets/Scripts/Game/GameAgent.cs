@@ -22,6 +22,7 @@ public class GameAgent : MonoBehaviour
         GameEvents.OnGameUnpaused -= OnGameUnpausedInternal;
     }
 
+
     protected virtual void OnGameStarted()
     {
         IsPaused = false;

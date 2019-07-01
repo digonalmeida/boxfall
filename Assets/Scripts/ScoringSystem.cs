@@ -16,13 +16,17 @@ public class ScoringSystem
     public event Action OnLevelChanged;
     public event Action OnLevelScoreChanged;
 
-    public ScoringSystem(GameController gameController)
+    private EquipmentSystem _equipmentSystem;
+
+    public ScoringSystem(GameController gameController, EquipmentSystem equipmentSystem)
     {
         LoadBestScore();
         LoadBestLevel();
         ResetScore();
         GameEvents.OnGameStarted += OnGameStarted;
         GameEvents.OnGameEnded += OnGameEnded;
+
+        _equipmentSystem = equipmentSystem;
     }
 
     ~ScoringSystem()
@@ -57,12 +61,14 @@ public class ScoringSystem
         GameEvents.OnBirdKilled -= OnBirdKilled;
     }
 
-    private void OnBirdKilled()
+    private void OnBirdKilled(BirdController bird)
     {
-        CurrentScore++;
+        int score = CalculateScore(bird);
+
+        CurrentScore += score;
         OnScoreChanged?.Invoke();
 
-        CurrentLevelScore++;
+        CurrentLevelScore += score;
 
         if (CurrentLevelScore >= CurrentLevelTargetScore)
         {
@@ -86,9 +92,21 @@ public class ScoringSystem
             SaveBestLevel();
         }
 
-        InventoryManager.Instance.AddCoins(1);
+        InventoryManager.Instance.AddCoins(score);
     }
 
+    private int CalculateScore(BirdController bird)
+    {
+        float score = 1;
+        
+        var equippedMask = _equipmentSystem.GetEquipment(EquipmentSlot.Mask) as MaskItemConfig;
+        if(equippedMask != null && equippedMask.BirdType == bird.BirdType)
+        {
+            score *= equippedMask.GetCurrentValue();
+        }
+
+        return Mathf.CeilToInt(score);
+    }
     private int GetTargetScore(int level)
     {
         return 4 + (level * 2);
