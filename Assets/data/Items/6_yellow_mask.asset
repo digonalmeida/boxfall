@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: yellow_mask
   _name: Yellow Bird Mask
-  _price: 1000
+  _price: 400
   _icon: {fileID: 21300000, guid: 299a7e340fd653e4faca4d23e29dc16d, type: 3}
   _description: 'yellow birds: {0}x feathers and score'
   _upgradeDescription: 

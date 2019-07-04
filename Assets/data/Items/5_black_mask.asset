@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: black_mask
   _name: Black Bird Mask
-  _price: 1000
+  _price: 400
   _icon: {fileID: 21300000, guid: 6981526c85709b54cb17878661db26f5, type: 3}
   _description: 'black birds: {0}x feathers and score'
   _upgradeDescription: 
