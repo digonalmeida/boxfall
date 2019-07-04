@@ -12,4 +12,18 @@ public class BirdExplodeOnGround : BirdComponent
             Bird.DestroyBird();
         }
     }
+
+    private void Update()
+    {
+        if (!Bird.Alive)
+        {
+            return;
+        }
+        
+        if (transform.position.x < -12.0f)
+        {
+            Bird.DestroyBird();
+        }
+    }
+    
 }

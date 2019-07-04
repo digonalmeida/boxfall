@@ -70,7 +70,7 @@ public class spawner : GameAgent
 
     private void RefreshPoints()
     { 
-        spawnPoints = new List<SpawnPoint>();
+        spawnPoints.Clear();
         foreach(Transform child in transform)
         {
             if(!child.gameObject.activeInHierarchy)
