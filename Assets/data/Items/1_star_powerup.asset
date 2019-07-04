@@ -15,7 +15,7 @@ MonoBehaviour:
   _id: star_powerup
   _name: Star Powerup
   _price: 100
-  _icon: {fileID: 21300000, guid: 3113a8bd08529b64398082870d24779a, type: 3}
+  _icon: {fileID: 21300000, guid: c5c73d7a46ff4ed4985f4ffa78b6fd4b, type: 3}
   _description: They make you invulnerable for {0} seconds
   _upgradeDescription: Upgrade time to {0} seconds
   _isInitial: 1
@@ -23,11 +23,11 @@ MonoBehaviour:
   _equipmentSlot: 0
   _baseValue: 3
   _upgrades:
-  - _price: 100
+  - _price: 50
     _value: 6
-  - _price: 300
+  - _price: 100
     _value: 8
-  - _price: 600
+  - _price: 300
     _value: 10
-  - _price: 2000
+  - _price: 1000
     _value: 12

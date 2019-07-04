@@ -38,17 +38,10 @@ public class ConfigPanel : UIStatePanel
         _soundOn = !_soundOn;
         UpdateUi();
     }
-
-    public void ToggleLogin()
-    {
-        _socialLogin = !_socialLogin;
-        UpdateUi();
-    }
-
+    
     private void UpdateUi()
     {
         _soundOnButton.SetActive(_soundOn);
         _soundOffButton.SetActive(!_soundOn);
-        _socialLoginButton.interactable = _socialLogin;
     }
 }

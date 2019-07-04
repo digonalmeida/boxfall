@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: red_mask
   _name: Red Bird Mask
-  _price: 3000
+  _price: 2000
   _icon: {fileID: 21300000, guid: 65bd56b8ae24649438b0759877538fcb, type: 3}
   _description: 'red birds: {0}x feathers and score'
   _upgradeDescription: 

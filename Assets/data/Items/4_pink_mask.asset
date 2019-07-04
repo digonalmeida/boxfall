@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _id: pink_mask
   _name: Pink Bird Mask
-  _price: 200
+  _price: 50
   _icon: {fileID: 21300000, guid: 10e5572f67b81f945a6d78ba07769b8f, type: 3}
   _description: 'pink birds: {0}x feathers and score'
   _upgradeDescription: 

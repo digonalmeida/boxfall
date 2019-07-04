@@ -22,7 +22,7 @@ public class TitlePanel : UIStatePanel
 
     public void Leaderboards()
     {
-        Debug.Log("Leaderboards");
+        SocialSystem.Instance.ShowLeaderboards();
     }
 
     public void StartGame()
