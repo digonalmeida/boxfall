@@ -5,29 +5,33 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class TurrentController : MonoBehaviour
 {
-    private const string _shotAnimationTrigger = "shot";
-    private const string _invulnerableAnimationProperty = "Invulnerable";
-
-    [SerializeField]
-    private ObjectPool _bulletPool;
-
-    [SerializeField]
-    private float _shotSpeed = 17.0f;
+    private static int _shotAnimationTriggerId;
+    private static int _invulnerableAnimationPropertyId;
 
     [SerializeField]
     private Transform _shotOrigin = null;
+
+    [SerializeField] 
+    private TurrentDataSource _dataSource;
     
     private Animator _animator;
+
+    static TurrentController()
+    {
+        _shotAnimationTriggerId = Animator.StringToHash("shot");
+        _invulnerableAnimationPropertyId = Animator.StringToHash("Invulnerable");
+    }
     
     public void Fire()
     {
-        Bullet shot = _bulletPool.GetInstance().GetComponent<Bullet>();
+        var bulletPrefab = _dataSource.TurrentData.BulletPrefab.gameObject;
+        Bullet shot = PoolManager.Instance.GetInstance(bulletPrefab).GetComponent<Bullet>();
 
         var position = _shotOrigin.transform.position;
         var direction = transform.right;
         
 
-        shot.Fire(position, direction, _shotSpeed);
+        shot.Fire(position, direction, _dataSource.TurrentData.ShotSpeed);
 
         PlayShotAnimation();
     }
@@ -51,16 +55,16 @@ public class TurrentController : MonoBehaviour
     
     private void PlayShotAnimation()
     {
-        _animator.SetTrigger(_shotAnimationTrigger);
+        _animator.SetTrigger(_shotAnimationTriggerId);
     }
 
     private void PlayInvulnerableAnimation()
     {
-        _animator.SetBool(_invulnerableAnimationProperty, true);
+        _animator.SetBool(_invulnerableAnimationPropertyId, true);
     }
 
     private void StopInvulnerableAnimation()
     {
-        _animator.SetBool(_invulnerableAnimationProperty, false);
+        _animator.SetBool(_invulnerableAnimationPropertyId, false);
     }
 }

@@ -6,6 +6,9 @@ using StateMachine;
 
 public class TankController : GameAgent
 {
+    [SerializeField] 
+    private TankDataSource _tankDataSource;
+    
     [SerializeField]
     private GameObject _spriteObject = null;
 
@@ -33,6 +36,8 @@ public class TankController : GameAgent
     {
         get { return _explosionEffect; }
     }
+    
+    public TankData TankData => _tankDataSource.TankData;
 
     protected override void Awake()
     {

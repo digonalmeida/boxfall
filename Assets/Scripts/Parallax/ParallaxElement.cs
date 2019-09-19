@@ -13,27 +13,7 @@ public class ParallaxElement : MonoBehaviour
     [SerializeField]
     private float _endPoint = 1.0f;
 
-    public float Ratio
-    {
-        get
-        {
-            return _ratio;
-        }
-    }
-
-    public float StartPoint
-    {
-        get
-        {
-            return _startPoint;
-        }
-    }
-
-    public float EndPoint
-    {
-        get
-        {
-            return _endPoint;
-        }
-    }
+    public float Ratio => _ratio;
+    public float StartPoint => _startPoint;
+    public float EndPoint => _endPoint;
 }

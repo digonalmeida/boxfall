@@ -13,23 +13,17 @@ public class ObjectPool : MonoBehaviour
     [SerializeField]
     private Stack<PoolableObject> _instances = new Stack<PoolableObject>(10);
 
-    private static Dictionary<PoolableObject, ObjectPool> _pools = new Dictionary<PoolableObject, ObjectPool>();
-
-    public static ObjectPool GetPool(PoolableObject prefab)
+    
+    public void Initialize(GameObject prefab, int initialSize)
     {
-        ObjectPool instance;
-        _pools.TryGetValue(prefab, out instance);
-        return instance;
-    }
-
-    public void Awake()
-    {
-        if(_prefab == null)
+        _prefab = prefab.GetComponent<PoolableObject>();
+        if (_prefab == null)
         {
+            Debug.LogError("pool object is not poolable");
             return;
         }
-
-        _pools[_prefab] = this;
+        _initialSize = initialSize;
+        
         for(int i = 0; i < _initialSize; i++)
         {
             Instantiate();
