@@ -32,7 +32,7 @@ public class ObjectPool : MonoBehaviour
 
     private void Instantiate()
     {
-        var instance = Instantiate(_prefab, transform).GetComponent<PoolableObject>();
+        PoolableObject instance = Instantiate(_prefab, transform);
         instance.gameObject.SetActive(false);
         _instances.Push(instance);
     }
