@@ -1,5 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using SpawnerV2;
 using UnityEngine;
 
 public class PoolManager : MonoBehaviour
@@ -8,32 +9,27 @@ public class PoolManager : MonoBehaviour
 
     [SerializeField] 
     private int _bulletInitialSize;
-    
-    [SerializeField]
-    private TurrentDataSource _turrentDataSource;
 
-    [SerializeField] 
-    private int _birdsCount;
-    
-    [SerializeField]
-    private SpawnerDataSource _birdSpawnerDataSource;
-    
+    [SerializeField] private int _spawnableInitialSize = 10;
+
     private Dictionary<GameObject, ObjectPool> _pools = new Dictionary<GameObject, ObjectPool>();
-
+    
     public void Awake()
     {
         Instance = this;
-        InitializePools();
     }
-
-    private void InitializePools()
+    
+    public void Initialize(TurrentData turrentData, SpawnerData[] spawners)
     {
-        InitializePool(_turrentDataSource.TurrentData.BulletPrefab.gameObject, _bulletInitialSize);
-
-        var spawnerInstances = _birdSpawnerDataSource.SpawnerData.SpawningInstances();
-        foreach (var spawnerInstance in spawnerInstances)
+        InitializePool(turrentData.BulletPrefab.gameObject, _bulletInitialSize);
+        
+        foreach (var spawnerData in spawners)
         {
-            InitializePool(spawnerInstance.Prefab, _birdsCount);
+            List<SpawningInstance> spawnerInstances = spawnerData.SpawningInstances();
+            foreach (var spawnerInstance in spawnerInstances)
+            {
+                InitializePool(spawnerInstance.Prefab, _spawnableInitialSize);
+            }
         }
     }
 

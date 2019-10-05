@@ -66,7 +66,8 @@ public class ParallaxController : GameAgent
         {
             return;
         }
-        
+
+        int currentLevelClamped = Mathf.Clamp(_currentLevel, 0, _maxSpeedLevel);
         t = Mathf.Clamp01((float)(_currentLevel -1) / (float)(_maxSpeedLevel -1));
         _speed = Mathf.Lerp(startSpeed, maxSpeed, t);
         foreach(var element in _parallaxElements)

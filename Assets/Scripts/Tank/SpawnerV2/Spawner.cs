@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace SpawnerV2
 {
-    public class Spawner : MonoBehaviour
+    public class Spawner : GameAgent
     {
         [SerializeField] 
         private SpawnerDataSource _dataSource;
@@ -19,17 +19,54 @@ namespace SpawnerV2
         [SerializeField]
         private List<SpawningInstance> _spawningInstancesBag = new List<SpawningInstance>(10);
         
+        private Coroutine _coroutine;
+
+        protected override void OnGameStarted()
+        {
+            GameController.Instance.ScoringSystem.OnLevelChanged += OnLevelChanged;
+            OnLevelChanged();
+            StartSpawning();
+        }
+        
+        protected override void OnGameEnded()
+        {
+            GameController.Instance.ScoringSystem.OnLevelChanged -= OnLevelChanged;
+            StopSpawning();
+        }
+        
+        private void OnLevelChanged()
+        {
+            _currentLevel = GameController.Instance.ScoringSystem.CurrentLevel;
+        }
+        
+        private void StartSpawning()
+        {
+            _currentLevel = 1;
+            StopSpawning();
+            RefreshPoints();
+            _coroutine = StartCoroutine(SpawnRoutine());
+        }
+        
+        private void StopSpawning()
+        {
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+        }
         
         private void Update()
         {
-            if (_testing)
+            if (!_testing)
             {
-                _testingCooldown -= Time.deltaTime;
-                if (_testingCooldown <= 0)
-                {
-                    _testingCooldown = _testingIntervalSeconds;
-                    SpawnNext();
-                }
+                return;
+            }
+
+            _testingCooldown -= Time.deltaTime;
+            if (_testingCooldown <= 0)
+            {
+                _testingCooldown = _testingIntervalSeconds;
+                SpawnNext();
             }
         }
 
@@ -48,14 +85,19 @@ namespace SpawnerV2
 
         private void RefreshPoints()
         {
+            _spawningInstancesBag.Clear();
+            
             List<SpawningInstance> addingInstances = _dataSource.SpawnerData.SpawningInstances();
-
             foreach (SpawningInstance instance in addingInstances)
             {
+                if (instance.MinLevel > _currentLevel)
+                {
+                    continue;
+                }
+                
                 _spawningInstancesBag.Add(instance);
             }
         }
-        
 
         private void Spawn(SpawningInstance spawningInstance)
         { 
@@ -73,6 +115,56 @@ namespace SpawnerV2
             Quaternion rotationAngle = Quaternion.Euler(0, 0, -angle);
 
             instanceRigidbody.velocity = rotationAngle * Vector2.left * force;
+        }
+        
+        private float GetSpawnInterval()
+        {
+            int minLevel = _dataSource.SpawnerData.MinLevel;
+            int maxLevel = _dataSource.SpawnerData.MaxLevel;
+            AnimationCurve frequencyOverTime = _dataSource.SpawnerData.FrequencyOverTime;
+            float minFrequency = _dataSource.SpawnerData.MinFrequency;
+            float maxFrequency = _dataSource.SpawnerData.MaxFrequency;
+            int clampedLevel = Mathf.Clamp(_currentLevel, minLevel, maxLevel);
+            
+            float normalizedLevel = ((float) (clampedLevel - minLevel)) / ((float)(maxLevel - minLevel));
+            float normalizedFrequency = frequencyOverTime.Evaluate(normalizedLevel);
+            float spawnFrequency = Mathf.Lerp(minFrequency, maxFrequency, normalizedFrequency);
+            return 1.0f / spawnFrequency;
+        }
+        
+        private IEnumerator SpawnRoutine()
+        {
+            float startDelay = _dataSource.SpawnerData.StartDelay;
+            yield return new WaitForSeconds(startDelay);
+            float timeout = startDelay;
+        
+            for (; ; )
+            {
+                if (IsPaused)
+                {
+                    yield return null;
+                    continue;
+                }
+            
+                if (_currentLevel < _dataSource.SpawnerData.MinLevel)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                timeout -= Time.deltaTime;
+            
+                if (timeout > 0)
+                {
+                    yield return null;
+                    continue;
+                }
+            
+                SpawnNext();
+            
+                timeout = GetSpawnInterval();
+                yield return null;
+            }
         }
     }
 }

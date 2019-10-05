@@ -31,7 +31,6 @@ public class spawner : GameAgent
     protected override void Awake()
     {
         base.Awake();
-        enabled = false;
     }
 
     protected override void OnGameStarted()

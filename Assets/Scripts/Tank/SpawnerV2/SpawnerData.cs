@@ -10,6 +10,9 @@ namespace SpawnerV2
     public class SpawnerData
     {
         [SerializeField] 
+        private string _name;
+        
+        [SerializeField] 
         private float _startDelay;
         
         [SerializeField]
@@ -43,6 +46,7 @@ namespace SpawnerV2
     [Serializable]
     public class SpawningInstance
     {
+        [SerializeField] private string _name;
         [SerializeField] private GameObject _prefab;
         [SerializeField] private int _minLevel = 0;
         [SerializeField] private Vector3 _position;

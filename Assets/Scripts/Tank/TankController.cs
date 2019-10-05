@@ -36,9 +36,14 @@ public class TankController : GameAgent
     {
         get { return _explosionEffect; }
     }
-    
-    public TankData TankData => _tankDataSource.TankData;
 
+    public TankData TankData { get; private set; }
+
+    public void Initialize(TankData tankData)
+    {
+        TankData = tankData;
+    }
+    
     protected override void Awake()
     {
         base.Awake();
