@@ -7,9 +7,6 @@ namespace SpawnerV2
     public class Spawner : GameAgent
     {
         [SerializeField] 
-        private SpawnerDataSource _dataSource;
-        
-        [SerializeField] 
         private bool _testing;
         
         private float _testingCooldown = 0;
@@ -21,6 +18,13 @@ namespace SpawnerV2
         
         private Coroutine _coroutine;
 
+        private SpawnerData _spawnerData;
+        
+        public void Initialize(SpawnerData spawnerData)
+        {
+            _spawnerData = spawnerData;
+        }
+        
         protected override void OnGameStarted()
         {
             GameController.Instance.ScoringSystem.OnLevelChanged += OnLevelChanged;
@@ -87,7 +91,7 @@ namespace SpawnerV2
         {
             _spawningInstancesBag.Clear();
             
-            List<SpawningInstance> addingInstances = _dataSource.SpawnerData.SpawningInstances();
+            List<SpawningInstance> addingInstances = _spawnerData.SpawningInstances();
             foreach (SpawningInstance instance in addingInstances)
             {
                 if (instance.MinLevel > _currentLevel)
@@ -102,7 +106,8 @@ namespace SpawnerV2
         private void Spawn(SpawningInstance spawningInstance)
         { 
             GameObject prefab = spawningInstance.Prefab;
-            GameObject instance = PoolManager.Instance.GetInstance(prefab);
+            
+            GameObject instance = PoolManager.Instance.GetInstance(spawningInstance);
             
             instance.transform.position = spawningInstance.Position;
 
@@ -119,11 +124,11 @@ namespace SpawnerV2
         
         private float GetSpawnInterval()
         {
-            int minLevel = _dataSource.SpawnerData.MinLevel;
-            int maxLevel = _dataSource.SpawnerData.MaxLevel;
-            AnimationCurve frequencyOverTime = _dataSource.SpawnerData.FrequencyOverTime;
-            float minFrequency = _dataSource.SpawnerData.MinFrequency;
-            float maxFrequency = _dataSource.SpawnerData.MaxFrequency;
+            int minLevel = _spawnerData.MinLevel;
+            int maxLevel = _spawnerData.MaxLevel;
+            AnimationCurve frequencyOverTime = _spawnerData.FrequencyOverTime;
+            float minFrequency = _spawnerData.MinFrequency;
+            float maxFrequency = _spawnerData.MaxFrequency;
             int clampedLevel = Mathf.Clamp(_currentLevel, minLevel, maxLevel);
             
             float normalizedLevel = ((float) (clampedLevel - minLevel)) / ((float)(maxLevel - minLevel));
@@ -134,7 +139,7 @@ namespace SpawnerV2
         
         private IEnumerator SpawnRoutine()
         {
-            float startDelay = _dataSource.SpawnerData.StartDelay;
+            float startDelay = _spawnerData.StartDelay;
             yield return new WaitForSeconds(startDelay);
             float timeout = startDelay;
         
@@ -146,7 +151,7 @@ namespace SpawnerV2
                     continue;
                 }
             
-                if (_currentLevel < _dataSource.SpawnerData.MinLevel)
+                if (_currentLevel < _spawnerData.MinLevel)
                 {
                     yield return null;
                     continue;

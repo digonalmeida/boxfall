@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Birds;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [RequireComponent(typeof(PoolableObject))]
 public class BirdController : GameAgent
 {
-    [SerializeField]
-    private MaskItemBirdType _birdType;
+    [FormerlySerializedAs("_birdType")] [SerializeField]
+    private BirdColor birdColor;
 
     [SerializeField]
     private SpriteRenderer _spriteRenderer = null;
@@ -19,9 +21,10 @@ public class BirdController : GameAgent
     private Collider2D[] _colliders;
     private BirdComponent[] _components;
     private PoolableObject _poolable;
+    private BirdData _birdData;
     
     public bool Alive { get; private set; }
-    public MaskItemBirdType BirdType => _birdType;
+    public BirdColor BirdColor => _birdData.Color;
     public event Action OnKilled;
 
     private Vector2 _pausedVelocity;
@@ -37,7 +40,12 @@ public class BirdController : GameAgent
         _components = GetComponents<BirdComponent>();
         _poolable.OnShow += OnShow;
     }
-    
+
+    public void SetData(BirdData birdData)
+    {
+        _birdData = birdData;
+    }
+
     protected override void OnGameEnded()
     {
         base.OnGameEnded();
@@ -121,5 +129,12 @@ public class BirdController : GameAgent
         GameEvents.NotifyBirdKilled(this);
         OnKilled?.Invoke();
         DestroyBird();
+    }
+
+    public void SetupSpriteInstance(SpriteRenderer spriteInstance)
+    {
+        spriteInstance.transform.parent = transform;
+        _spriteRenderer = spriteInstance;
+        spriteInstance.transform.position = transform.position;
     }
 }

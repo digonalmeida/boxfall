@@ -100,7 +100,7 @@ public class ScoringSystem
         float score = 1;
         
         var equippedMask = _equipmentSystem.GetEquipment(EquipmentSlot.Mask) as MaskItemConfig;
-        if(equippedMask != null && equippedMask.BirdType == bird.BirdType)
+        if(equippedMask != null && equippedMask.BirdColor == bird.BirdColor)
         {
             score *= equippedMask.GetCurrentValue();
         }

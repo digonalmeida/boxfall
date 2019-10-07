@@ -13,6 +13,14 @@ MonoBehaviour:
   m_Name: main_game_mode
   m_EditorClassIdentifier: 
   _gameModeData:
+    _tankData:
+      _walkingSpeed: 8
+      _walkingStoppingDistance: 0.5
+      _centerX: 1.3
+      _recoilForce: 4
+      _maxRecoilForce: 7
+      _recoilDeacceleration: 10
+      _minX: -2.17
     _turrentData:
       _shotSpeed: 17
       _bulletPrefab: {fileID: 63551484, guid: ccceedd70bc0e0441ad3deb3e1cc5a0e, type: 3}
@@ -55,6 +63,8 @@ MonoBehaviour:
         _position: {x: 5.4, y: 1.5, z: 0}
         _angle: 60
         _force: 7
+        _spawnType: 0
+        _spawnId: 0
       - _name: pink
         _prefab: {fileID: 3912193111456209582, guid: 5cb2703de0d2578469756533d49009cd,
           type: 3}
@@ -62,6 +72,8 @@ MonoBehaviour:
         _position: {x: 5.4, y: -0.5, z: 0}
         _angle: 60
         _force: 6
+        _spawnType: 0
+        _spawnId: 1
       - _name: red
         _prefab: {fileID: 4138599621335625682, guid: a6d8e011fc9d3ea46bb8a50c1f2540cd,
           type: 3}
@@ -69,6 +81,8 @@ MonoBehaviour:
         _position: {x: 5.4, y: 4.5, z: 0}
         _angle: 60
         _force: 7.7
+        _spawnType: 0
+        _spawnId: 2
       - _name: yellow
         _prefab: {fileID: 4138599621335625682, guid: b5e69569450279540be6c325d5a5f5a5,
           type: 3}
@@ -76,13 +90,17 @@ MonoBehaviour:
         _position: {x: 5.4, y: 4.99, z: 0}
         _angle: 10
         _force: 6
+        _spawnType: 0
+        _spawnId: 3
       - _name: black_1
         _prefab: {fileID: 4138599621335625682, guid: 3ae818f0d0108964e874305396121a65,
           type: 3}
-        _minLevel: 4
+        _minLevel: 1
         _position: {x: -2.12, y: 10.46, z: 0}
         _angle: -90
         _force: 4
+        _spawnType: 0
+        _spawnId: 4
       - _name: black_2
         _prefab: {fileID: 4138599621335625682, guid: 3ae818f0d0108964e874305396121a65,
           type: 3}
@@ -90,6 +108,8 @@ MonoBehaviour:
         _position: {x: -0.32, y: 10.46, z: 0}
         _angle: -90
         _force: 4
+        _spawnType: 0
+        _spawnId: 4
       - _name: black_3
         _prefab: {fileID: 4138599621335625682, guid: 3ae818f0d0108964e874305396121a65,
           type: 3}
@@ -97,6 +117,8 @@ MonoBehaviour:
         _position: {x: 1.27, y: 10.46, z: 0}
         _angle: -90
         _force: 4
+        _spawnType: 0
+        _spawnId: 4
     - _name: stars
       _startDelay: 2
       _frequencyOverTime:
@@ -135,6 +157,8 @@ MonoBehaviour:
         _position: {x: 5.4, y: 1.5, z: 0}
         _angle: 60
         _force: 7
+        _spawnType: 1
+        _spawnId: 0
       - _name: star 2
         _prefab: {fileID: 656329308834861025, guid: 1f1e8d01e94d0bd41b9b5517b831bac4,
           type: 3}
@@ -142,3 +166,21 @@ MonoBehaviour:
         _position: {x: 5.4, y: -0.5, z: 0}
         _angle: 60
         _force: 6
+        _spawnType: 0
+        _spawnId: 0
+    _birds:
+    - _name: blue
+      _movementType: 0
+      _color: 0
+    - _name: pink
+      _movementType: 0
+      _color: 1
+    - _name: red
+      _movementType: 0
+      _color: 4
+    - _name: yellow
+      _movementType: 1
+      _color: 2
+    - _name: black
+      _movementType: 0
+      _color: 3

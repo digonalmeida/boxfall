@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
+    [SerializeField] private GameModeDataSource _gameModeDataSource;
     
     private GameStateMachine _stateMachine;
     
@@ -15,6 +16,8 @@ public class GameController : MonoBehaviour
     public InGameState InGameState { get; private set; }
     public EndGameState EndGameState { get; private set; }
     public TitleGameState HomeState { get; private set; }
+
+    public GameModeData GameModeData => _gameModeDataSource.GameModeData;
 
     public bool IsPaused { get; private set; }
 

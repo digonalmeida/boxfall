@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Birds;
 using SpawnerV2;
 using UnityEngine;
 
@@ -14,22 +15,27 @@ public class PoolManager : MonoBehaviour
 
     private Dictionary<GameObject, ObjectPool> _pools = new Dictionary<GameObject, ObjectPool>();
     
+    private Dictionary<int, ObjectPool> _birdPools = new Dictionary<int, ObjectPool>();
+    
     public void Awake()
     {
         Instance = this;
     }
-    
-    public void Initialize(TurrentData turrentData, SpawnerData[] spawners)
+
+    public void Start()
     {
-        InitializePool(turrentData.BulletPrefab.gameObject, _bulletInitialSize);
+        Initialize();
+    }
+    public void Initialize()
+    {
+        TurrentData turrentData = GameController.Instance.GameModeData.TurrentData;
+        BirdData[] birdDatas = GameController.Instance.GameModeData.Birds;
         
-        foreach (var spawnerData in spawners)
+        InitializePool(turrentData.BulletPrefab.gameObject, _bulletInitialSize);
+
+        for (int i = 0; i < birdDatas.Length; i++)
         {
-            List<SpawningInstance> spawnerInstances = spawnerData.SpawningInstances();
-            foreach (var spawnerInstance in spawnerInstances)
-            {
-                InitializePool(spawnerInstance.Prefab, _spawnableInitialSize);
-            }
+            InitializeBirdPool(i, birdDatas[i]);
         }
     }
 
@@ -46,10 +52,41 @@ public class PoolManager : MonoBehaviour
         _pools[prefab] = pool;
     }
 
+    public GameObject GetInstance(SpawningInstance spawningInstance)
+    {
+        if (spawningInstance.SpawnType == SpawningInstance.ESpawnType.Bird)
+        {
+            return GetBird(spawningInstance.SpawnId);
+        }
+        else
+        {
+            var pool = _pools[spawningInstance.Prefab];
+            return pool.GetInstance();
+        }
+    }
+    
     public GameObject GetInstance(GameObject prefab)
     {
-        var pool = _pools[prefab];
+       var pool = _pools[prefab];
+        
+        return pool.GetInstance();
+    }
+
+    public GameObject GetBird(int instanceId)
+    {
+        if(!_birdPools.TryGetValue(instanceId, out ObjectPool pool))
+        {
+            return null;
+        }
 
         return pool.GetInstance();
+    }
+
+    private void InitializeBirdPool(int id, BirdData birdData)
+    {
+        var pool = new GameObject("bird_pool_" + birdData.Name, typeof(BirdObjectPool)).GetComponent<BirdObjectPool>();
+        pool.transform.parent = transform;
+        pool.Initialize(birdData, _spawnableInitialSize);
+        _birdPools[id] = pool;
     }
 }

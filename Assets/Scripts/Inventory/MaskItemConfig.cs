@@ -1,24 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public enum MaskItemBirdType
-{
-    BLUE,
-    PINK,
-    YELLOW,
-    BLACK,
-    RED
-}
+
 [CreateAssetMenu]
 public class MaskItemConfig : ItemConfig
 {
     [SerializeField]
     private Sprite _maskSprite;
 
-    [SerializeField]
-    public MaskItemBirdType _birdType;
+    [FormerlySerializedAs("_birdType")] [SerializeField]
+    public BirdColor birdColor;
 
     public Sprite MaskSprite => _maskSprite;
-    public MaskItemBirdType BirdType => _birdType;
+    public BirdColor BirdColor => birdColor;
 }

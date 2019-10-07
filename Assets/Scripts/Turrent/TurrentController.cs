@@ -12,7 +12,7 @@ public class TurrentController : MonoBehaviour
     private Transform _shotOrigin = null;
 
     [SerializeField] 
-    private TurrentDataSource _dataSource;
+    private TurrentData _turrentData;
     
     private Animator _animator;
 
@@ -24,14 +24,14 @@ public class TurrentController : MonoBehaviour
     
     public void Fire()
     {
-        var bulletPrefab = _dataSource.TurrentData.BulletPrefab.gameObject;
+        var bulletPrefab = _turrentData.BulletPrefab.gameObject;
         Bullet shot = PoolManager.Instance.GetInstance(bulletPrefab).GetComponent<Bullet>();
 
         var position = _shotOrigin.transform.position;
         var direction = transform.right;
         
 
-        shot.Fire(position, direction, _dataSource.TurrentData.ShotSpeed);
+        shot.Fire(position, direction, _turrentData.ShotSpeed);
 
         PlayShotAnimation();
     }
@@ -51,6 +51,7 @@ public class TurrentController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _turrentData = GameController.Instance.GameModeData.TurrentData;
     }
     
     private void PlayShotAnimation()

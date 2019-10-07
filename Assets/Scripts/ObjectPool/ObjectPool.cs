@@ -8,35 +8,34 @@ public class ObjectPool : MonoBehaviour
     private PoolableObject _prefab;
 
     [SerializeField]
-    private int _initialSize = 10;
-
-    [SerializeField]
     private Stack<PoolableObject> _instances = new Stack<PoolableObject>(10);
 
-    
     public void Initialize(GameObject prefab, int initialSize)
     {
-        _prefab = prefab.GetComponent<PoolableObject>();
-        if (_prefab == null)
+        if (prefab != null)
         {
-            Debug.LogError("pool object is not poolable");
-            return;
+            _prefab = prefab.GetComponent<PoolableObject>();
         }
-        _initialSize = initialSize;
-        
-        for(int i = 0; i < _initialSize; i++)
+
+        for(int i = 0; i < initialSize; i++)
         {
-            Instantiate();
+            AddInstance(Instantiate());
         }
     }
 
-    private void Instantiate()
+    protected virtual PoolableObject Instantiate()
     {
-        PoolableObject instance = Instantiate(_prefab, transform);
+        PoolableObject instance = Instantiate(_prefab);
+        return instance;
+    }
+
+    private void AddInstance(PoolableObject instance)
+    {
+        instance.transform.parent = transform;
         instance.gameObject.SetActive(false);
         _instances.Push(instance);
     }
-
+    
     private void OnInstanceHidden(PoolableObject instance)
     {
         _instances.Push(instance);

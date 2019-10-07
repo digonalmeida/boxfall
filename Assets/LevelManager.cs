@@ -1,22 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SpawnerV2;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private GameModeDataSource _gameModeDataSource;
+    private List<Spawner> _spawners = new List<Spawner>();
 
-    [SerializeField] private PoolManager _poolManager;
-
-    private GameModeData _gameModeData;
-    public void Awake()
+    public void Start()
     {
-        _gameModeData = _gameModeDataSource.GameModeData;
-        InitializeGameModeData();
+        SpawnerData[] _spawnerDatas = GameController.Instance.GameModeData.Spawners;
+        foreach (SpawnerData spawnerData in _spawnerDatas)
+        {
+            InstantiateSpawner(spawnerData);
+        }
+    }
+    
+    public Spawner InstantiateSpawner(SpawnerData spawnerData)
+    {
+        var spawnerGameObject = new GameObject(spawnerData.Name + "_spawner", typeof(Spawner));
+        spawnerGameObject.transform.parent = transform;
+        Spawner spawner = spawnerGameObject.GetComponent<Spawner>();
+        _spawners.Add(spawner);
+        spawner.Initialize(spawnerData);
+        return spawner;
     }
 
-    public void InitializeGameModeData()
+    public void ClearSpawners()
     {
-        _poolManager.Initialize(_gameModeData.TurrentData, _gameModeData.Spawners);
+        foreach (var spawner in _spawners)
+        {
+            Destroy(spawner.gameObject);
+        }
+        _spawners.Clear();
     }
 }

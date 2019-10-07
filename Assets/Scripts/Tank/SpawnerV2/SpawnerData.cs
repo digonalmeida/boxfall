@@ -33,6 +33,7 @@ namespace SpawnerV2
         [SerializeField]
         private SpawningInstance[] _spawningInstances = null;
 
+        public string Name => _name;
         public List<SpawningInstance> SpawningInstances() => _spawningInstances?.ToList();
         public float StartDelay => _startDelay;
         public AnimationCurve FrequencyOverTime => _frequencyOverTime;
@@ -52,11 +53,20 @@ namespace SpawnerV2
         [SerializeField] private Vector3 _position;
         [SerializeField] private float _angle;
         [SerializeField] private float _force;
+        [SerializeField] private ESpawnType _spawnType;
+        [SerializeField] private int _spawnId;
+        public enum ESpawnType
+        {
+            Bird,
+            PowerUp
+        }
         
         public GameObject Prefab => _prefab;
         public int MinLevel => _minLevel;
         public Vector3 Position => _position;
         public float Angle => _angle;
         public float Force => _force;
+        public ESpawnType SpawnType => _spawnType;
+        public int SpawnId => _spawnId;
     }
 }
