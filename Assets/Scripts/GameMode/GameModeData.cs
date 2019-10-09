@@ -12,8 +12,11 @@ public class GameModeData
     [SerializeField] private TurrentData _turrentData;
     [SerializeField] private SpawnerData[] _spawners;
     [SerializeField] private BirdData[] _birds;
+    [SerializeField] private SpawnPointData[] _spawnPoints;
     public TankData TankData => _tankData;
     public SpawnerData[] Spawners => _spawners;
     public TurrentData TurrentData => _turrentData;
     public BirdData[] Birds => _birds;
+
+    public SpawnPointData[] SpawnPoints => _spawnPoints;
 }

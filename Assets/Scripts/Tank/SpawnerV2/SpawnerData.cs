@@ -55,6 +55,7 @@ namespace SpawnerV2
         [SerializeField] private float _force;
         [SerializeField] private ESpawnType _spawnType;
         [SerializeField] private int _spawnId;
+        [SerializeField] private int _spawnPointId;
         public enum ESpawnType
         {
             Bird,
@@ -68,5 +69,7 @@ namespace SpawnerV2
         public float Force => _force;
         public ESpawnType SpawnType => _spawnType;
         public int SpawnId => _spawnId;
+
+        public int SpawnPointId => _spawnPointId;
     }
 }

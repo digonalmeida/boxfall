@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c5730710d81715488c474bf5fc10878, type: 3}
-  m_Name: main_game_mode
+  m_Name: all_red_game_mode
   m_EditorClassIdentifier: 
   _gameModeData:
     _tankData:
@@ -65,7 +65,9 @@ MonoBehaviour:
         _force: 7
         _spawnType: 0
         _spawnId: 0
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
       - _name: pink
         _prefab: {fileID: 3912193111456209582, guid: 5cb2703de0d2578469756533d49009cd,
           type: 3}
@@ -75,7 +77,9 @@ MonoBehaviour:
         _force: 6
         _spawnType: 0
         _spawnId: 1
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
       - _name: red
         _prefab: {fileID: 4138599621335625682, guid: a6d8e011fc9d3ea46bb8a50c1f2540cd,
           type: 3}
@@ -85,7 +89,9 @@ MonoBehaviour:
         _force: 7.7
         _spawnType: 0
         _spawnId: 2
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
       - _name: yellow
         _prefab: {fileID: 4138599621335625682, guid: b5e69569450279540be6c325d5a5f5a5,
           type: 3}
@@ -95,7 +101,9 @@ MonoBehaviour:
         _force: 6
         _spawnType: 0
         _spawnId: 3
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
       - _name: black_1
         _prefab: {fileID: 4138599621335625682, guid: 3ae818f0d0108964e874305396121a65,
           type: 3}
@@ -105,7 +113,9 @@ MonoBehaviour:
         _force: 4
         _spawnType: 0
         _spawnId: 4
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
       - _name: black_2
         _prefab: {fileID: 4138599621335625682, guid: 3ae818f0d0108964e874305396121a65,
           type: 3}
@@ -115,7 +125,9 @@ MonoBehaviour:
         _force: 4
         _spawnType: 0
         _spawnId: 4
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
       - _name: black_3
         _prefab: {fileID: 4138599621335625682, guid: 3ae818f0d0108964e874305396121a65,
           type: 3}
@@ -125,7 +137,9 @@ MonoBehaviour:
         _force: 4
         _spawnType: 0
         _spawnId: 4
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
     - _name: stars
       _startDelay: 2
       _frequencyOverTime:
@@ -166,7 +180,9 @@ MonoBehaviour:
         _force: 7
         _spawnType: 1
         _spawnId: 0
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
       - _name: star 2
         _prefab: {fileID: 656329308834861025, guid: 1f1e8d01e94d0bd41b9b5517b831bac4,
           type: 3}
@@ -176,25 +192,22 @@ MonoBehaviour:
         _force: 6
         _spawnType: 1
         _spawnId: 0
-        _spawnPointId: 0
+        _spawnIndex:
+          _index: 0
+          EditorIndexNames: []
     _birds:
     - _name: blue
       _movementType: 0
-      _color: 0
+      _color: 3
     - _name: pink
       _movementType: 0
-      _color: 1
+      _color: 3
     - _name: red
       _movementType: 0
-      _color: 4
+      _color: 3
     - _name: yellow
       _movementType: 1
-      _color: 2
+      _color: 3
     - _name: black
       _movementType: 0
       _color: 3
-    _spawnPoints:
-    - _name: test
-      _position: {x: 0, y: 0, z: 0}
-      _angle: 0
-      _force: 0

@@ -136,5 +136,6 @@ public class BirdController : GameAgent
         spriteInstance.transform.parent = transform;
         _spriteRenderer = spriteInstance;
         spriteInstance.transform.position = transform.position;
+        
     }
 }
