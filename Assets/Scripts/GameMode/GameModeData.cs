@@ -10,9 +10,9 @@ public class GameModeData
 {
     [SerializeField] private TankData _tankData;
     [SerializeField] private TurrentData _turrentData;
-    [SerializeField] private SpawnerData[] _spawners;
-    [SerializeField] private BirdData[] _birds;
-    [SerializeField] private SpawnPointData[] _spawnPoints;
+    [SerializeField] private SpawnerData[] _spawners = new SpawnerData[0];
+    [SerializeField] private BirdData[] _birds = new BirdData[0];
+    [SerializeField] private SpawnPointData[] _spawnPoints = new SpawnPointData[0];
     public TankData TankData => _tankData;
     public SpawnerData[] Spawners => _spawners;
     public TurrentData TurrentData => _turrentData;
