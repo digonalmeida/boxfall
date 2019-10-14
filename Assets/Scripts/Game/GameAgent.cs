@@ -14,7 +14,7 @@ public class GameAgent : MonoBehaviour
         GameEvents.OnGameUnpaused += OnGameUnpausedInternal;
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         GameEvents.OnGameStarted -= OnGameStarted;
         GameEvents.OnGameEnded -= OnGameEnded;

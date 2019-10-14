@@ -7,5 +7,6 @@
     Shop,
     ConfirmQuit,
     ConfigPanel,
+    Loading,
     None
 }

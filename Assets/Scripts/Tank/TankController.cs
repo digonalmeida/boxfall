@@ -59,9 +59,11 @@ public class TankController : GameAgent
         GameEvents.OnEnterTitleState += OnHomeScreen;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         GameEvents.OnEnterTitleState -= OnHomeScreen;
+        _stateMachine.Dispose();
     }
 
     private T InitializeComponent<T>() where T: TankComponent

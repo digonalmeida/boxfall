@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
     [SerializeField] private GameModeDataSource _gameModeDataSource;
+    [SerializeField] private GameModeDataSource _eventModeDataSource;
+    [SerializeField]
+    private bool _isMainGameMode;
     
     private GameStateMachine _stateMachine;
     
@@ -17,7 +21,15 @@ public class GameController : MonoBehaviour
     public EndGameState EndGameState { get; private set; }
     public TitleGameState HomeState { get; private set; }
 
-    public GameModeData GameModeData => _gameModeDataSource.GameModeData;
+    public GameModeData GameModeData
+    {
+        get
+        {
+            return _isMainGameMode
+                ? _gameModeDataSource.GameModeData
+                : _eventModeDataSource.GameModeData;
+        }
+    }
 
     public bool IsPaused { get; private set; }
 
@@ -25,6 +37,27 @@ public class GameController : MonoBehaviour
     {
         _stateMachine.SetState(InGameState);
         IsPaused = false;
+    }
+    
+    private IEnumerator LoadGameModeCoroutine()
+    {
+        Ui.SetState(EUiState.Loading);
+        string sceneName = "game_mode";
+        var scene = SceneManager.GetSceneByName(sceneName);
+        if (scene.isLoaded)
+        {
+            yield return SceneManager.UnloadSceneAsync(sceneName);
+        }
+
+        yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        Ui.UnsetState(EUiState.Loading);
+    }
+
+    public void ChangeMode()
+    {
+        _isMainGameMode = !_isMainGameMode;
+        
+        StartCoroutine(LoadGameModeCoroutine());
     }
 
     public void GoHome()
@@ -51,6 +84,8 @@ public class GameController : MonoBehaviour
 
         GameEvents.OnGamePaused += OnPause;
         GameEvents.OnGameUnpaused += OnUnpause;
+        
+        StartCoroutine(LoadGameModeCoroutine());
     }
 
     private void OnPause()

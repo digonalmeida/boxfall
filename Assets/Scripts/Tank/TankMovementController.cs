@@ -29,8 +29,9 @@ public class TankMovementController : TankComponent
         Tank.TurrentController.OnShot += OnShot;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         Tank.TurrentController.OnShot -= OnShot;
     }
 

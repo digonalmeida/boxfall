@@ -29,4 +29,9 @@ public class TitlePanel : UIStatePanel
     {
         GameController.Instance.StartGame();
     }
+
+    public void ChangeMode()
+    {
+        GameController.Instance.ChangeMode();
+    }
 }

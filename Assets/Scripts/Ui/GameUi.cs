@@ -31,6 +31,7 @@ public class GameUi
             case EUiState.PauseGame:
             case EUiState.ConfirmQuit:
             case EUiState.ConfigPanel:
+            case EUiState.Loading:
                 return EUiLayer.Popup;
             default:
                 return EUiLayer.Base;
