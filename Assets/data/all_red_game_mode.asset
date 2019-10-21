@@ -25,7 +25,7 @@ MonoBehaviour:
       _shotSpeed: 17
       _bulletPrefab: {fileID: 63551484, guid: ccceedd70bc0e0441ad3deb3e1cc5a0e, type: 3}
     _spawners:
-    - _name: birds
+    - _name: bird spawner
       _startDelay: 1
       _frequencyOverTime:
         serializedVersion: 2
@@ -126,7 +126,7 @@ MonoBehaviour:
         _spawnType: 0
         _spawnId: 4
         _spawnPointId: 6
-    - _name: stars
+    - _name: star spawner
       _startDelay: 2
       _frequencyOverTime:
         serializedVersion: 2

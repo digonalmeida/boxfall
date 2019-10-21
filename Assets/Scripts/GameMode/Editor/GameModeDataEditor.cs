@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Birds;
 using SpawnerV2;
@@ -49,10 +50,22 @@ public class GameModeDataSourceEditor : Editor
         DrawCustomArray(spawnPointsProperty, DrawSpawnPointHeader, DrawSpawnPoint, false);
         DrawCustomArray(birdsProperty, DrawBirdDataHeader, DrawBirdData, false);
         DrawCustomArray(spawnersProperty, null, DrawSpawnerData, true);
-        
+
+        if (GUILayout.Button("save"))
+        {
+            Save();
+        }
         //serializedObject
         //DrawDefaultInspector();
         serializedObject.ApplyModifiedProperties();
+    }
+
+    public void Save()
+    {
+        var gameModeDataSource = (GameModeDataSource) target;
+        string json = JsonUtility.ToJson(gameModeDataSource.GameModeData);
+        string filepath = Application.dataPath + "/data/game_mode_json/" + target.name + ".json";
+        File.WriteAllText(filepath, json);
     }
 
     private void DrawSpawnPointHeader()

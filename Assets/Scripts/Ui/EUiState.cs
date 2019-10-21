@@ -8,5 +8,6 @@
     ConfirmQuit,
     ConfigPanel,
     Loading,
-    None
+    None,
+    GameModes
 }

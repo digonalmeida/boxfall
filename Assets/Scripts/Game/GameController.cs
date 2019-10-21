@@ -115,4 +115,16 @@ public class GameController : MonoBehaviour
         GameEvents.OnGamePaused -= OnPause;
         GameEvents.OnGameUnpaused -= OnUnpause;
     }
+
+    public void SetMainGameMode()
+    {
+        _isMainGameMode = true;
+        StartCoroutine(LoadGameModeCoroutine());
+    }
+    
+    public void SetEventGameMode()
+    {
+        _isMainGameMode = false;
+        StartCoroutine(LoadGameModeCoroutine());
+    }
 }

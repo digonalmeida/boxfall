@@ -32,6 +32,6 @@ public class TitlePanel : UIStatePanel
 
     public void ChangeMode()
     {
-        GameController.Instance.ChangeMode();
+        GameController.Instance.Ui.SetState(EUiState.GameModes);
     }
 }
