@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,15 +22,7 @@ public class GameController : MonoBehaviour
     public EndGameState EndGameState { get; private set; }
     public TitleGameState HomeState { get; private set; }
 
-    public GameModeData GameModeData
-    {
-        get
-        {
-            return _isMainGameMode
-                ? _gameModeDataSource.GameModeData
-                : _eventModeDataSource.GameModeData;
-        }
-    }
+    public GameModeData GameModeData => GameModesManager.Instance.CurrentGameModeData;
 
     public bool IsPaused { get; private set; }
 
@@ -39,27 +32,6 @@ public class GameController : MonoBehaviour
         IsPaused = false;
     }
     
-    private IEnumerator LoadGameModeCoroutine()
-    {
-        Ui.SetState(EUiState.Loading);
-        string sceneName = "game_mode";
-        var scene = SceneManager.GetSceneByName(sceneName);
-        if (scene.isLoaded)
-        {
-            yield return SceneManager.UnloadSceneAsync(sceneName);
-        }
-
-        yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        Ui.UnsetState(EUiState.Loading);
-    }
-
-    public void ChangeMode()
-    {
-        _isMainGameMode = !_isMainGameMode;
-        
-        StartCoroutine(LoadGameModeCoroutine());
-    }
-
     public void GoHome()
     {
         _stateMachine.SetState(HomeState);
@@ -85,7 +57,6 @@ public class GameController : MonoBehaviour
         GameEvents.OnGamePaused += OnPause;
         GameEvents.OnGameUnpaused += OnUnpause;
         
-        StartCoroutine(LoadGameModeCoroutine());
     }
 
     private void OnPause()
@@ -114,17 +85,5 @@ public class GameController : MonoBehaviour
         _stateMachine?.Dispose();
         GameEvents.OnGamePaused -= OnPause;
         GameEvents.OnGameUnpaused -= OnUnpause;
-    }
-
-    public void SetMainGameMode()
-    {
-        _isMainGameMode = true;
-        StartCoroutine(LoadGameModeCoroutine());
-    }
-    
-    public void SetEventGameMode()
-    {
-        _isMainGameMode = false;
-        StartCoroutine(LoadGameModeCoroutine());
     }
 }

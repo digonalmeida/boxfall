@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: all_red_game_mode
   m_EditorClassIdentifier: 
   _gameModeData:
+    _name: All Red
+    _description: All birds are red!.
     _tankData:
       _walkingSpeed: 8
       _walkingStoppingDistance: 0.5

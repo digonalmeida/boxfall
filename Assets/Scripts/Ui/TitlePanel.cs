@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 public class TitlePanel : UIStatePanel
@@ -9,7 +10,13 @@ public class TitlePanel : UIStatePanel
     {
         //
     }
-    
+
+    public override void OnShow()
+    {
+        GameModesManager.Instance.CheckEventGameMode();
+        base.OnShow();
+    }
+
     public void ShowShop()
     {
         GameController.Instance.Ui.SetState(EUiState.Shop);
