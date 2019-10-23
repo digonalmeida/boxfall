@@ -63,7 +63,7 @@ public class GameModeDataSourceEditor : Editor
     public void Save()
     {
         var gameModeDataSource = (GameModeDataSource) target;
-        string json = JsonUtility.ToJson(gameModeDataSource.GameModeData);
+        string json = JsonUtility.ToJson(gameModeDataSource.GameModeData, true);
         string filepath = Application.dataPath + "/data/game_mode_json/" + target.name + ".json";
         File.WriteAllText(filepath, json);
     }

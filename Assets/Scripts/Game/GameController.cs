@@ -1,17 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using DefaultNamespace;
+﻿using DefaultNamespace;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
-    [SerializeField] private GameModeDataSource _gameModeDataSource;
-    [SerializeField] private GameModeDataSource _eventModeDataSource;
-    [SerializeField]
-    private bool _isMainGameMode;
-    
+
     private GameStateMachine _stateMachine;
     
     public GameUi Ui { get; private set; }
@@ -21,8 +14,6 @@ public class GameController : MonoBehaviour
     public InGameState InGameState { get; private set; }
     public EndGameState EndGameState { get; private set; }
     public TitleGameState HomeState { get; private set; }
-
-    public GameModeData GameModeData => GameModesManager.Instance.CurrentGameModeData;
 
     public bool IsPaused { get; private set; }
 

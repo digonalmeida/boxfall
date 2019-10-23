@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DefaultNamespace;
 using UnityEngine;
 
 public class TitlePanel : UIStatePanel
 {
+    [SerializeField] 
+    private GameObject gameModesNotificationBadge;
     public TitlePanel() 
         : base(EUiState.TitleScreen)
     {
@@ -13,8 +16,21 @@ public class TitlePanel : UIStatePanel
 
     public override void OnShow()
     {
-        GameModesManager.Instance.CheckEventGameMode();
         base.OnShow();
+        GameModesManager.Instance.OnEventGameModeReceived += UpdateEvent;
+        UpdateEvent();
+    }
+
+    public override void OnHide()
+    {
+        base.OnHide();
+        GameModesManager.Instance.OnEventGameModeReceived -= UpdateEvent;
+    }
+
+    private void UpdateEvent()
+    {
+        GameModesManager.Instance.UpdateEventGameMode();
+        gameModesNotificationBadge.SetActive(GameModesManager.Instance.GameModesNotificationBadgeVisible);
     }
 
     public void ShowShop()

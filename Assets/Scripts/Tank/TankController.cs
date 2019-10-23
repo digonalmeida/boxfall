@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 using StateMachine;
 
@@ -43,7 +44,7 @@ public class TankController : GameAgent
     {
         base.Awake();
 
-        TankData = GameController.Instance.GameModeData.TankData;
+        TankData = GameModesManager.Instance.GameModeData.TankData;
         
         MovementController = InitializeComponent<TankMovementController>();
         TurrentController = InitializeComponent<TankTurrentController>();

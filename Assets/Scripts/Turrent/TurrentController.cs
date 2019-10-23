@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -51,7 +52,7 @@ public class TurrentController : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
-        _turrentData = GameController.Instance.GameModeData.TurrentData;
+        _turrentData = GameModesManager.Instance.GameModeData.TurrentData;
     }
     
     private void PlayShotAnimation()
