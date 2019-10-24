@@ -8,41 +8,60 @@ using UnityEngine;
 public class PlayFabManager : MonoBehaviour
 {
     public static PlayFabManager Instance { get; private set; }
+    
+    public Dictionary<string, string> TitleData;
+    public event Action OnDataUpdated;
+    
     private void Awake()
     {
         Instance = this;
     }
 
-    public Dictionary<string, string> TitleData;
-
     public void Start()
     {
+#if !UNITY_ANDROID || UNITY_EDITOR
         RequestLogin();
+#endif
+#if UNITY_ANDROID && UNITY_EDITOR
+        SocialSystem.Instance.OnAuthenticationChanged += OnSocialLoginChanged;
+#endif
+    }
+
+    private void OnSocialLoginChanged()
+    {
+        RequestGoogleLogin();
+    }
+
+    private void RequestGoogleLogin()
+    {
+        
     }
 
     private void RequestLogin()
     {
-        var request = new LoginWithCustomIDRequest { CustomId = "GettingStartedGuide", CreateAccount = true};
-        LoginWithAndroidDeviceIDRequest request = new LoginWithAndroidDeviceIDRequest();
-        //PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
-        PlayFabClientAPI.LoginWithAndroidDeviceID();
+        var request = new LoginWithCustomIDRequest { CustomId = SystemInfo.deviceUniqueIdentifier, CreateAccount = true};
+        PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
     }
 
     private void OnLoginSuccess(LoginResult result)
     {
-        Debug.Log("Congratulations, you made your first successful API call!");
+        Debug.Log("PlayFab Login Success");
         RequestTitleData();
     }
 
     private void OnLoginFailure(PlayFabError error)
     {
-        Debug.LogWarning("Something went wrong with your first API call.  :(");
-        Debug.LogError("Here's some debug information:");
+        Debug.LogWarning("PlayFab Login Failed");
         Debug.LogError(error.GenerateErrorReport());
     }
 
-    private void RequestTitleData()
+    public void RequestTitleData()
     {
+        if (!PlayFabClientAPI.IsClientLoggedIn())
+        {
+            return;
+        }
+        
         GetTitleDataRequest titleDataRequest = new GetTitleDataRequest();
         PlayFabClientAPI.GetTitleData(titleDataRequest, OnGetTitleDataSuccess, OnGetTitleDataError);
     }
@@ -60,5 +79,13 @@ public class PlayFabManager : MonoBehaviour
         {
             Debug.Log($"{pair.Key}:{pair.Value}");
         }
+        
+        OnDataUpdated?.Invoke();
+    }
+
+    public string GetTitleData(string sourcePropetyName)
+    {
+        TitleData.TryGetValue(sourcePropetyName, out string data);
+        return data;
     }
 }

@@ -31,8 +31,6 @@ namespace DefaultNamespace
             MainGameMode = _mainGameModeDataSource.GameModeData;
             
             IsMainGameModeSelected = true;
-            SetupSourceLocal();
-            
         }
 
         private void OnDestroy()
@@ -48,9 +46,9 @@ namespace DefaultNamespace
 
         private void Start()
         {
-            _eventGameModeLoader.RequestGameModeData();
             UpdateEventGameMode();
             ReloadGameModeScene();
+            SetupSourceOnline();
         }
         
         public void ReloadGameModeScene()
@@ -74,7 +72,7 @@ namespace DefaultNamespace
 
         public void UpdateEventGameMode()
         {
-            GameModeData loadedGameModeData = _eventGameModeLoader.LoadedGameModeData;
+            GameModeData loadedGameModeData = _eventGameModeLoader?.LoadedGameModeData;
 
             if (EventGameMode == loadedGameModeData)
             {
@@ -84,8 +82,8 @@ namespace DefaultNamespace
             GameModesNotificationBadgeVisible = true;
             
             EventGameMode = loadedGameModeData;
-            
-            if (!IsMainGameModeSelected && EventGameMode == null)
+
+            if (IsMainGameModeSelected || EventGameMode == null)
             {
                 SetupMainGameMode();
             }
@@ -119,20 +117,25 @@ namespace DefaultNamespace
             ClearEventGameModeLoader();
             _eventGameModeLoader = new LocalGameModeDataLoader(_eventGameModeDataSource);
             _eventGameModeLoader.OnGameModeLoaded += OnGameModeLoaded;
+            _eventGameModeLoader.RequestGameModeData();
         }
         
         public void SetupSourceOnline()
         {
             ClearEventGameModeLoader();
-            _eventGameModeLoader = new LocalGameModeDataLoader(_eventGameModeDataSource);
+            _eventGameModeLoader = new PlayFabGameModeDataLoader();
             _eventGameModeLoader.OnGameModeLoaded += OnGameModeLoaded;
+            _eventGameModeLoader.RequestGameModeData();
         }
         
         public void SetupSourceOnlineTest()
         {
             ClearEventGameModeLoader();
-            _eventGameModeLoader = new LocalGameModeDataLoader(_eventGameModeDataSource);
+            var playfabLoader = new PlayFabGameModeDataLoader();
+            playfabLoader.SetupTestingSource();
+            _eventGameModeLoader = playfabLoader;
             _eventGameModeLoader.OnGameModeLoaded += OnGameModeLoaded;
+            _eventGameModeLoader.RequestGameModeData();
         }
 
         private void ClearEventGameModeLoader()
@@ -143,6 +146,10 @@ namespace DefaultNamespace
             }
             
             _eventGameModeLoader.OnGameModeLoaded -= OnGameModeLoaded;
+            _eventGameModeLoader = null;
+            GameModesNotificationBadgeVisible = false;
+            
+            OnEventGameModeReceived?.Invoke();
         }
     }
 }

@@ -32,6 +32,22 @@ public class GameModesPanel : UIStatePanel
         _gameModesManager.SetupEventGameMode();
     }
 
+    public void SetSourceLocal()
+    {
+        _gameModesManager.SetupSourceLocal();
+    }
+
+    public void SetSourceOnline()
+    {
+        _gameModesManager.SetupSourceOnline();
+    }
+
+    public void SetSourceOnlineTest()
+    {
+        _gameModesManager.SetupSourceOnlineTest();
+    }
+    
+
     public override void OnShow()
     {
         base.OnShow();
