@@ -19,28 +19,18 @@ public class PlayFabManager : MonoBehaviour
 
     public void Start()
     {
-#if !UNITY_ANDROID || UNITY_EDITOR
         RequestLogin();
-#endif
-#if UNITY_ANDROID && UNITY_EDITOR
-        SocialSystem.Instance.OnAuthenticationChanged += OnSocialLoginChanged;
-#endif
-    }
-
-    private void OnSocialLoginChanged()
-    {
-        RequestGoogleLogin();
-    }
-
-    private void RequestGoogleLogin()
-    {
-        
     }
 
     private void RequestLogin()
     {
+#if UNITY_ANDROID        
+        var request = new LoginWithAndroidDeviceIDRequest{AndroidDeviceId = SystemInfo.deviceUniqueIdentifier, CreateAccount = true};
+        PlayFabClientAPI.LoginWithAndroidDeviceID(request, OnLoginSuccess, OnLoginFailure);
+#else
         var request = new LoginWithCustomIDRequest { CustomId = SystemInfo.deviceUniqueIdentifier, CreateAccount = true};
         PlayFabClientAPI.LoginWithCustomID(request, OnLoginSuccess, OnLoginFailure);
+#endif
     }
 
     private void OnLoginSuccess(LoginResult result)
