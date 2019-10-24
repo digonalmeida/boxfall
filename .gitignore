@@ -41,3 +41,7 @@ JetBrains/*
 JetBrains.*
 JetBrains.meta
 
+
+# PlayFab Configuration
+PlayFabEditorPrefsSO.asset.meta
+PlayFabEditorPrefsSO.asset
