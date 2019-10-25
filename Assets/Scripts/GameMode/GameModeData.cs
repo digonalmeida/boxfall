@@ -19,4 +19,9 @@ public class GameModeData
     public BirdData[] Birds => _birds;
 
     public SpawnPointData[] SpawnPoints => _spawnPoints;
+
+    public SpawnPointData GetSpawnPoint(int spawnPointId)
+    {
+        return SpawnPoints[spawnPointId];
+    }
 }

@@ -50,9 +50,6 @@ namespace SpawnerV2
         [SerializeField] private string _name;
         [SerializeField] private GameObject _prefab;
         [SerializeField] private int _minLevel = 0;
-        [SerializeField] private Vector3 _position;
-        [SerializeField] private float _angle;
-        [SerializeField] private float _force;
         [SerializeField] private ESpawnType _spawnType;
         [SerializeField] private int _spawnId;
         [SerializeField] private int _spawnPointId;
@@ -62,14 +59,9 @@ namespace SpawnerV2
             PowerUp
         }
         
-        public GameObject Prefab => _prefab;
         public int MinLevel => _minLevel;
-        public Vector3 Position => _position;
-        public float Angle => _angle;
-        public float Force => _force;
         public ESpawnType SpawnType => _spawnType;
         public int SpawnId => _spawnId;
-
         public int SpawnPointId => _spawnPointId;
     }
 }

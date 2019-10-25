@@ -22,6 +22,12 @@ public class TankTurrentController : TankComponent
         GameEvents.OnBackgroundClicked -= OnBackgroundClicked;
     }
 
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        GameEvents.OnBackgroundClicked -= OnBackgroundClicked;
+    }
+
     public void OnBackgroundClicked()
     {
         if (IsPaused)

@@ -48,8 +48,7 @@ public class SoundManager : GameAgent
         PlayBgm(_titleBgm);
     }
     
-    
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         GameEvents.OnShotFired -= OnShotFired;
         GameEvents.OnBirdKilled -= OnBirdKilled;

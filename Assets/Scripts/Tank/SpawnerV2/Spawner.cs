@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -80,7 +81,7 @@ namespace SpawnerV2
             {
                 RefreshPoints();
             }
-            int spawnInstanceIndex = Random.Range(0, _spawningInstancesBag.Count);
+            int spawnInstanceIndex = UnityEngine.Random.Range(0, _spawningInstancesBag.Count);
             var spawningInstance = _spawningInstancesBag[spawnInstanceIndex];
             
             Spawn(spawningInstance);
@@ -105,21 +106,17 @@ namespace SpawnerV2
 
         private void Spawn(SpawningInstance spawningInstance)
         { 
-            GameObject prefab = spawningInstance.Prefab;
-            
             GameObject instance = PoolManager.Instance.GetInstance(spawningInstance);
-            
-            instance.transform.position = spawningInstance.Position;
-
-            ThrowObject(instance, spawningInstance.Angle, spawningInstance.Force);
+            ThrowObject(instance, spawningInstance.SpawnPointId);
         }
 
-        private void ThrowObject(GameObject instance, float angle, float force)
+        private void ThrowObject(GameObject instance, int spawnPointId)
         {
+            SpawnPointData spawnPointData = GameController.Instance.GameModeData.GetSpawnPoint(spawnPointId);
+            instance.transform.position = spawnPointData.Position;
             Rigidbody2D instanceRigidbody = instance.GetComponent<Rigidbody2D>();
-            Quaternion rotationAngle = Quaternion.Euler(0, 0, -angle);
-
-            instanceRigidbody.velocity = rotationAngle * Vector2.left * force;
+            Quaternion rotationAngle = Quaternion.Euler(0, 0, -spawnPointData.Angle);
+            instanceRigidbody.velocity = rotationAngle * Vector2.left * spawnPointData.Force;
         }
         
         private float GetSpawnInterval()

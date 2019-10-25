@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour
     public EndGameState EndGameState { get; private set; }
     public TitleGameState HomeState { get; private set; }
 
+    private Coroutine _loadingCoroutine;
+
     public GameModeData GameModeData
     {
         get
@@ -38,6 +40,16 @@ public class GameController : MonoBehaviour
         _stateMachine.SetState(InGameState);
         IsPaused = false;
     }
+
+    private void ReloadGameMode()
+    {
+        if(_loadingCoroutine != null)
+        {
+            StopCoroutine(_loadingCoroutine);
+        }
+
+        _loadingCoroutine = StartCoroutine(LoadGameModeCoroutine());
+    }
     
     private IEnumerator LoadGameModeCoroutine()
     {
@@ -46,7 +58,8 @@ public class GameController : MonoBehaviour
         var scene = SceneManager.GetSceneByName(sceneName);
         if (scene.isLoaded)
         {
-            yield return SceneManager.UnloadSceneAsync(sceneName);
+            var op = SceneManager.UnloadSceneAsync(sceneName);
+            yield return new WaitUntil(()=>op.isDone);
         }
 
         yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
@@ -56,8 +69,7 @@ public class GameController : MonoBehaviour
     public void ChangeMode()
     {
         _isMainGameMode = !_isMainGameMode;
-        
-        StartCoroutine(LoadGameModeCoroutine());
+        ReloadGameMode();
     }
 
     public void GoHome()
@@ -85,7 +97,6 @@ public class GameController : MonoBehaviour
         GameEvents.OnGamePaused += OnPause;
         GameEvents.OnGameUnpaused += OnUnpause;
         
-        StartCoroutine(LoadGameModeCoroutine());
     }
 
     private void OnPause()
@@ -101,6 +112,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         _stateMachine.SetState(HomeState);
+        ReloadGameMode();
     }
 
     private void Update()

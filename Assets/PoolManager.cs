@@ -11,11 +11,18 @@ public class PoolManager : MonoBehaviour
     [SerializeField] 
     private int _bulletInitialSize;
 
-    [SerializeField] private int _spawnableInitialSize = 10;
+    [SerializeField]
+    private int _spawnableInitialSize = 10;
 
-    private Dictionary<GameObject, ObjectPool> _pools = new Dictionary<GameObject, ObjectPool>();
+    [SerializeField]
+    private GameObject _bulletPrefab;
+
+    [SerializeField]
+    private GameObject _powerupPrefab;
     
     private Dictionary<int, ObjectPool> _birdPools = new Dictionary<int, ObjectPool>();
+    private ObjectPool _powerupPool;
+    private ObjectPool _bulletPool;
     
     public void Awake()
     {
@@ -26,12 +33,14 @@ public class PoolManager : MonoBehaviour
     {
         Initialize();
     }
+
     public void Initialize()
     {
         TurrentData turrentData = GameController.Instance.GameModeData.TurrentData;
         BirdData[] birdDatas = GameController.Instance.GameModeData.Birds;
         
-        InitializePool(turrentData.BulletPrefab.gameObject, _bulletInitialSize);
+        _bulletPool = InitializePool(_bulletPrefab, _bulletInitialSize);
+        _powerupPool = InitializePool(_powerupPrefab, _spawnableInitialSize);
 
         for (int i = 0; i < birdDatas.Length; i++)
         {
@@ -39,17 +48,12 @@ public class PoolManager : MonoBehaviour
         }
     }
 
-    private void InitializePool(GameObject prefab, int initialSize)
-    {
-        if (_pools.ContainsKey(prefab))
-        {
-            return;
-        }
-        
+    private ObjectPool InitializePool(GameObject prefab, int initialSize)
+    {        
         var pool = new GameObject("ObjectPool_" + prefab.name, typeof(ObjectPool)).GetComponent<ObjectPool>();
         pool.transform.parent = transform;
         pool.Initialize(prefab, initialSize);
-        _pools[prefab] = pool;
+        return pool;
     }
 
     public GameObject GetInstance(SpawningInstance spawningInstance)
@@ -60,16 +64,13 @@ public class PoolManager : MonoBehaviour
         }
         else
         {
-            var pool = _pools[spawningInstance.Prefab];
-            return pool.GetInstance();
+            return _powerupPool.GetInstance();
         }
     }
-    
-    public GameObject GetInstance(GameObject prefab)
+
+    public GameObject GetBullet()
     {
-       var pool = _pools[prefab];
-        
-        return pool.GetInstance();
+        return _bulletPool.GetInstance();
     }
 
     public GameObject GetBird(int instanceId)
