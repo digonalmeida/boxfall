@@ -153,27 +153,27 @@
         {
             "_name": "blue",
             "_movementType": 0,
-            "_color": 4
+            "_color": 1
         },
         {
             "_name": "pink",
             "_movementType": 0,
-            "_color": 4
+            "_color": 1
         },
         {
             "_name": "red",
             "_movementType": 0,
-            "_color": 4
+            "_color": 1
         },
         {
             "_name": "yellow",
             "_movementType": 1,
-            "_color": 4
+            "_color": 1
         },
         {
             "_name": "black",
             "_movementType": 0,
-            "_color": 4
+            "_color": 1
         }
     ],
     "_spawnPoints": [

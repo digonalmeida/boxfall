@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c5730710d81715488c474bf5fc10878, type: 3}
-  m_Name: all_blue_game_mode
+  m_Name: all_pink_game_mode
   m_EditorClassIdentifier: 
   _gameModeData:
     _name: All Red
@@ -127,19 +127,19 @@ MonoBehaviour:
     _birds:
     - _name: blue
       _movementType: 0
-      _color: 0
+      _color: 1
     - _name: pink
       _movementType: 0
-      _color: 0
+      _color: 1
     - _name: red
       _movementType: 0
-      _color: 0
+      _color: 1
     - _name: yellow
       _movementType: 1
-      _color: 0
+      _color: 1
     - _name: black
       _movementType: 0
-      _color: 0
+      _color: 1
     _spawnPoints:
     - _name: C
       _position: {x: 5.4, y: 1.5, z: 0}

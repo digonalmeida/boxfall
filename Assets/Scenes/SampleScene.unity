@@ -11782,7 +11782,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mainGameModeDataSource: {fileID: 11400000, guid: d692b465a93636341ade70cd720155ce,
     type: 2}
-  _eventGameModeDataSource: {fileID: 11400000, guid: 51acf85c5220b96419b1e9ce337a1d55,
+  _eventGameModeDataSource: {fileID: 11400000, guid: d97062f82d828cf4894fd4f64085382d,
     type: 2}
 --- !u!4 &1632161586
 Transform:

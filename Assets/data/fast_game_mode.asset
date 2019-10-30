@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c5730710d81715488c474bf5fc10878, type: 3}
-  m_Name: all_blue_game_mode
+  m_Name: fast_game_mode
   m_EditorClassIdentifier: 
   _gameModeData:
-    _name: All Red
-    _description: All birds are red!.
+    _name: Fast Mode
+    _description: 2x Tank Speed
     _tankData:
-      _walkingSpeed: 8
-      _walkingStoppingDistance: 0.5
+      _walkingSpeed: 16
+      _walkingStoppingDistance: 1
       _centerX: 1.3
-      _recoilForce: 4
-      _maxRecoilForce: 7
-      _recoilDeacceleration: 10
+      _recoilForce: 8
+      _maxRecoilForce: 14
+      _recoilDeacceleration: 20
       _minX: -2.17
     _turrentData:
       _shotSpeed: 17
     _spawners:
-    - _name: bird spawner
+    - _name: birds
       _startDelay: 1
       _frequencyOverTime:
         serializedVersion: 2
@@ -85,7 +85,7 @@ MonoBehaviour:
         _spawnType: 0
         _spawnId: 4
         _spawnPointId: 6
-    - _name: star spawner
+    - _name: stars
       _startDelay: 2
       _frequencyOverTime:
         serializedVersion: 2
@@ -130,16 +130,16 @@ MonoBehaviour:
       _color: 0
     - _name: pink
       _movementType: 0
-      _color: 0
+      _color: 1
     - _name: red
       _movementType: 0
-      _color: 0
+      _color: 4
     - _name: yellow
       _movementType: 1
-      _color: 0
+      _color: 2
     - _name: black
       _movementType: 0
-      _color: 0
+      _color: 3
     _spawnPoints:
     - _name: C
       _position: {x: 5.4, y: 1.5, z: 0}
