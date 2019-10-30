@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a61815c43ed18d2499ef3acd26ba934d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _trailRenderer: {fileID: 8558761985413709982}
 --- !u!61 &3541199144922104000
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -272,3 +273,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d704b0915ec93fa4aa2618e784aa790a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _managedComponents: []

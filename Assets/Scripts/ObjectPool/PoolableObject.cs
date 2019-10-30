@@ -33,12 +33,12 @@ public class PoolableObject : MonoBehaviour
         {
             if (managedComponent is MonoBehaviour monoBehaviour)
             {
-                monoBehaviour.enabled = false;
+                monoBehaviour.enabled = enabledValue;
             }
 
             if (managedComponent is Renderer renderer)
             {
-                renderer.enabled = false;
+                renderer.enabled = enabledValue;
             }
         }
     }

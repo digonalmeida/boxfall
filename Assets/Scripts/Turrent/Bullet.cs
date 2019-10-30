@@ -11,13 +11,18 @@ public class Bullet : GameAgent
 
     private PoolableObject _poolable;
     private bool _alive;
+
+    [SerializeField]
+    TrailRenderer _trailRenderer;
     public void Fire(Vector2 startPosition, Vector2 direction, float speed)
     {
-        gameObject.SetActive(true);
         transform.position = startPosition;
+        
+        gameObject.SetActive(true);
         _rigidbody.velocity = direction * speed;
         transform.right = direction;
-
+        _trailRenderer.enabled = true;
+        _trailRenderer.Clear();
         GameEvents.NotifyShotFired();
     }
 
@@ -72,6 +77,8 @@ public class Bullet : GameAgent
     public void DestroyBullet()
     {
         _alive = false;
+        _trailRenderer.enabled = false;
+        
         gameObject.SetActive(false);
         _poolable.Recycle();
     }

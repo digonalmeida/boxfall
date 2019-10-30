@@ -40,6 +40,14 @@ public class TankPowerUpController : TankComponent
         _powerUpsManager.OnDeactivatePowerUp -= OnDeactivatePowerUp;
     }
 
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        _powerUpsManager.OnActivatePowerUp -= OnActivatePowerUp;
+        _powerUpsManager.OnDeactivatePowerUp -= OnDeactivatePowerUp;
+    }
+    
+
     private void SetInvulnerable(bool invulnerable)
     {
         Invulnerable = invulnerable;

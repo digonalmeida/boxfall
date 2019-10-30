@@ -12,7 +12,7 @@ using UnityEditor.Graphs;
 [CustomEditor(typeof(GameModeDataSource))]
 public class GameModeDataSourceEditor : Editor
 {
-    private Dictionary<string, bool> _foldoutStates2 = new Dictionary<string, bool>();
+    private Dictionary<string, bool> _foldoutStates = new Dictionary<string, bool>();
     private string[] _birdNames;
     private string[] _spawnPointNames;
     private int _intColumnWidth = 100;
@@ -210,13 +210,13 @@ public class GameModeDataSourceEditor : Editor
     private bool DrawFoldout(SerializedProperty property)
     {
         string key = property.propertyPath;
-        if (!_foldoutStates2.ContainsKey(key))
+        if (!_foldoutStates.ContainsKey(key))
         {
-            _foldoutStates2[key] = true;
+            _foldoutStates[key] = false;
         }
         
-        _foldoutStates2[key] = EditorGUILayout.Foldout(_foldoutStates2[key], property.displayName);
-        return _foldoutStates2[key];
+        _foldoutStates[key] = EditorGUILayout.Foldout(_foldoutStates[key], property.displayName);
+        return _foldoutStates[key];
     }
 
     private bool DrawListFoldout(SerializedProperty property)

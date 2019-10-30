@@ -17,7 +17,7 @@ public abstract class UIStatePanel : UiElement
         gameUi.OnChangeState += OnChangeState;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
         GameController.Instance.Ui.OnChangeState -= OnChangeState;
     }

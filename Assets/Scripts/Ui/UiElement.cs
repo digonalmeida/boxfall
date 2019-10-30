@@ -62,4 +62,9 @@ public abstract class UiElement: MonoBehaviour
     {
         OnHide();
     }
+
+    protected virtual void OnDestroy()
+    {
+        Hide();
+    }
 }
