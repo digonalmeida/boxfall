@@ -1,16 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using DefaultNamespace;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
     public static GameController Instance { get; private set; }
-    [SerializeField] private GameModeDataSource _gameModeDataSource;
-    [SerializeField] private GameModeDataSource _eventModeDataSource;
-    [SerializeField]
-    private bool _isMainGameMode;
-    
+
     private GameStateMachine _stateMachine;
     
     public GameUi Ui { get; private set; }
@@ -20,56 +14,13 @@ public class GameController : MonoBehaviour
     public InGameState InGameState { get; private set; }
     public EndGameState EndGameState { get; private set; }
     public TitleGameState HomeState { get; private set; }
-
-    private Coroutine _loadingCoroutine;
-
-    public GameModeData GameModeData
-    {
-        get
-        {
-            return _isMainGameMode
-                ? _gameModeDataSource.GameModeData
-                : _eventModeDataSource.GameModeData;
-        }
-    }
-
+    
     public bool IsPaused { get; private set; }
 
     public void StartGame()
     {
         _stateMachine.SetState(InGameState);
         IsPaused = false;
-    }
-
-    private void ReloadGameMode()
-    {
-        if(_loadingCoroutine != null)
-        {
-            StopCoroutine(_loadingCoroutine);
-        }
-
-        _loadingCoroutine = StartCoroutine(LoadGameModeCoroutine());
-    }
-    
-    private IEnumerator LoadGameModeCoroutine()
-    {
-        Ui.SetState(EUiState.Loading);
-        string sceneName = "game_mode";
-        var scene = SceneManager.GetSceneByName(sceneName);
-        if (scene.isLoaded)
-        {
-            var op = SceneManager.UnloadSceneAsync(sceneName);
-            yield return new WaitUntil(()=>op.isDone);
-        }
-
-        yield return SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        Ui.UnsetState(EUiState.Loading);
-    }
-
-    public void ChangeMode()
-    {
-        _isMainGameMode = !_isMainGameMode;
-        ReloadGameMode();
     }
 
     public void GoHome()
@@ -112,7 +63,6 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         _stateMachine.SetState(HomeState);
-        ReloadGameMode();
     }
 
     private void Update()

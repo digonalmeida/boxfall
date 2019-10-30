@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
 
 namespace SpawnerV2
@@ -112,7 +113,7 @@ namespace SpawnerV2
 
         private void ThrowObject(GameObject instance, int spawnPointId)
         {
-            SpawnPointData spawnPointData = GameController.Instance.GameModeData.GetSpawnPoint(spawnPointId);
+            SpawnPointData spawnPointData = GameModesManager.Instance.GameModeData.GetSpawnPoint(spawnPointId);
             instance.transform.position = spawnPointData.Position;
             Rigidbody2D instanceRigidbody = instance.GetComponent<Rigidbody2D>();
             Quaternion rotationAngle = Quaternion.Euler(0, 0, -spawnPointData.Angle);

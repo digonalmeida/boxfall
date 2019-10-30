@@ -8,9 +8,6 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(PoolableObject))]
 public class BirdController : GameAgent
 {
-    [FormerlySerializedAs("_birdType")] [SerializeField]
-    private BirdColor birdColor;
-
     [SerializeField]
     private SpriteRenderer _spriteRenderer = null;
 
@@ -24,7 +21,7 @@ public class BirdController : GameAgent
     private BirdData _birdData;
     
     public bool Alive { get; private set; }
-    public BirdColor BirdColor => _birdData.Color;
+    public BirdColor BirdColor => _birdData?.Color ?? BirdColor.None;
     public event Action OnKilled;
 
     private Vector2 _pausedVelocity;
@@ -136,6 +133,5 @@ public class BirdController : GameAgent
         spriteInstance.transform.parent = transform;
         _spriteRenderer = spriteInstance;
         spriteInstance.transform.position = transform.position;
-        
     }
 }

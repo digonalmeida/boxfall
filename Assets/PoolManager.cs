@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Birds;
+using DefaultNamespace;
 using SpawnerV2;
 using UnityEngine;
 
@@ -36,8 +37,8 @@ public class PoolManager : MonoBehaviour
 
     public void Initialize()
     {
-        TurrentData turrentData = GameController.Instance.GameModeData.TurrentData;
-        BirdData[] birdDatas = GameController.Instance.GameModeData.Birds;
+        TurrentData turrentData = GameModesManager.Instance.GameModeData.TurrentData;
+        BirdData[] birdDatas = GameModesManager.Instance.GameModeData.Birds;
         
         _bulletPool = InitializePool(_bulletPrefab, _bulletInitialSize);
         _powerupPool = InitializePool(_powerupPrefab, _spawnableInitialSize);

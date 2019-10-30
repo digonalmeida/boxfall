@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using SpawnerV2;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class LevelManager : MonoBehaviour
 
     public void Start()
     {
-        SpawnerData[] _spawnerDatas = GameController.Instance.GameModeData.Spawners;
+        SpawnerData[] _spawnerDatas = GameModesManager.Instance.GameModeData.Spawners;
         foreach (SpawnerData spawnerData in _spawnerDatas)
         {
             InstantiateSpawner(spawnerData);

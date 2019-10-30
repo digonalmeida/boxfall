@@ -27,6 +27,7 @@ public class GameUi
             case EUiState.InGame:
             case EUiState.EndGame:
             case EUiState.Shop:
+            case EUiState.GameModes:
                 return EUiLayer.Base;
             case EUiState.PauseGame:
             case EUiState.ConfirmQuit:

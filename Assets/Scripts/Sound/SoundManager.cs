@@ -50,6 +50,7 @@ public class SoundManager : GameAgent
     
     protected override void OnDestroy()
     {
+        base.OnDestroy();
         GameEvents.OnShotFired -= OnShotFired;
         GameEvents.OnBirdKilled -= OnBirdKilled;
         GameEvents.OnBirdSpawned -= OnBirdSpawned;
