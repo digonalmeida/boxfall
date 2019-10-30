@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
     public InGameState InGameState { get; private set; }
     public EndGameState EndGameState { get; private set; }
     public TitleGameState HomeState { get; private set; }
-
+    
     public bool IsPaused { get; private set; }
 
     public void StartGame()
@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour
         _stateMachine.SetState(InGameState);
         IsPaused = false;
     }
-    
+
     public void GoHome()
     {
         _stateMachine.SetState(HomeState);

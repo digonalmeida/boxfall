@@ -48,7 +48,6 @@ public class SoundManager : GameAgent
         PlayBgm(_titleBgm);
     }
     
-    
     protected override void OnDestroy()
     {
         base.OnDestroy();

@@ -56,19 +56,14 @@ public class BirdFactory : MonoBehaviour
         {
             case BirdColor.Blue:
                 return _blueBirdSprite;
-                break;
             case BirdColor.Pink:
                 return _pinkBirdSprite;
-                break;
             case BirdColor.Yellow:
                 return _yellowBirdSprite;
-                break;
             case BirdColor.Black:
                 return _blackBirdSprite;
-                break;
             case BirdColor.Red:
                 return _redBirdSprite;
-                break;
             default:
                 return _redBirdSprite;
         }

@@ -255,6 +255,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _bulletInitialSize: 10
   _spawnableInitialSize: 10
+  _bulletPrefab: {fileID: 3092471893412183028, guid: ccceedd70bc0e0441ad3deb3e1cc5a0e,
+    type: 3}
+  _powerupPrefab: {fileID: 656329308834861025, guid: 1f1e8d01e94d0bd41b9b5517b831bac4,
+    type: 3}
 --- !u!1 &360668744
 GameObject:
   m_ObjectHideFlags: 0

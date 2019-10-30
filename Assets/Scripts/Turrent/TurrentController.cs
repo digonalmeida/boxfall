@@ -25,8 +25,7 @@ public class TurrentController : MonoBehaviour
     
     public void Fire()
     {
-        var bulletPrefab = _turrentData.BulletPrefab.gameObject;
-        Bullet shot = PoolManager.Instance.GetInstance(bulletPrefab).GetComponent<Bullet>();
+        Bullet shot = PoolManager.Instance.GetBullet().GetComponent<Bullet>();
 
         var position = _shotOrigin.transform.position;
         var direction = transform.right;
